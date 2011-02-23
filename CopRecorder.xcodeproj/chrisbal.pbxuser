@@ -1,0 +1,287 @@
+// !$*UTF8*$!
+{
+	1D3623240D0F684500981E51 /* SpeakHereAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {658, 767}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1325}";
+		};
+	};
+	1D3623250D0F684500981E51 /* SpeakHereAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {658, 975}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{2465, 445}";
+		};
+	};
+	1D6058900D05DD3D006BFB54 /* Cop Recorder */ = {
+		activeExec = 0;
+		executables = (
+			D939AC101314841C0002CE55 /* Cop Recorder */,
+		);
+	};
+	28D7ACF60DDB3853001CB0EB /* SpeakHereViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {658, 793}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{1946, 665}";
+		};
+	};
+	28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {712, 1352}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{2972, 679}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = D939AC101314841C0002CE55 /* Cop Recorder */;
+		activeSDKPreference = iphonesimulator4.2;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* Cop Recorder */;
+		codeSenseManager = D939AC21131484330002CE55 /* Code sense */;
+		executables = (
+			D939AC101314841C0002CE55 /* Cop Recorder */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					480,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					440,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 320181550;
+			PBXWorkspaceStateSaveDate = 320181550;
+		};
+		perUserProjectItems = {
+			D905C843131594D40002AD4A /* PBXTextBookmark */ = D905C843131594D40002AD4A /* PBXTextBookmark */;
+			D905C844131594D40002AD4A /* PBXTextBookmark */ = D905C844131594D40002AD4A /* PBXTextBookmark */;
+			D905C845131594D40002AD4A /* PBXTextBookmark */ = D905C845131594D40002AD4A /* PBXTextBookmark */;
+			D905C846131594D40002AD4A /* PBXTextBookmark */ = D905C846131594D40002AD4A /* PBXTextBookmark */;
+			D905C847131594D40002AD4A /* PBXTextBookmark */ = D905C847131594D40002AD4A /* PBXTextBookmark */;
+			D905C853131595180002AD4A /* PBXTextBookmark */ = D905C853131595180002AD4A /* PBXTextBookmark */;
+			D939ACAB1314923D0002CE55 /* PBXTextBookmark */ = D939ACAB1314923D0002CE55 /* PBXTextBookmark */;
+			D939ACAE1314923D0002CE55 /* PBXTextBookmark */ = D939ACAE1314923D0002CE55 /* PBXTextBookmark */;
+			D939ACAF1314923D0002CE55 /* PBXTextBookmark */ = D939ACAF1314923D0002CE55 /* PBXTextBookmark */;
+			D97654911315969800802E93 /* PBXTextBookmark */ = D97654911315969800802E93 /* PBXTextBookmark */;
+		};
+		sourceControlManager = D939AC20131484330002CE55 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	D905C843131594D40002AD4A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */;
+		name = "SpeakHereViewController.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 679;
+		vrLoc = 2972;
+	};
+	D905C844131594D40002AD4A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* SpeakHereViewController.h */;
+		name = "SpeakHereViewController.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 665;
+		vrLoc = 1946;
+	};
+	D905C845131594D40002AD4A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* SpeakHereAppDelegate.m */;
+		name = "SpeakHereAppDelegate.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 445;
+		vrLoc = 2465;
+	};
+	D905C846131594D40002AD4A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* SpeakHereAppDelegate.h */;
+		name = "SpeakHereAppDelegate.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1325;
+		vrLoc = 0;
+	};
+	D905C847131594D40002AD4A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */;
+		name = "SpeakHereController.mm: 146";
+		rLen = 0;
+		rLoc = 5258;
+		rType = 0;
+		vrLen = 654;
+		vrLoc = 2695;
+	};
+	D905C853131595180002AD4A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F76949C50F40F2AC006C6FBF /* SpeakHereController.h */;
+		name = "SpeakHereController.h: 63";
+		rLen = 0;
+		rLoc = 2762;
+		rType = 0;
+		vrLen = 761;
+		vrLoc = 2564;
+	};
+	D939AC101314841C0002CE55 /* Cop Recorder */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "Cop Recorder";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	D939AC20131484330002CE55 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	D939AC21131484330002CE55 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	D939ACAB1314923D0002CE55 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F73FE19D0F743C1900F0F3CC /* ReadMe.txt */;
+		name = "ReadMe.txt: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1234;
+		vrLoc = 0;
+	};
+	D939ACAE1314923D0002CE55 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F76949F10F40F34D006C6FBF /* AQRecorder.h */;
+		name = "AQRecorder.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 999;
+		vrLoc = 2915;
+	};
+	D939ACAF1314923D0002CE55 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F76949F00F40F34D006C6FBF /* AQRecorder.mm */;
+		name = "AQRecorder.mm: 222";
+		rLen = 0;
+		rLoc = 9173;
+		rType = 0;
+		vrLen = 1084;
+		vrLoc = 7677;
+	};
+	D97654911315969800802E93 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F76949C50F40F2AC006C6FBF /* SpeakHereController.h */;
+		name = "SpeakHereController.h: 63";
+		rLen = 0;
+		rLoc = 2762;
+		rType = 0;
+		vrLen = 791;
+		vrLoc = 2565;
+	};
+	F73FE19D0F743C1900F0F3CC /* ReadMe.txt */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {2700, 1612}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1234}";
+		};
+	};
+	F76949C50F40F2AC006C6FBF /* SpeakHereController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {658, 1118}}";
+			sepNavSelRange = "{2762, 0}";
+			sepNavVisRange = "{2565, 791}";
+		};
+	};
+	F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1265, 4706}}";
+			sepNavSelRange = "{5258, 0}";
+			sepNavVisRange = "{2695, 654}";
+		};
+	};
+	F76949F00F40F34D006C6FBF /* AQRecorder.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1076, 4043}}";
+			sepNavSelRange = "{9173, 0}";
+			sepNavVisRange = "{7677, 1084}";
+		};
+	};
+	F76949F10F40F34D006C6FBF /* AQRecorder.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {754, 1235}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{2915, 999}";
+		};
+	};
+}
