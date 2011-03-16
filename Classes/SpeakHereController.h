@@ -59,8 +59,9 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 	IBOutlet UIBarButtonItem*	btn_record;
 	IBOutlet UIBarButtonItem*	btn_play;
+    IBOutlet UIBarButtonItem*   btn_send;
+
 	IBOutlet UILabel*			fileDescription;
-//	IBOutlet AQLevelMeter*		lvlMeter_in;
 
 	AQPlayer*					player;
 	AQRecorder*					recorder;
@@ -80,8 +81,12 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 @property (nonatomic, retain)	UIBarButtonItem		*btn_record;
 @property (nonatomic, retain)	UIBarButtonItem		*btn_play;
+@property (nonatomic, retain)   UIBarButtonItem     *btn_send;
 @property (nonatomic, retain)	UILabel				*fileDescription;
-//@property (nonatomic, retain)	AQLevelMeter		*lvlMeter_in;
+@property (nonatomic, retain) IBOutlet UILabel *lblName;
+@property (nonatomic, retain) IBOutlet UILabel *lblPriv;
+@property (nonatomic, retain) IBOutlet UILabel *lblPub;
+@property (nonatomic, retain) IBOutlet UILabel *lblLoc;
 
 @property (readonly)			AQPlayer			*player;
 @property (readonly)			AQRecorder			*recorder;
@@ -90,12 +95,10 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @property (nonatomic, retain) IBOutlet UITextField *privTextField;
 @property (nonatomic, retain) IBOutlet UITextField *pubTextField;
 @property (nonatomic, retain) IBOutlet UITextField *locTextField;
-@property (nonatomic, retain) IBOutlet UILabel *lblName;
-@property (nonatomic, retain) IBOutlet UILabel *lblPriv;
-@property (nonatomic, retain) IBOutlet UILabel *lblPub;
-@property (nonatomic, retain) IBOutlet UILabel *lblLoc;
+
 
 - (IBAction)record: (id) sender;
 - (IBAction)play: (id) sender;
+- (IBAction)send:(id)sender;
 
 @end

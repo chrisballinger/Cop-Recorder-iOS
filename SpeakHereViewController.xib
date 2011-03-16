@@ -64,20 +64,22 @@
 							<object class="IBUIBarButtonItem" id="91984852">
 								<string key="IBUITitle">Record</string>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<float key="IBUIWidth">100</float>
+								<float key="IBUIWidth">96</float>
 								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="270715591"/>
-							</object>
-							<object class="IBUIBarButtonItem" id="172375156">
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<reference key="IBUIToolbar" ref="270715591"/>
-								<int key="IBUISystemItemIdentifier">5</int>
 							</object>
 							<object class="IBUIBarButtonItem" id="408689690">
 								<string key="IBUITitle">Play</string>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<float key="IBUIWidth">100</float>
+								<float key="IBUIWidth">96</float>
 								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="270715591"/>
+							</object>
+							<object class="IBUIBarButtonItem" id="491158884">
+								<string key="IBUITitle">Send</string>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<float key="IBUIWidth">96</float>
+								<int key="IBUIStyle">2</int>
 								<reference key="IBUIToolbar" ref="270715591"/>
 							</object>
 						</object>
@@ -138,6 +140,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
 						<int key="IBUIBorderStyle">3</int>
+						<string key="IBUIPlaceholder">The name of the event</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
@@ -206,6 +209,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
 						<int key="IBUIBorderStyle">3</int>
+						<string key="IBUIPlaceholder">Any notes for the admins. Change voices, etc</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
@@ -251,6 +255,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
 						<int key="IBUIBorderStyle">3</int>
+						<string key="IBUIPlaceholder">Ex, a judge taking a bribe</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
@@ -296,6 +301,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
 						<int key="IBUIBorderStyle">3</int>
+						<string key="IBUIPlaceholder">Where this recording took place</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
@@ -554,6 +560,22 @@
 					</object>
 					<int key="connectionID">55</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">send:</string>
+						<reference key="source" ref="491158884"/>
+						<reference key="destination" ref="261241753"/>
+					</object>
+					<int key="connectionID">59</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">btn_send</string>
+						<reference key="source" ref="261241753"/>
+						<reference key="destination" ref="491158884"/>
+					</object>
+					<int key="connectionID">60</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -604,8 +626,8 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="91984852"/>
+							<reference ref="491158884"/>
 							<reference ref="408689690"/>
-							<reference ref="172375156"/>
 						</object>
 						<reference key="parent" ref="774585933"/>
 					</object>
@@ -617,11 +639,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">12</int>
 						<reference key="object" ref="408689690"/>
-						<reference key="parent" ref="270715591"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">13</int>
-						<reference key="object" ref="172375156"/>
 						<reference key="parent" ref="270715591"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -708,6 +725,11 @@
 						<reference key="object" ref="541710020"/>
 						<reference key="parent" ref="774585933"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">57</int>
+						<reference key="object" ref="491158884"/>
+						<reference key="parent" ref="270715591"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -719,7 +741,6 @@
 					<string>10.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>12.IBPluginDependency</string>
-					<string>13.IBPluginDependency</string>
 					<string>16.IBPluginDependency</string>
 					<string>17.IBPluginDependency</string>
 					<string>20.IBPluginDependency</string>
@@ -748,6 +769,7 @@
 					<string>47.IBPluginDependency</string>
 					<string>47.IBViewBoundsToFrameTransform</string>
 					<string>56.IBPluginDependency</string>
+					<string>57.IBPluginDependency</string>
 					<string>6.IBEditorWindowLastContentRect</string>
 					<string>6.IBPluginDependency</string>
 				</object>
@@ -755,7 +777,6 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>SpeakHereViewController</string>
 					<string>UIResponder</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -809,6 +830,7 @@
 						<bytes key="NSTransformStruct">AUFAAABC8gAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{654, 91}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
@@ -825,7 +847,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">56</int>
+			<int key="maxID">60</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -839,9 +861,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>play:</string>
 							<string>record:</string>
+							<string>send:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -852,6 +876,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>play:</string>
 							<string>record:</string>
+							<string>send:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -863,6 +888,10 @@
 								<string key="name">record:</string>
 								<string key="candidateClassName">id</string>
 							</object>
+							<object class="IBActionInfo">
+								<string key="name">send:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -871,6 +900,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>btn_play</string>
 							<string>btn_record</string>
+							<string>btn_send</string>
 							<string>fileDescription</string>
 							<string>lblLoc</string>
 							<string>lblName</string>
@@ -883,6 +913,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UILabel</string>
@@ -902,6 +933,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>btn_play</string>
 							<string>btn_record</string>
+							<string>btn_send</string>
 							<string>fileDescription</string>
 							<string>lblLoc</string>
 							<string>lblName</string>
@@ -920,6 +952,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">btn_record</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">btn_send</string>
 								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">

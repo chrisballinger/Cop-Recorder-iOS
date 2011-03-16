@@ -57,6 +57,8 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 @synthesize btn_record;
 @synthesize btn_play;
+@synthesize btn_send;
+
 @synthesize fileDescription;
 //@synthesize lvlMeter_in;
 @synthesize playbackWasInterrupted;
@@ -124,49 +126,10 @@ char *OSTypeToStr(char *buf, OSType t)
 	recordFilePath = (CFStringRef)[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
 	player->CreateQueueForFile(recordFilePath);
 	
-	//http://iphone.zcentric.com/2008/08/29/post-a-uiimage-to-the-web/
-	// setting up the URL to post to
-	NSData *recording = [NSData dataWithContentsOfFile:(NSString*)recordFilePath]; 
-	NSString *urlString = @"http://127.0.0.1/~chrisbal/upload.php";
-	
-	// setting up the request object now
-	NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
-	[request setURL:[NSURL URLWithString:urlString]];
-	[request setHTTPMethod:@"POST"];
-	
-	/*
-	 add some header info now
-	 we always need a boundary when we post a file
-	 also we need to set the content type
-	 
-	 You might want to generate a random boundary.. this is just the same
-	 as my output from wireshark on a valid html post
-	 */
-	NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
-	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
-	[request addValue:contentType forHTTPHeaderField: @"Content-Type"];
-	
-	/*
-	 now lets create the body of the post
-	 */
-	NSMutableData *body = [NSMutableData data];
-	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"userfile\"; filename=\"recordedFile.caf\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[NSData dataWithData:recording]];
-	[body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	// setting the body of the post to the reqeust
-	[request setHTTPBody:body];
-	
-	// now lets make the connection to the web
-	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-	
-	NSLog(returnString);
-
 	// Set the button's state back to "record"
 	btn_record.title = @"Record";
 	btn_play.enabled = YES;
+    btn_send.enabled = YES;
 }
 
 - (IBAction)play:(id)sender
@@ -189,6 +152,94 @@ char *OSTypeToStr(char *buf, OSType t)
 	}
 }
 
+- (IBAction)send:(id)sender 
+{
+    //http://iphone.zcentric.com/2008/08/29/post-a-uiimage-to-the-web/
+	// setting up the URL to post to
+	NSData *recording = [NSData dataWithContentsOfFile:(NSString*)recordFilePath]; 
+	//NSString *urlString = @"http://127.0.0.1/~chrisbal/upload.php";
+    NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
+    time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+    
+	// setting up the request object now
+	NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
+	[request setURL:[NSURL URLWithString:urlString]];
+	[request setHTTPMethod:@"POST"];
+
+	/*
+	 add some header info now
+	 we always need a boundary when we post a file
+	 also we need to set the content type
+	 
+	 You might want to generate a random boundary.. this is just the same
+	 as my output from wireshark on a valid html post
+	 */
+	NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
+	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+	[request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+	
+	/*
+	 now lets create the body of the post
+	 */
+    /*
+     "name", title,
+     "public_description", pubDesc,
+     "private_description", privDesc,
+     "location", location,
+     "rec_file", new File(pathToOurFile)*/
+    //            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+    //            outputStream.writeBytes("Content-Disposition: form-data; name=\"public_description\"\n" + lineEnd);
+    //            outputStream.writeBytes(pubDesc);
+    //            outputStream.writeBytes(lineEnd);
+    //            
+    //            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+    //            outputStream.writeBytes("Content-Disposition: form-data; name=\"private_description\"" + lineEnd);
+    //            outputStream.writeBytes(privDesc);
+    //            outputStream.writeBytes(lineEnd);
+    //            
+    //            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+    //            outputStream.writeBytes("Content-Disposition: form-data; name=\"location\"" + lineEnd);
+    //            outputStream.writeBytes(location);
+    //            outputStream.writeBytes(lineEnd);
+    //            
+    //            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+    //            outputStream.writeBytes("Content-Disposition: form-data; name=\"rec_file\"; filename=\"" + pathToOurFile +"\"" + lineEnd);
+    //            outputStream.writeBytes(lineEnd);
+	NSMutableData *body = [NSMutableData data];
+	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"name\"\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"%@\n",nameTextField.text] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+
+    [body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"public_description\"\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"%@\n",pubTextField.text] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+
+    [body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"private_description\"\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"%@\n",privTextField.text] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"location\"\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"%@\n",locTextField.text] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"rec_file\"; filename=\"%d.caf\"\r\n",unixTime] dataUsingEncoding:NSUTF8StringEncoding]];
+    //[body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"userfile\"; filename=\"%d.caf\"\r\n",unixTime] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[NSData dataWithData:recording]];
+	[body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	// setting the body of the post to the reqeust
+	[request setHTTPBody:body];
+	
+	// now lets make the connection to the web
+	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+	NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+	
+	NSLog(returnString);
+
+}
+
 - (IBAction)record:(id)sender
 {
 	if (recorder->IsRunning()) // If we are currently recording, stop and save the file.
@@ -198,6 +249,7 @@ char *OSTypeToStr(char *buf, OSType t)
 	else // If we're not recording, start.
 	{
 		btn_play.enabled = NO;	
+        btn_send.enabled = NO;
 		
 		// Set the button's state to "stop"
 		btn_record.title = @"Stop";
@@ -338,6 +390,8 @@ void propListener(	void *                  inClientData,
 	
 	// disable the play button since we have no recording to play yet
 	btn_play.enabled = NO;
+    btn_send.enabled = NO;
+    
 	playbackWasInterrupted = NO;
 	playbackWasPaused = NO;
 }
@@ -354,7 +408,6 @@ void propListener(	void *                  inClientData,
 {
 	btn_play.title = @"Stop";
 	btn_record.enabled = NO;
-//	[lvlMeter_in setAq: player->Queue()];
 }
 
 #pragma mark Cleanup
@@ -362,8 +415,8 @@ void propListener(	void *                  inClientData,
 {
 	[btn_record release];
 	[btn_play release];
+    [btn_send release];
 	[fileDescription release];
-//	[lvlMeter_in release];
 	
 	delete player;
 	delete recorder;
