@@ -53,6 +53,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 #import "AQPlayer.h"
 #import "AQRecorder.h"
+//@class ASIFormDataRequest;
 
 
 @interface SpeakHereController : NSObject {
@@ -65,6 +66,8 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 	AQPlayer*					player;
 	AQRecorder*					recorder;
+//    ASIFormDataRequest *request;
+    
 	BOOL						playbackWasInterrupted;
     UITextField *nameTextField;
     UITextField *privTextField;
@@ -90,6 +93,8 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 @property (readonly)			AQPlayer			*player;
 @property (readonly)			AQRecorder			*recorder;
+//@property (retain, nonatomic) ASIFormDataRequest *request;
+
 @property						BOOL				playbackWasInterrupted;
 @property (nonatomic, retain) IBOutlet UITextField *nameTextField;
 @property (nonatomic, retain) IBOutlet UITextField *privTextField;

@@ -49,6 +49,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 */
 
 #import "SpeakHereController.h"
+#import "ASIFormDataRequest.h"
 
 @implementation SpeakHereController
 
@@ -154,90 +155,25 @@ char *OSTypeToStr(char *buf, OSType t)
 
 - (IBAction)send:(id)sender 
 {
-    //http://iphone.zcentric.com/2008/08/29/post-a-uiimage-to-the-web/
-	// setting up the URL to post to
-	NSData *recording = [NSData dataWithContentsOfFile:(NSString*)recordFilePath]; 
-	//NSString *urlString = @"http://127.0.0.1/~chrisbal/upload.php";
+    //POST the file to the server using ASIFormDataRequset
+   	NSData *recording = [NSData dataWithContentsOfFile:(NSString*)recordFilePath]; 
     NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
     time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
     
-	// setting up the request object now
-	NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
-	[request setURL:[NSURL URLWithString:urlString]];
-	[request setHTTPMethod:@"POST"];
+	[request setPostValue:nameTextField.text forKey:@"name"];
+	[request setPostValue:pubTextField.text forKey:@"public_description"];
+	[request setPostValue:privTextField.text forKey:@"private_description"];
+    [request setPostValue:locTextField.text forKey:@"location"];
 
-	/*
-	 add some header info now
-	 we always need a boundary when we post a file
-	 also we need to set the content type
-	 
-	 You might want to generate a random boundary.. this is just the same
-	 as my output from wireshark on a valid html post
-	 */
-	NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
-	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
-	[request addValue:contentType forHTTPHeaderField: @"Content-Type"];
-	
-	/*
-	 now lets create the body of the post
-	 */
-    /*
-     "name", title,
-     "public_description", pubDesc,
-     "private_description", privDesc,
-     "location", location,
-     "rec_file", new File(pathToOurFile)*/
-    //            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-    //            outputStream.writeBytes("Content-Disposition: form-data; name=\"public_description\"\n" + lineEnd);
-    //            outputStream.writeBytes(pubDesc);
-    //            outputStream.writeBytes(lineEnd);
-    //            
-    //            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-    //            outputStream.writeBytes("Content-Disposition: form-data; name=\"private_description\"" + lineEnd);
-    //            outputStream.writeBytes(privDesc);
-    //            outputStream.writeBytes(lineEnd);
-    //            
-    //            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-    //            outputStream.writeBytes("Content-Disposition: form-data; name=\"location\"" + lineEnd);
-    //            outputStream.writeBytes(location);
-    //            outputStream.writeBytes(lineEnd);
-    //            
-    //            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-    //            outputStream.writeBytes("Content-Disposition: form-data; name=\"rec_file\"; filename=\"" + pathToOurFile +"\"" + lineEnd);
-    //            outputStream.writeBytes(lineEnd);
-	NSMutableData *body = [NSMutableData data];
-	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	[request setTimeOutSeconds:20];
     
-    [body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"name\"\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"%@\n",nameTextField.text] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
+	[request setShouldContinueWhenAppEntersBackground:YES];
+#endif
+	[request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];    
 
-    [body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"public_description\"\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"%@\n",pubTextField.text] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-
-    [body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"private_description\"\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"%@\n",privTextField.text] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    [body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"location\"\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"%@\n",locTextField.text] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"rec_file\"; filename=\"%d.caf\"\r\n",unixTime] dataUsingEncoding:NSUTF8StringEncoding]];
-    //[body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"userfile\"; filename=\"%d.caf\"\r\n",unixTime] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[NSData dataWithData:recording]];
-	[body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	// setting the body of the post to the reqeust
-	[request setHTTPBody:body];
-	
-	// now lets make the connection to the web
-	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-	
-	NSLog(returnString);
-
+    [request startSynchronous];
 }
 
 - (IBAction)record:(id)sender
