@@ -18,9 +18,6 @@
 		D94A6B3F1330668600A91096 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A6B3E1330668600A91096 /* icon.png */; };
 		D94A6B42133066A700A91096 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A6B40133066A700A91096 /* logo.png */; };
 		F76949C70F40F2AC006C6FBF /* SpeakHereController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */; };
-		F76949E80F40F32A006C6FBF /* AQLevelMeter.mm in Sources */ = {isa = PBXBuildFile; fileRef = F76949DB0F40F32A006C6FBF /* AQLevelMeter.mm */; };
-		F76949E90F40F32A006C6FBF /* GLLevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = F76949DD0F40F32A006C6FBF /* GLLevelMeter.m */; };
-		F76949EA0F40F32A006C6FBF /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = F76949DF0F40F32A006C6FBF /* LevelMeter.m */; };
 		F76949EB0F40F32A006C6FBF /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F76949E10F40F32A006C6FBF /* CADebugMacros.cpp */; };
 		F76949EC0F40F32A006C6FBF /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F76949E40F40F32A006C6FBF /* CAStreamBasicDescription.cpp */; };
 		F76949ED0F40F32A006C6FBF /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F76949E60F40F32A006C6FBF /* CAXException.cpp */; };
@@ -52,12 +49,6 @@
 		F73FE19D0F743C1900F0F3CC /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
 		F76949C50F40F2AC006C6FBF /* SpeakHereController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakHereController.h; sourceTree = "<group>"; };
 		F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpeakHereController.mm; sourceTree = "<group>"; };
-		F76949DA0F40F32A006C6FBF /* AQLevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQLevelMeter.h; sourceTree = "<group>"; };
-		F76949DB0F40F32A006C6FBF /* AQLevelMeter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQLevelMeter.mm; sourceTree = "<group>"; };
-		F76949DC0F40F32A006C6FBF /* GLLevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLLevelMeter.h; sourceTree = "<group>"; };
-		F76949DD0F40F32A006C6FBF /* GLLevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLLevelMeter.m; sourceTree = "<group>"; };
-		F76949DE0F40F32A006C6FBF /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
-		F76949DF0F40F32A006C6FBF /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
 		F76949E10F40F32A006C6FBF /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
 		F76949E20F40F32A006C6FBF /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
 		F76949E30F40F32A006C6FBF /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
@@ -121,7 +112,6 @@
 			isa = PBXGroup;
 			children = (
 				F73FE19D0F743C1900F0F3CC /* ReadMe.txt */,
-				F76949D90F40F32A006C6FBF /* AudioViews */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				F76949E00F40F32A006C6FBF /* iPublicUtility */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -167,19 +157,6 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F76949D90F40F32A006C6FBF /* AudioViews */ = {
-			isa = PBXGroup;
-			children = (
-				F76949DA0F40F32A006C6FBF /* AQLevelMeter.h */,
-				F76949DB0F40F32A006C6FBF /* AQLevelMeter.mm */,
-				F76949DC0F40F32A006C6FBF /* GLLevelMeter.h */,
-				F76949DD0F40F32A006C6FBF /* GLLevelMeter.m */,
-				F76949DE0F40F32A006C6FBF /* LevelMeter.h */,
-				F76949DF0F40F32A006C6FBF /* LevelMeter.m */,
-			);
-			path = AudioViews;
 			sourceTree = "<group>";
 		};
 		F76949E00F40F32A006C6FBF /* iPublicUtility */ = {
@@ -275,9 +252,6 @@
 				1D3623260D0F684500981E51 /* SpeakHereAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* SpeakHereViewController.m in Sources */,
 				F76949C70F40F2AC006C6FBF /* SpeakHereController.mm in Sources */,
-				F76949E80F40F32A006C6FBF /* AQLevelMeter.mm in Sources */,
-				F76949E90F40F32A006C6FBF /* GLLevelMeter.m in Sources */,
-				F76949EA0F40F32A006C6FBF /* LevelMeter.m in Sources */,
 				F76949EB0F40F32A006C6FBF /* CADebugMacros.cpp in Sources */,
 				F76949EC0F40F32A006C6FBF /* CAStreamBasicDescription.cpp in Sources */,
 				F76949ED0F40F32A006C6FBF /* CAXException.cpp in Sources */,

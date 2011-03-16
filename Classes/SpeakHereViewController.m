@@ -51,8 +51,6 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 @implementation SpeakHereViewController
 
-
-
 /*
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -86,6 +84,10 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 }
 */
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview

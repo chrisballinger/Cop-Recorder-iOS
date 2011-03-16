@@ -58,8 +58,16 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @synthesize btn_record;
 @synthesize btn_play;
 @synthesize fileDescription;
-@synthesize lvlMeter_in;
+//@synthesize lvlMeter_in;
 @synthesize playbackWasInterrupted;
+@synthesize nameTextField;
+@synthesize privTextField;
+@synthesize pubTextField;
+@synthesize locTextField;
+@synthesize lblName;
+@synthesize lblPriv;
+@synthesize lblPub;
+@synthesize lblLoc;
 
 char *OSTypeToStr(char *buf, OSType t)
 {
@@ -92,7 +100,7 @@ char *OSTypeToStr(char *buf, OSType t)
 -(void)stopPlayQueue
 {
 	player->StopQueue();
-	[lvlMeter_in setAq: nil];
+//	[lvlMeter_in setAq: nil];
 	btn_record.enabled = YES;
 }
 
@@ -105,7 +113,7 @@ char *OSTypeToStr(char *buf, OSType t)
 - (void)stopRecord
 {
 	// Disconnect our level meter from the audio queue
-	[lvlMeter_in setAq: nil];
+//	[lvlMeter_in setAq: nil];
 	
 	recorder->StopRecord();
 	
@@ -200,7 +208,7 @@ char *OSTypeToStr(char *buf, OSType t)
 		[self setFileDescriptionForFormat:recorder->DataFormat() withName:@"Recorded File"];
 		
 		// Hook the level meter up to the Audio Queue for the recorder
-		[lvlMeter_in setAq: recorder->Queue()];
+//		[lvlMeter_in setAq: recorder->Queue()];
 	}	
 }
 
@@ -324,8 +332,8 @@ void propListener(	void *                  inClientData,
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueResumed:) name:@"playbackQueueResumed" object:nil];
 
 	UIColor *bgColor = [[UIColor alloc] initWithRed:.39 green:.44 blue:.57 alpha:.5];
-	[lvlMeter_in setBackgroundColor:bgColor];
-	[lvlMeter_in setBorderColor:bgColor];
+//	[lvlMeter_in setBackgroundColor:bgColor];
+//	[lvlMeter_in setBorderColor:bgColor];
 	[bgColor release];
 	
 	// disable the play button since we have no recording to play yet
@@ -338,7 +346,7 @@ void propListener(	void *                  inClientData,
 - (void)playbackQueueStopped:(NSNotification *)note
 {
 	btn_play.title = @"Play";
-	[lvlMeter_in setAq: nil];
+//	[lvlMeter_in setAq: nil];
 	btn_record.enabled = YES;
 }
 
@@ -346,7 +354,7 @@ void propListener(	void *                  inClientData,
 {
 	btn_play.title = @"Stop";
 	btn_record.enabled = NO;
-	[lvlMeter_in setAq: player->Queue()];
+//	[lvlMeter_in setAq: player->Queue()];
 }
 
 #pragma mark Cleanup
@@ -355,11 +363,19 @@ void propListener(	void *                  inClientData,
 	[btn_record release];
 	[btn_play release];
 	[fileDescription release];
-	[lvlMeter_in release];
+//	[lvlMeter_in release];
 	
 	delete player;
 	delete recorder;
 	
+    [nameTextField release];
+    [privTextField release];
+    [pubTextField release];
+    [locTextField release];
+    [lblName release];
+    [lblPriv release];
+    [lblPub release];
+    [lblLoc release];
 	[super dealloc];
 }
 

@@ -49,7 +49,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 #import <Foundation/Foundation.h>
 
-#import "AQLevelMeter.h"
+//#import "AQLevelMeter.h"
 
 #import "AQPlayer.h"
 #import "AQRecorder.h"
@@ -60,11 +60,19 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 	IBOutlet UIBarButtonItem*	btn_record;
 	IBOutlet UIBarButtonItem*	btn_play;
 	IBOutlet UILabel*			fileDescription;
-	IBOutlet AQLevelMeter*		lvlMeter_in;
+//	IBOutlet AQLevelMeter*		lvlMeter_in;
 
 	AQPlayer*					player;
 	AQRecorder*					recorder;
 	BOOL						playbackWasInterrupted;
+    UITextField *nameTextField;
+    UITextField *privTextField;
+    UITextField *pubTextField;
+    UITextField *locTextField;
+    UILabel *lblName;
+    UILabel *lblPriv;
+    UILabel *lblPub;
+    UILabel *lblLoc;
 	BOOL						playbackWasPaused;
 	
 	CFStringRef					recordFilePath;	
@@ -73,11 +81,19 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @property (nonatomic, retain)	UIBarButtonItem		*btn_record;
 @property (nonatomic, retain)	UIBarButtonItem		*btn_play;
 @property (nonatomic, retain)	UILabel				*fileDescription;
-@property (nonatomic, retain)	AQLevelMeter		*lvlMeter_in;
+//@property (nonatomic, retain)	AQLevelMeter		*lvlMeter_in;
 
 @property (readonly)			AQPlayer			*player;
 @property (readonly)			AQRecorder			*recorder;
 @property						BOOL				playbackWasInterrupted;
+@property (nonatomic, retain) IBOutlet UITextField *nameTextField;
+@property (nonatomic, retain) IBOutlet UITextField *privTextField;
+@property (nonatomic, retain) IBOutlet UITextField *pubTextField;
+@property (nonatomic, retain) IBOutlet UITextField *locTextField;
+@property (nonatomic, retain) IBOutlet UILabel *lblName;
+@property (nonatomic, retain) IBOutlet UILabel *lblPriv;
+@property (nonatomic, retain) IBOutlet UILabel *lblPub;
+@property (nonatomic, retain) IBOutlet UILabel *lblLoc;
 
 - (IBAction)record: (id) sender;
 - (IBAction)play: (id) sender;

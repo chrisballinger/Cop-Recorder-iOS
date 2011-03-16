@@ -51,7 +51,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 @class SpeakHereController;
 
-@interface SpeakHereViewController : UIViewController {
+@interface SpeakHereViewController : UIViewController <UITextFieldDelegate> {
 
 	IBOutlet SpeakHereController *controller;
 }
