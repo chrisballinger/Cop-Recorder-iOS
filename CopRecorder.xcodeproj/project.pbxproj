@@ -159,7 +159,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */,
 				D9A4C66D1331583E009A0CB1 /* ASIHTTPRequest */,
 				D9A4C6821331583E009A0CB1 /* External */,
 				F73FE19D0F743C1900F0F3CC /* ReadMe.txt */,
@@ -197,6 +196,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */,
 				D9A4C69513315933009A0CB1 /* libz.1.2.3.dylib */,
 				D9A4C69313315927009A0CB1 /* MobileCoreServices.framework */,
 				D9A4C6911331591C009A0CB1 /* SystemConfiguration.framework */,
