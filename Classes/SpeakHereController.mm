@@ -55,18 +55,21 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 @synthesize player;
 @synthesize recorder;
+@synthesize CLController;
+
+@synthesize str_location;
 
 @synthesize btn_record;
 @synthesize btn_play;
 @synthesize btn_send;
 
 @synthesize fileDescription;
-//@synthesize lvlMeter_in;
 @synthesize playbackWasInterrupted;
 @synthesize nameTextField;
 @synthesize privTextField;
 @synthesize pubTextField;
 @synthesize locTextField;
+@synthesize useLocation;
 @synthesize lblName;
 @synthesize lblPriv;
 @synthesize lblPub;
@@ -98,12 +101,35 @@ char *OSTypeToStr(char *buf, OSType t)
 	[description release];	
 }
 
+- (void)locationUpdate:(CLLocation *)location {
+    str_location = [NSString stringWithFormat:@"%f, %f",location.coordinate.latitude, location.coordinate.longitude];
+    [str_location retain];
+    //NSLog(str_location);
+}
+
+- (void)locationError:(NSError *)error {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Error!" message:@"Cannot retreive location. This may be because you have disabled the service." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
+    [useLocation setOn:NO];
+}
+
+- (IBAction)locationToggle:(id)sender 
+{
+    if(useLocation.on)
+    {
+        CLController = [[CoreLocationController alloc] init];
+        CLController.delegate = self;
+        [CLController.locMgr startUpdatingLocation];
+    }   
+}
+
+
 #pragma mark Playback routines
 
 -(void)stopPlayQueue
 {
 	player->StopQueue();
-//	[lvlMeter_in setAq: nil];
 	btn_record.enabled = YES;
 }
 
@@ -164,7 +190,15 @@ char *OSTypeToStr(char *buf, OSType t)
 	[request setPostValue:nameTextField.text forKey:@"name"];
 	[request setPostValue:pubTextField.text forKey:@"public_description"];
 	[request setPostValue:privTextField.text forKey:@"private_description"];
-    [request setPostValue:locTextField.text forKey:@"location"];
+    if(useLocation.on)
+    {
+        //NSLog(str_location);
+        [request setPostValue:str_location forKey:@"location"];
+    }
+    else
+        [request setPostValue:@"None" forKey:@"location"];
+    
+
 
 	[request setTimeOutSeconds:20];
     
@@ -174,7 +208,23 @@ char *OSTypeToStr(char *buf, OSType t)
 	[request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];    
 
     [request startSynchronous];
+    
+    NSError *error = [request error];
+    if (!error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Complete" message:@"The recording was uploaded successfully to www.openwatch.net" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Error" message:@"Upload failed, try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+
+    }
 }
+
+
 
 - (IBAction)record:(id)sender
 {
@@ -289,6 +339,10 @@ void propListener(	void *                  inClientData,
 	// Allocate our singleton instance for the recorder & player object
 	recorder = new AQRecorder();
 	player = new AQPlayer();
+    
+    CLController = [[CoreLocationController alloc] init];
+	CLController.delegate = self;
+	[CLController.locMgr startUpdatingLocation];
 		
 	OSStatus error = AudioSessionInitialize(NULL, NULL, interruptionListener, self);
 	if (error) printf("ERROR INITIALIZING AUDIO SESSION! %d\n", error);
@@ -353,6 +407,7 @@ void propListener(	void *                  inClientData,
 	[btn_play release];
     [btn_send release];
 	[fileDescription release];
+    [CLController release];
 	
 	delete player;
 	delete recorder;
@@ -365,6 +420,8 @@ void propListener(	void *                  inClientData,
     [lblPriv release];
     [lblPub release];
     [lblLoc release];
+    [useLocation release];
+    [str_location release];
 	[super dealloc];
 }
 

@@ -30,13 +30,14 @@
 		D9A4C6921331591C009A0CB1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4C6911331591C009A0CB1 /* SystemConfiguration.framework */; };
 		D9A4C69413315927009A0CB1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4C69313315927009A0CB1 /* MobileCoreServices.framework */; };
 		D9A4C69613315933009A0CB1 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4C69513315933009A0CB1 /* libz.1.2.3.dylib */; };
+		D9FB6E2613327EED00E8A07C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */; };
+		D9FB6E321332855C00E8A07C /* CoreLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FB6E311332855C00E8A07C /* CoreLocationController.m */; };
 		F76949C70F40F2AC006C6FBF /* SpeakHereController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */; };
 		F76949EB0F40F32A006C6FBF /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F76949E10F40F32A006C6FBF /* CADebugMacros.cpp */; };
 		F76949EC0F40F32A006C6FBF /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F76949E40F40F32A006C6FBF /* CAStreamBasicDescription.cpp */; };
 		F76949ED0F40F32A006C6FBF /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F76949E60F40F32A006C6FBF /* CAXException.cpp */; };
 		F76949F30F40F34D006C6FBF /* AQPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F76949EF0F40F34D006C6FBF /* AQPlayer.mm */; };
 		F76949F40F40F34D006C6FBF /* AQRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = F76949F00F40F34D006C6FBF /* AQRecorder.mm */; };
-		F76949FA0F40F40B006C6FBF /* MeterTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F76949F90F40F40B006C6FBF /* MeterTable.cpp */; };
 		F7694A4F0F40F82A006C6FBF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7694A4C0F40F82A006C6FBF /* AudioToolbox.framework */; };
 		F7694A500F40F82A006C6FBF /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7694A4D0F40F82A006C6FBF /* CoreFoundation.framework */; };
 		F7694A510F40F82A006C6FBF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7694A4E0F40F82A006C6FBF /* OpenGLES.framework */; };
@@ -85,6 +86,9 @@
 		D9A4C6911331591C009A0CB1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D9A4C69313315927009A0CB1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D9A4C69513315933009A0CB1 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
+		D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D9FB6E301332855C00E8A07C /* CoreLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocationController.h; sourceTree = "<group>"; };
+		D9FB6E311332855C00E8A07C /* CoreLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreLocationController.m; sourceTree = "<group>"; };
 		F73FE19D0F743C1900F0F3CC /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
 		F76949C50F40F2AC006C6FBF /* SpeakHereController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakHereController.h; sourceTree = "<group>"; };
 		F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpeakHereController.mm; sourceTree = "<group>"; };
@@ -99,8 +103,6 @@
 		F76949F00F40F34D006C6FBF /* AQRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQRecorder.mm; sourceTree = "<group>"; };
 		F76949F10F40F34D006C6FBF /* AQRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQRecorder.h; sourceTree = "<group>"; };
 		F76949F20F40F34D006C6FBF /* AQPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQPlayer.h; sourceTree = "<group>"; };
-		F76949F80F40F40B006C6FBF /* MeterTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeterTable.h; path = Classes/MeterTable.h; sourceTree = "<group>"; };
-		F76949F90F40F40B006C6FBF /* MeterTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeterTable.cpp; path = Classes/MeterTable.cpp; sourceTree = "<group>"; };
 		F7694A4C0F40F82A006C6FBF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F7694A4D0F40F82A006C6FBF /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F7694A4E0F40F82A006C6FBF /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -112,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9FB6E2613327EED00E8A07C /* CoreLocation.framework in Frameworks */,
 				D9A4C69613315933009A0CB1 /* libz.1.2.3.dylib in Frameworks */,
 				D9A4C69413315927009A0CB1 /* MobileCoreServices.framework in Frameworks */,
 				D9A4C6921331591C009A0CB1 /* SystemConfiguration.framework in Frameworks */,
@@ -135,6 +138,8 @@
 				F76949EE0F40F337006C6FBF /* Play & Record */,
 				F76949C50F40F2AC006C6FBF /* SpeakHereController.h */,
 				F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */,
+				D9FB6E301332855C00E8A07C /* CoreLocationController.h */,
+				D9FB6E311332855C00E8A07C /* CoreLocationController.m */,
 				1D3623240D0F684500981E51 /* SpeakHereAppDelegate.h */,
 				1D3623250D0F684500981E51 /* SpeakHereAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* SpeakHereViewController.h */,
@@ -154,6 +159,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */,
 				D9A4C66D1331583E009A0CB1 /* ASIHTTPRequest */,
 				D9A4C6821331583E009A0CB1 /* External */,
 				F73FE19D0F743C1900F0F3CC /* ReadMe.txt */,
@@ -170,8 +176,6 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				F76949F80F40F40B006C6FBF /* MeterTable.h */,
-				F76949F90F40F40B006C6FBF /* MeterTable.cpp */,
 				32CA4F630368D1EE00C91783 /* SpeakHere_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -350,7 +354,6 @@
 				F76949ED0F40F32A006C6FBF /* CAXException.cpp in Sources */,
 				F76949F30F40F34D006C6FBF /* AQPlayer.mm in Sources */,
 				F76949F40F40F34D006C6FBF /* AQRecorder.mm in Sources */,
-				F76949FA0F40F40B006C6FBF /* MeterTable.cpp in Sources */,
 				D9A4C6861331583E009A0CB1 /* ASIAuthenticationDialog.m in Sources */,
 				D9A4C6871331583E009A0CB1 /* ASIDataCompressor.m in Sources */,
 				D9A4C6881331583E009A0CB1 /* ASIDataDecompressor.m in Sources */,
@@ -360,6 +363,7 @@
 				D9A4C68C1331583E009A0CB1 /* ASIInputStream.m in Sources */,
 				D9A4C68D1331583E009A0CB1 /* ASINetworkQueue.m in Sources */,
 				D9A4C68E1331583E009A0CB1 /* Reachability.m in Sources */,
+				D9FB6E321332855C00E8A07C /* CoreLocationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

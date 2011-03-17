@@ -49,6 +49,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 #import "SpeakHereAppDelegate.h"
 #import "SpeakHereViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @implementation SpeakHereAppDelegate
 
@@ -61,6 +62,14 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
     // Override point for customization after app launch    
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
+    
+    CLLocationManager *manager = [[CLLocationManager alloc] init];
+    if ([CLLocationManager locationServicesEnabled] == NO) {
+        UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled" message:@"You currently have all location services for this device disabled. If you proceed, you will be asked to confirm whether location services should be reenabled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [servicesDisabledAlert show];
+        [servicesDisabledAlert release];
+    }
+    [manager release];
 }
 
 

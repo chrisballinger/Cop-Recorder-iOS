@@ -49,14 +49,12 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 #import <Foundation/Foundation.h>
 
-//#import "AQLevelMeter.h"
 
 #import "AQPlayer.h"
 #import "AQRecorder.h"
-//@class ASIFormDataRequest;
+#import "CoreLocationController.h"
 
-
-@interface SpeakHereController : NSObject {
+@interface SpeakHereController : NSObject <CoreLocationControllerDelegate> {
 
 	IBOutlet UIBarButtonItem*	btn_record;
 	IBOutlet UIBarButtonItem*	btn_play;
@@ -66,13 +64,16 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 	AQPlayer*					player;
 	AQRecorder*					recorder;
-//    ASIFormDataRequest *request;
+    CoreLocationController*     CLController; 
+    
+    NSString*                   str_location;
     
 	BOOL						playbackWasInterrupted;
     UITextField *nameTextField;
     UITextField *privTextField;
     UITextField *pubTextField;
     UITextField *locTextField;
+    UISwitch *useLocation;
     UILabel *lblName;
     UILabel *lblPriv;
     UILabel *lblPub;
@@ -91,19 +92,23 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @property (nonatomic, retain) IBOutlet UILabel *lblPub;
 @property (nonatomic, retain) IBOutlet UILabel *lblLoc;
 
+@property (nonatomic, retain) NSString*             str_location;
+
 @property (readonly)			AQPlayer			*player;
 @property (readonly)			AQRecorder			*recorder;
-//@property (retain, nonatomic) ASIFormDataRequest *request;
+@property (nonatomic, retain) CoreLocationController *CLController;
 
 @property						BOOL				playbackWasInterrupted;
 @property (nonatomic, retain) IBOutlet UITextField *nameTextField;
 @property (nonatomic, retain) IBOutlet UITextField *privTextField;
 @property (nonatomic, retain) IBOutlet UITextField *pubTextField;
 @property (nonatomic, retain) IBOutlet UITextField *locTextField;
+@property (nonatomic, retain) IBOutlet UISwitch *useLocation;
 
 
 - (IBAction)record: (id) sender;
 - (IBAction)play: (id) sender;
 - (IBAction)send:(id)sender;
+- (IBAction)locationToggle:(id)sender;
 
 @end
