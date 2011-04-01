@@ -163,6 +163,7 @@ char *OSTypeToStr(char *buf, OSType t)
     
 	//recordFilePath = (CFStringRef)[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
 	player->CreateQueueForFile((CFStringRef)@"recordedFile.caf");
+    
 	
 	// Set the button's state back to "record"
 	btn_record.title = @"Record";
@@ -192,6 +193,11 @@ char *OSTypeToStr(char *buf, OSType t)
 
 - (IBAction)send:(id)sender 
 {
+    // For setting whether or not file was sent properly if application exits
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
+    
     //POST the file to the server using ASIFormDataRequset
    	NSData *recording = [NSData dataWithContentsOfFile:(NSString*)recordFilePath]; 
     NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
@@ -225,6 +231,13 @@ char *OSTypeToStr(char *buf, OSType t)
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Complete" message:@"The recording was uploaded successfully to www.openwatch.net" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
         [alert release];
+        
+        // Set TRUE if file was sent properly
+        NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+        [data setObject:[NSNumber numberWithBool:TRUE] forKey:@"fileWasSent"];
+        
+        [data writeToFile: path atomically:YES];
+        [data release];
     }
     else
     {
@@ -256,8 +269,16 @@ char *OSTypeToStr(char *buf, OSType t)
 		
 		[self setFileDescriptionForFormat:recorder->DataFormat() withName:@"Recorded File"];
 		
-		// Hook the level meter up to the Audio Queue for the recorder
-//		[lvlMeter_in setAq: recorder->Queue()];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+        NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
+        
+        // Set FALSE until file is sent properly
+        NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+        [data setObject:[NSNumber numberWithBool:FALSE] forKey:@"fileWasSent"];
+        
+        [data writeToFile: path atomically:YES];
+        [data release];
 	}	
 }
 
@@ -389,7 +410,7 @@ void propListener(	void *                  inClientData,
     if ([device respondsToSelector:@selector(isMultitaskingSupported)])
         backgroundSupported = device.multitaskingSupported;
     
-    NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+/*    NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* foofile = [documentsPath stringByAppendingPathComponent:@"recordedFile.caf"];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
     
@@ -400,6 +421,39 @@ void propListener(	void *                  inClientData,
         [alert addButtonWithTitle:@"Yes"];
         [alert show];
     }
+*/
+    // http://ipgames.wordpress.com/tutorials/writeread-data-to-plist-file/
+    NSError *err;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path]) //4
+    {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"]; //5
+        
+        [fileManager copyItemAtPath:bundle toPath: path error:&err]; //6
+    }
+    
+    NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+    
+    //load from savedStock example int value
+    BOOL fileWasSent;
+    fileWasSent = [[savedStock objectForKey:@"fileWasSent"] boolValue];
+    
+    [savedStock release];
+    
+    if(!fileWasSent)
+    {
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unsent Recording Found" message:@"Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
+        [alert setTag:1];
+        [alert addButtonWithTitle:@"Yes"];
+        [alert show];
+    }
+
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
           selector:@selector(applicationWillTerminate:)
@@ -448,6 +502,8 @@ void propListener(	void *                  inClientData,
     
 	playbackWasInterrupted = NO;
 	playbackWasPaused = NO;
+    
+
 }
 
 # pragma mark Notification routines
