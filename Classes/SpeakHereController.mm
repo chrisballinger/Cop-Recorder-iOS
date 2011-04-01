@@ -197,9 +197,10 @@ char *OSTypeToStr(char *buf, OSType t)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
     NSString *documentsDirectory = [paths objectAtIndex:0]; //2
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
+    NSString *recordingPath = [documentsDirectory stringByAppendingPathComponent:@"recordedFile.caf"];
     
     //POST the file to the server using ASIFormDataRequset
-   	NSData *recording = [NSData dataWithContentsOfFile:(NSString*)recordFilePath]; 
+   	NSData *recording = [NSData dataWithContentsOfFile:recordingPath]; 
     NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
     time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
@@ -223,8 +224,8 @@ char *OSTypeToStr(char *buf, OSType t)
 	[request setShouldContinueWhenAppEntersBackground:YES];
 #endif
 	[request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];    
-
     [request startSynchronous];
+
     
     NSError *error = [request error];
     if (!error) {
@@ -374,6 +375,11 @@ void propListener(	void *                  inClientData,
             btn_play.enabled = YES;
             btn_send.enabled = YES;
         }
+        else
+        {
+            btn_play.enabled = NO;
+            btn_send.enabled = NO;
+        }
     }
 }
 
@@ -385,31 +391,8 @@ void propListener(	void *                  inClientData,
 	}
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+- (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    if (recorder->IsRunning()) // If we are currently recording, stop and save the file.
-	{
-		[self stopRecord];
-	}
-}
-
-				
-#pragma mark Initialization routines
-- (void)awakeFromNib
-{		
-	// Allocate our singleton instance for the recorder & player object
-	recorder = new AQRecorder();
-	player = new AQPlayer();
-    
-    CLController = [[CoreLocationController alloc] init];
-	CLController.delegate = self;
-	[CLController.locMgr startUpdatingLocation];
-    
-    UIDevice* device = [UIDevice currentDevice];
-    backgroundSupported = NO;
-    if ([device respondsToSelector:@selector(isMultitaskingSupported)])
-        backgroundSupported = device.multitaskingSupported;
-    
     NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* foofile = [documentsPath stringByAppendingPathComponent:@"recordedFile.caf"];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
@@ -445,6 +428,33 @@ void propListener(	void *                  inClientData,
         [alert show];
     }
 
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    if (recorder->IsRunning()) // If we are currently recording, stop and save the file.
+	{
+		[self stopRecord];
+	}
+}
+				
+#pragma mark Initialization routines
+- (void)awakeFromNib
+{		
+	// Allocate our singleton instance for the recorder & player object
+	recorder = new AQRecorder();
+	player = new AQPlayer();
+    
+    CLController = [[CoreLocationController alloc] init];
+	CLController.delegate = self;
+	[CLController.locMgr startUpdatingLocation];
+    
+    UIDevice* device = [UIDevice currentDevice];
+    backgroundSupported = NO;
+    if ([device respondsToSelector:@selector(isMultitaskingSupported)])
+        backgroundSupported = device.multitaskingSupported;
+    
+    //[self checkFile];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -453,6 +463,9 @@ void propListener(	void *                  inClientData,
     [[NSNotificationCenter defaultCenter] addObserver:self
           selector:@selector(applicationDidEnterBackground:)
           name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+          selector:@selector(applicationDidBecomeActive:)
+          name:UIApplicationDidBecomeActiveNotification object:nil];
     
 	OSStatus error = AudioSessionInitialize(NULL, NULL, interruptionListener, self);
 	if (error) printf("ERROR INITIALIZING AUDIO SESSION! %d\n", error);
@@ -484,8 +497,6 @@ void propListener(	void *                  inClientData,
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueResumed:) name:@"playbackQueueResumed" object:nil];
 
 	UIColor *bgColor = [[UIColor alloc] initWithRed:.39 green:.44 blue:.57 alpha:.5];
-//	[lvlMeter_in setBackgroundColor:bgColor];
-//	[lvlMeter_in setBorderColor:bgColor];
 	[bgColor release];
 	
 	// disable the play button since we have no recording to play yet
@@ -502,7 +513,6 @@ void propListener(	void *                  inClientData,
 - (void)playbackQueueStopped:(NSNotification *)note
 {
 	btn_play.title = @"Play";
-//	[lvlMeter_in setAq: nil];
 	btn_record.enabled = YES;
 }
 
