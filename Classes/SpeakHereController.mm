@@ -410,18 +410,10 @@ void propListener(	void *                  inClientData,
     if ([device respondsToSelector:@selector(isMultitaskingSupported)])
         backgroundSupported = device.multitaskingSupported;
     
-/*    NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* foofile = [documentsPath stringByAppendingPathComponent:@"recordedFile.caf"];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
     
-    if(fileExists)
-    {
-        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Old Recording Found" message:@"Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
-        [alert setTag:1];
-        [alert addButtonWithTitle:@"Yes"];
-        [alert show];
-    }
-*/
     // http://ipgames.wordpress.com/tutorials/writeread-data-to-plist-file/
     NSError *err;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
@@ -445,9 +437,9 @@ void propListener(	void *                  inClientData,
     
     [savedStock release];
     
-    if(!fileWasSent)
+    if(!fileWasSent && fileExists)
     {
-        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unsent Recording Found" message:@"Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unsubmitted Recording Found" message:@"Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
         [alert setTag:1];
         [alert addButtonWithTitle:@"Yes"];
         [alert show];
