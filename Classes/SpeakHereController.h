@@ -69,10 +69,9 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
     NSString*                   str_location;
     
 	BOOL						playbackWasInterrupted;
-    UITextField *nameTextField;
-    UITextField *privTextField;
-    UITextField *pubTextField;
-    UITextField *locTextField;
+    UITextField *txtName;
+    UITextField *txtPrivate;
+    UITextField *txtPublic;
     UISwitch *useLocation;
     UILabel *lblName;
     UILabel *lblPriv;
@@ -99,10 +98,9 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @property (nonatomic, retain) CoreLocationController *CLController;
 
 @property						BOOL				playbackWasInterrupted;
-@property (nonatomic, retain) IBOutlet UITextField *nameTextField;
-@property (nonatomic, retain) IBOutlet UITextField *privTextField;
-@property (nonatomic, retain) IBOutlet UITextField *pubTextField;
-@property (nonatomic, retain) IBOutlet UITextField *locTextField;
+@property (nonatomic, retain) IBOutlet UITextField *txtName;
+@property (nonatomic, retain) IBOutlet UITextField *txtPrivate;
+@property (nonatomic, retain) IBOutlet UITextField *txtPublic;
 @property (nonatomic, retain) IBOutlet UISwitch *useLocation;
 
 

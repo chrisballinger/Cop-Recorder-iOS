@@ -185,9 +185,15 @@ void AQPlayer::CreateQueueForFile(CFStringRef inFilePath)
 		if (mFilePath == NULL)
 		{
 			mIsLooping = false;
-			
-			sndFile = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, inFilePath, kCFURLPOSIXPathStyle, false);
-			if (!sndFile) { printf("can't parse file path\n"); return; }
+            
+            NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentFolderPath = [searchPaths objectAtIndex: 0];
+            NSString *recordFile = [documentFolderPath stringByAppendingPathComponent: (NSString*)inFilePath];
+            
+            
+			sndFile = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (CFStringRef)recordFile, kCFURLPOSIXPathStyle, false);
+			//NSLog((NSString *)inFilePath);
+            if (!sndFile) { printf("can't parse file path\n"); return; }
 			
 			XThrowIfError(AudioFileOpenURL (sndFile, kAudioFileReadPermission, 0/*inFileTypeHint*/, &mAudioFile), "can't open file");
 		

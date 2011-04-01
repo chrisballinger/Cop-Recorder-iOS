@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">544</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1305</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">300</string>
@@ -54,7 +54,6 @@
 						<string key="NSFrame">{{0, 416}, {320, 44}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -424,30 +423,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">nameTextField</string>
-						<reference key="source" ref="261241753"/>
-						<reference key="destination" ref="851581180"/>
-					</object>
-					<int key="connectionID">41</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">privTextField</string>
-						<reference key="source" ref="261241753"/>
-						<reference key="destination" ref="432313845"/>
-					</object>
-					<int key="connectionID">42</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">pubTextField</string>
-						<reference key="source" ref="261241753"/>
-						<reference key="destination" ref="636633116"/>
-					</object>
-					<int key="connectionID">43</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">lblName</string>
 						<reference key="source" ref="261241753"/>
 						<reference key="destination" ref="626831252"/>
@@ -534,6 +509,30 @@
 						<int key="IBEventType">13</int>
 					</object>
 					<int key="connectionID">63</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">txtName</string>
+						<reference key="source" ref="261241753"/>
+						<reference key="destination" ref="851581180"/>
+					</object>
+					<int key="connectionID">66</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">txtPrivate</string>
+						<reference key="source" ref="261241753"/>
+						<reference key="destination" ref="432313845"/>
+					</object>
+					<int key="connectionID">67</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">txtPublic</string>
+						<reference key="source" ref="261241753"/>
+						<reference key="destination" ref="636633116"/>
+					</object>
+					<int key="connectionID">68</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -763,7 +762,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">65</int>
+			<int key="maxID">68</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -829,10 +828,9 @@
 							<string>lblName</string>
 							<string>lblPriv</string>
 							<string>lblPub</string>
-							<string>locTextField</string>
-							<string>nameTextField</string>
-							<string>privTextField</string>
-							<string>pubTextField</string>
+							<string>txtName</string>
+							<string>txtPrivate</string>
+							<string>txtPublic</string>
 							<string>useLocation</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -845,7 +843,6 @@
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
-							<string>UITextField</string>
 							<string>UITextField</string>
 							<string>UITextField</string>
 							<string>UITextField</string>
@@ -864,10 +861,9 @@
 							<string>lblName</string>
 							<string>lblPriv</string>
 							<string>lblPub</string>
-							<string>locTextField</string>
-							<string>nameTextField</string>
-							<string>privTextField</string>
-							<string>pubTextField</string>
+							<string>txtName</string>
+							<string>txtPrivate</string>
+							<string>txtPublic</string>
 							<string>useLocation</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -905,19 +901,15 @@
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">locTextField</string>
+								<string key="name">txtName</string>
 								<string key="candidateClassName">UITextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">nameTextField</string>
+								<string key="name">txtPrivate</string>
 								<string key="candidateClassName">UITextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">privTextField</string>
-								<string key="candidateClassName">UITextField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">pubTextField</string>
+								<string key="name">txtPublic</string>
 								<string key="candidateClassName">UITextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">

@@ -65,10 +65,9 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 @synthesize fileDescription;
 @synthesize playbackWasInterrupted;
-@synthesize nameTextField;
-@synthesize privTextField;
-@synthesize pubTextField;
-@synthesize locTextField;
+@synthesize txtName;
+@synthesize txtPrivate;
+@synthesize txtPublic;
 @synthesize useLocation;
 @synthesize lblName;
 @synthesize lblPriv;
@@ -121,7 +120,9 @@ char *OSTypeToStr(char *buf, OSType t)
         CLController = [[CoreLocationController alloc] init];
         CLController.delegate = self;
         [CLController.locMgr startUpdatingLocation];
-    }   
+    }
+    else
+        [CLController release];
 }
 
 
@@ -150,8 +151,17 @@ char *OSTypeToStr(char *buf, OSType t)
 	player->DisposeQueue(true);
 
 	// now create a new queue for the recorded file
-	recordFilePath = (CFStringRef)[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
-	player->CreateQueueForFile(recordFilePath);
+    
+    /*NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentFolderPath = [searchPaths objectAtIndex: 0];
+    NSString *recordFile = [documentFolderPath stringByAppendingPathComponent: @"recordedFile.caf"];
+    */
+    
+    
+    //recordFilePath = CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)recordFile, NULL, NULL, kCFStringEncodingUTF8 );
+    
+	//recordFilePath = (CFStringRef)[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
+	player->CreateQueueForFile((CFStringRef)@"recordedFile.caf");
 	
 	// Set the button's state back to "record"
 	btn_record.title = @"Record";
@@ -187,9 +197,9 @@ char *OSTypeToStr(char *buf, OSType t)
     time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
     
-	[request setPostValue:nameTextField.text forKey:@"name"];
-	[request setPostValue:pubTextField.text forKey:@"public_description"];
-	[request setPostValue:privTextField.text forKey:@"private_description"];
+	[request setPostValue:txtName.text forKey:@"name"];
+	[request setPostValue:txtPublic.text forKey:@"public_description"];
+	[request setPostValue:txtPrivate.text forKey:@"private_description"];
     if(useLocation.on)
     {
         //NSLog(str_location);
@@ -412,10 +422,9 @@ void propListener(	void *                  inClientData,
 	delete player;
 	delete recorder;
 	
-    [nameTextField release];
-    [privTextField release];
-    [pubTextField release];
-    [locTextField release];
+    [txtName release];
+    [txtPrivate release];
+    [txtPublic release];
     [lblName release];
     [lblPriv release];
     [lblPub release];
