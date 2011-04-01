@@ -73,6 +73,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @synthesize lblPriv;
 @synthesize lblPub;
 @synthesize lblLoc;
+@synthesize backgroundSupported;
 
 char *OSTypeToStr(char *buf, OSType t)
 {
@@ -342,6 +343,35 @@ void propListener(	void *                  inClientData,
 		}
 	}
 }
+
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if ([alertView tag] == 1) {    
+        if (buttonIndex == 1) {
+            // Enable play/send if an old file was found
+            player->CreateQueueForFile((CFStringRef)@"recordedFile.caf");
+            btn_play.enabled = YES;
+            btn_send.enabled = YES;
+        }
+    }
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    if (recorder->IsRunning()) // If we are currently recording, stop and save the file.
+	{
+		[self stopRecord];
+	}
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    if (recorder->IsRunning()) // If we are currently recording, stop and save the file.
+	{
+		[self stopRecord];
+	}
+}
+
 				
 #pragma mark Initialization routines
 - (void)awakeFromNib
@@ -353,7 +383,31 @@ void propListener(	void *                  inClientData,
     CLController = [[CoreLocationController alloc] init];
 	CLController.delegate = self;
 	[CLController.locMgr startUpdatingLocation];
-		
+    
+    UIDevice* device = [UIDevice currentDevice];
+    backgroundSupported = NO;
+    if ([device respondsToSelector:@selector(isMultitaskingSupported)])
+        backgroundSupported = device.multitaskingSupported;
+    
+    NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString* foofile = [documentsPath stringByAppendingPathComponent:@"recordedFile.caf"];
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
+    
+    if(fileExists)
+    {
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Old Recording Found" message:@"Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
+        [alert setTag:1];
+        [alert addButtonWithTitle:@"Yes"];
+        [alert show];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+          selector:@selector(applicationWillTerminate:)
+          name:UIApplicationWillTerminateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+          selector:@selector(applicationDidEnterBackground:)
+          name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
 	OSStatus error = AudioSessionInitialize(NULL, NULL, interruptionListener, self);
 	if (error) printf("ERROR INITIALIZING AUDIO SESSION! %d\n", error);
 	else 

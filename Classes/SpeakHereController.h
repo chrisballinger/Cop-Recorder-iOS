@@ -54,7 +54,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 #import "AQRecorder.h"
 #import "CoreLocationController.h"
 
-@interface SpeakHereController : NSObject <CoreLocationControllerDelegate> {
+@interface SpeakHereController : NSObject <CoreLocationControllerDelegate, UIAlertViewDelegate> {
 
 	IBOutlet UIBarButtonItem*	btn_record;
 	IBOutlet UIBarButtonItem*	btn_play;
@@ -80,6 +80,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 	BOOL						playbackWasPaused;
 	
 	CFStringRef					recordFilePath;	
+    BOOL                        backgroundSupported;
 }
 
 @property (nonatomic, retain)	UIBarButtonItem		*btn_record;
@@ -102,6 +103,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @property (nonatomic, retain) IBOutlet UITextField *txtPrivate;
 @property (nonatomic, retain) IBOutlet UITextField *txtPublic;
 @property (nonatomic, retain) IBOutlet UISwitch *useLocation;
+@property                       BOOL                backgroundSupported;
 
 
 - (IBAction)record: (id) sender;
