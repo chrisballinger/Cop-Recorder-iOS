@@ -74,6 +74,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @synthesize lblPub;
 @synthesize lblLoc;
 @synthesize backgroundSupported;
+@synthesize progressView;
 
 char *OSTypeToStr(char *buf, OSType t)
 {
@@ -223,33 +224,56 @@ char *OSTypeToStr(char *buf, OSType t)
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
 	[request setShouldContinueWhenAppEntersBackground:YES];
 #endif
-	[request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];    
-    [request startSynchronous];
-
-    
-    NSError *error = [request error];
-    if (!error) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Complete" message:@"The recording was uploaded successfully to www.openwatch.net" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
-        
-        // Set TRUE if file was sent properly
-        NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
-        [data setObject:[NSNumber numberWithBool:TRUE] forKey:@"fileWasSent"];
-        
-        [data writeToFile: path atomically:YES];
-        [data release];
-    }
-    else
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Error" message:@"Upload failed, try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
-
-    }
+	[request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];
+    progressView.progress = 0.0;
+    progressView.hidden = FALSE;
+    fileDescription.hidden = TRUE;
+    [request setShowAccurateProgress:YES];
+    [request setUploadProgressDelegate:progressView];
+    [request setDelegate:self];
+    [request startAsynchronous];
+    btn_send.title = @"Sending...";
+    btn_send.enabled = FALSE;
+    btn_record.enabled = FALSE;
+    btn_play.enabled = FALSE;
 }
 
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
 
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Complete" message:@"The recording was uploaded successfully to www.openwatch.net" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
+    
+    // Set TRUE if file was sent properly
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+    [data setObject:[NSNumber numberWithBool:TRUE] forKey:@"fileWasSent"];
+    
+    [data writeToFile: path atomically:YES];
+    [data release];
+
+    btn_send.title = @"Send";
+    btn_send.enabled = TRUE;
+    btn_record.enabled = TRUE;
+    btn_play.enabled = TRUE;
+    progressView.hidden = TRUE;
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Error" message:@"Upload failed, try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
+    
+    btn_send.title = @"Send";
+    btn_send.enabled = TRUE;
+    btn_record.enabled = TRUE;
+    btn_play.enabled = TRUE;
+    progressView.hidden = TRUE;
+}
 
 - (IBAction)record:(id)sender
 {
@@ -269,7 +293,8 @@ char *OSTypeToStr(char *buf, OSType t)
 		recorder->StartRecord(CFSTR("recordedFile.caf"));
 		
 		[self setFileDescriptionForFormat:recorder->DataFormat() withName:@"Recorded File"];
-		
+		fileDescription.hidden = FALSE;
+        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
         NSString *documentsDirectory = [paths objectAtIndex:0]; //2
         NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
@@ -543,6 +568,7 @@ void propListener(	void *                  inClientData,
     [lblLoc release];
     [useLocation release];
     [str_location release];
+    [progressView release];
 	[super dealloc];
 }
 
