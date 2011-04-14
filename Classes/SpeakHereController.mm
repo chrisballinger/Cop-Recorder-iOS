@@ -321,6 +321,7 @@ char *OSTypeToStr(char *buf, OSType t)
             [alert show];
             [alert release];
             [self drawBlack];
+            [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
         }
 	}	
 }
@@ -430,48 +431,51 @@ void propListener(	void *                  inClientData,
     if (recorder->IsRunning()) // If we are currently recording, stop and save the file.
 	{
 		[self stopRecord];
+        fileDescription.text = @"";
 	}
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     if(!recorder->IsRunning())
+    {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO animated:NO];
         img_black.hidden = YES;
-    NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString* foofile = [documentsPath stringByAppendingPathComponent:@"recordedFile.caf"];
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
-    
-    // http://ipgames.wordpress.com/tutorials/writeread-data-to-plist-file/
-    NSError *err;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
-    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    if (![fileManager fileExistsAtPath: path]) //4
-    {
-        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"]; //5
+        NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString* foofile = [documentsPath stringByAppendingPathComponent:@"recordedFile.caf"];
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
         
-        [fileManager copyItemAtPath:bundle toPath: path error:&err]; //6
+        // http://ipgames.wordpress.com/tutorials/writeread-data-to-plist-file/
+        NSError *err;
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+        NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        
+        if (![fileManager fileExistsAtPath: path]) //4
+        {
+            NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"]; //5
+            
+            [fileManager copyItemAtPath:bundle toPath: path error:&err]; //6
+        }
+        
+        NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+        
+        //load from savedStock example int value
+        BOOL fileWasSent;
+        fileWasSent = [[savedStock objectForKey:@"fileWasSent"] boolValue];
+        
+        [savedStock release];
+        
+        if(!fileWasSent && fileExists)
+        {
+            UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unsubmitted Recording Found" message:@"Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
+            [alert setTag:1];
+            [alert addButtonWithTitle:@"Yes"];
+            [alert show];
+        }
     }
-    
-    NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
-    
-    //load from savedStock example int value
-    BOOL fileWasSent;
-    fileWasSent = [[savedStock objectForKey:@"fileWasSent"] boolValue];
-    
-    [savedStock release];
-    
-    if(!fileWasSent && fileExists && !recorder->IsRunning())
-    {
-        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unsubmitted Recording Found" message:@"Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
-        [alert setTag:1];
-        [alert addButtonWithTitle:@"Yes"];
-        [alert show];
-    }
-
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -479,6 +483,7 @@ void propListener(	void *                  inClientData,
     if (recorder->IsRunning()) // If we are currently recording, stop and save the file.
 	{
 		[self stopRecord];
+        fileDescription.text = @"";
 	}
 }
 				
