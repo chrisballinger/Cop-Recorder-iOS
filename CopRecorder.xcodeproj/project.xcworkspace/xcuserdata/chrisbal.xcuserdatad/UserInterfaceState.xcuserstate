@@ -635,7 +635,7 @@
 		<integer>36</integer>
 		<string>{747, 249}</string>
 		<string>{369, 31}</string>
-		<string>{10, 22}</string>
+		<string>{10, 28}</string>
 		<string>{526, 315}</string>
 		<string>{738, 164}</string>
 		<dict>
@@ -5852,8 +5852,8 @@
 		</dict>
 		<string>IDEDeviceLocation</string>
 		<string>IDEDeviceArchitecture</string>
-		<string>dvtdevice-iphonesimulator:/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk-iPhone</string>
-		<string>i386</string>
+		<string>dvtdevice-iphone:65496a47345d61f5a5761332a04ec7c5b15b3391</string>
+		<string>armv6</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -6165,7 +6165,7 @@
 				<integer>474</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>324516575.71828598</real>
+			<real>324516979.29985303</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -6176,7 +6176,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 7:29 PM</string>
+		<string>Today at 7:36 PM</string>
 		<integer>106</integer>
 		<dict>
 			<key>$class</key>
@@ -6502,7 +6502,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{24, 198}, {1340, 680}}</string>
+		<string>{{48, 156}, {1340, 680}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -6669,7 +6669,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>210</integer>
+					<integer>15</integer>
 				</dict>
 			</array>
 		</dict>
@@ -7333,7 +7333,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{0, 0}, {820, 604}}</string>
+		<string>{{0, 0}, {820, 467}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -7718,7 +7718,7 @@
 			</array>
 		</dict>
 		<string>IDEEditor</string>
-		<real>487</real>
+		<real>489</real>
 		<dict>
 			<key>$class</key>
 			<dict>
