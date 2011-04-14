@@ -211,48 +211,56 @@ char *OSTypeToStr(char *buf, OSType t)
 
 - (IBAction)send:(id)sender 
 {
-    // For setting whether or not file was sent properly if application exits
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
-    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
-    NSString *recordingPath = [documentsDirectory stringByAppendingPathComponent:@"recordedFile.caf"];
-    
-    //POST the file to the server using ASIFormDataRequset
-   	NSData *recording = [NSData dataWithContentsOfFile:recordingPath]; 
-    NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
-    time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
-    
-	[request setPostValue:txtName.text forKey:@"name"];
-	[request setPostValue:txtPublic.text forKey:@"public_description"];
-	[request setPostValue:txtPrivate.text forKey:@"private_description"];
-    if(useLocation.on)
+    if([txtName.text isEqualToString:@""] || [txtPublic.text isEqualToString:@""])
     {
-        //NSLog(str_location);
-        [request setPostValue:str_location forKey:@"location"];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"More Info Please!" message:@"It appears you are trying to submit a recording without a title or public description.\n\nPlease fill in this information and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
     }
     else
-        [request setPostValue:@"None" forKey:@"location"];
-    
+    {
+        // For setting whether or not file was sent properly if application exits
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+        NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+        NSString *recordingPath = [documentsDirectory stringByAppendingPathComponent:@"recordedFile.caf"];
+        
+        //POST the file to the server using ASIFormDataRequset
+        NSData *recording = [NSData dataWithContentsOfFile:recordingPath]; 
+        NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
+        time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
+        
+        [request setPostValue:txtName.text forKey:@"name"];
+        [request setPostValue:txtPublic.text forKey:@"public_description"];
+        [request setPostValue:txtPrivate.text forKey:@"private_description"];
+        if(useLocation.on)
+        {
+            //NSLog(str_location);
+            [request setPostValue:str_location forKey:@"location"];
+        }
+        else
+            [request setPostValue:@"None" forKey:@"location"];
+        
 
 
-	[request setTimeOutSeconds:20];
-    
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
-	[request setShouldContinueWhenAppEntersBackground:YES];
-#endif
-	[request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];
-    progressView.progress = 0.0;
-    progressView.hidden = FALSE;
-    fileDescription.hidden = TRUE;
-    [request setShowAccurateProgress:YES];
-    [request setUploadProgressDelegate:progressView];
-    [request setDelegate:self];
-    [request startAsynchronous];
-    btn_send.title = @"Sending...";
-    btn_send.enabled = FALSE;
-    btn_record.enabled = FALSE;
-    btn_play.enabled = FALSE;
+        [request setTimeOutSeconds:20];
+        
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
+        [request setShouldContinueWhenAppEntersBackground:YES];
+    #endif
+        [request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];
+        progressView.progress = 0.0;
+        progressView.hidden = FALSE;
+        fileDescription.hidden = TRUE;
+        [request setShowAccurateProgress:YES];
+        [request setUploadProgressDelegate:progressView];
+        [request setDelegate:self];
+        [request startAsynchronous];
+        btn_send.title = @"Sending...";
+        btn_send.enabled = FALSE;
+        btn_record.enabled = FALSE;
+        btn_play.enabled = FALSE;
+    }
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request
@@ -405,6 +413,7 @@ void propListener(	void *                  inClientData,
 			// stop the queue if we had a non-policy route change
 			if (THIS->recorder->IsRunning()) {
 				[THIS stopRecord];
+                THIS->fileDescription.text = @"";
 			}
 		}	
 	}

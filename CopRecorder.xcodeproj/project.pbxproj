@@ -33,6 +33,8 @@
 		D9A85DA11346575D008CF475 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9A85DA01346575D008CF475 /* data.plist */; };
 		D9C7188713579B4D004D1F17 /* about_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C7188313579B4D004D1F17 /* about_icon@2x.png */; };
 		D9C7188813579B4D004D1F17 /* about_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C7188513579B4D004D1F17 /* about_icon.png */; };
+		D9C718A51357B06A004D1F17 /* 73-radar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C718A11357B06A004D1F17 /* 73-radar.png */; };
+		D9C718A61357B06A004D1F17 /* 126-moon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C718A31357B06A004D1F17 /* 126-moon.png */; };
 		D9FB6E2613327EED00E8A07C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */; };
 		D9FB6E321332855C00E8A07C /* CoreLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FB6E311332855C00E8A07C /* CoreLocationController.m */; };
 		F76949C70F40F2AC006C6FBF /* SpeakHereController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */; };
@@ -92,6 +94,8 @@
 		D9A85DA01346575D008CF475 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
 		D9C7188413579B4D004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/about_icon@2x.png"; sourceTree = "<group>"; };
 		D9C7188613579B4D004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/about_icon.png; sourceTree = "<group>"; };
+		D9C718A21357B06A004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/73-radar.png"; sourceTree = "<group>"; };
+		D9C718A41357B06A004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/126-moon.png"; sourceTree = "<group>"; };
 		D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9FB6E301332855C00E8A07C /* CoreLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocationController.h; sourceTree = "<group>"; };
 		D9FB6E311332855C00E8A07C /* CoreLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreLocationController.m; sourceTree = "<group>"; };
@@ -194,6 +198,8 @@
 				D9C7188513579B4D004D1F17 /* about_icon.png */,
 				D94A6B40133066A700A91096 /* logo.png */,
 				D94A6B3E1330668600A91096 /* icon.png */,
+				D9C718A11357B06A004D1F17 /* 73-radar.png */,
+				D9C718A31357B06A004D1F17 /* 126-moon.png */,
 				2899E5210DE3E06400AC0155 /* SpeakHereViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -347,6 +353,8 @@
 				D9A85DA11346575D008CF475 /* data.plist in Resources */,
 				D9C7188713579B4D004D1F17 /* about_icon@2x.png in Resources */,
 				D9C7188813579B4D004D1F17 /* about_icon.png in Resources */,
+				D9C718A51357B06A004D1F17 /* 73-radar.png in Resources */,
+				D9C718A61357B06A004D1F17 /* 126-moon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +412,22 @@
 				D9C7188613579B4D004D1F17 /* en */,
 			);
 			name = about_icon.png;
+			sourceTree = "<group>";
+		};
+		D9C718A11357B06A004D1F17 /* 73-radar.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9C718A21357B06A004D1F17 /* en */,
+			);
+			name = "73-radar.png";
+			sourceTree = "<group>";
+		};
+		D9C718A31357B06A004D1F17 /* 126-moon.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9C718A41357B06A004D1F17 /* en */,
+			);
+			name = "126-moon.png";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
