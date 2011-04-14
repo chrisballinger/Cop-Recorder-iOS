@@ -435,7 +435,8 @@ void propListener(	void *                  inClientData,
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    img_black.hidden = YES;
+    if(!recorder->IsRunning())
+        img_black.hidden = YES;
     NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* foofile = [documentsPath stringByAppendingPathComponent:@"recordedFile.caf"];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
