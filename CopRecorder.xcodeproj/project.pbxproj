@@ -31,6 +31,8 @@
 		D9A4C69413315927009A0CB1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4C69313315927009A0CB1 /* MobileCoreServices.framework */; };
 		D9A4C69613315933009A0CB1 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4C69513315933009A0CB1 /* libz.1.2.3.dylib */; };
 		D9A85DA11346575D008CF475 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9A85DA01346575D008CF475 /* data.plist */; };
+		D9C7188713579B4D004D1F17 /* about_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C7188313579B4D004D1F17 /* about_icon@2x.png */; };
+		D9C7188813579B4D004D1F17 /* about_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C7188513579B4D004D1F17 /* about_icon.png */; };
 		D9FB6E2613327EED00E8A07C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */; };
 		D9FB6E321332855C00E8A07C /* CoreLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FB6E311332855C00E8A07C /* CoreLocationController.m */; };
 		F76949C70F40F2AC006C6FBF /* SpeakHereController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */; };
@@ -88,6 +90,8 @@
 		D9A4C69313315927009A0CB1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D9A4C69513315933009A0CB1 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		D9A85DA01346575D008CF475 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
+		D9C7188413579B4D004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/about_icon@2x.png"; sourceTree = "<group>"; };
+		D9C7188613579B4D004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/about_icon.png; sourceTree = "<group>"; };
 		D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9FB6E301332855C00E8A07C /* CoreLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocationController.h; sourceTree = "<group>"; };
 		D9FB6E311332855C00E8A07C /* CoreLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreLocationController.m; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D9C7188313579B4D004D1F17 /* about_icon@2x.png */,
+				D9C7188513579B4D004D1F17 /* about_icon.png */,
 				D94A6B40133066A700A91096 /* logo.png */,
 				D94A6B3E1330668600A91096 /* icon.png */,
 				2899E5210DE3E06400AC0155 /* SpeakHereViewController.xib */,
@@ -339,6 +345,8 @@
 				D94A6B3F1330668600A91096 /* icon.png in Resources */,
 				D94A6B42133066A700A91096 /* logo.png in Resources */,
 				D9A85DA11346575D008CF475 /* data.plist in Resources */,
+				D9C7188713579B4D004D1F17 /* about_icon@2x.png in Resources */,
+				D9C7188813579B4D004D1F17 /* about_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +388,22 @@
 				D94A6B41133066A700A91096 /* en */,
 			);
 			name = logo.png;
+			sourceTree = "<group>";
+		};
+		D9C7188313579B4D004D1F17 /* about_icon@2x.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9C7188413579B4D004D1F17 /* en */,
+			);
+			name = "about_icon@2x.png";
+			sourceTree = "<group>";
+		};
+		D9C7188513579B4D004D1F17 /* about_icon.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9C7188613579B4D004D1F17 /* en */,
+			);
+			name = about_icon.png;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

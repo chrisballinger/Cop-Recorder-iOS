@@ -85,6 +85,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
     UISwitch *useStealth;
     UIImageView *img_black;
     UIToolbar *toolbar;
+    UIButton *btn_info;
 }
 
 @property (nonatomic, retain)	UIBarButtonItem		*btn_record;
@@ -112,13 +113,16 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @property (nonatomic, retain) IBOutlet UISwitch *useStealth;
 @property (nonatomic, retain) IBOutlet UIImageView *img_black;
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, retain) IBOutlet UIButton *btn_info;
 
 
 - (IBAction)record: (id) sender;
 - (IBAction)play: (id) sender;
 - (IBAction)send:(id)sender;
 - (IBAction)locationToggle:(id)sender;
+- (IBAction)info:(id)sender;
 
 - (void) drawBlack;
+- (void) showTutorial;
 
 @end

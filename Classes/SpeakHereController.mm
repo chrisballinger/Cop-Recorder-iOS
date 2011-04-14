@@ -78,6 +78,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @synthesize useStealth;
 @synthesize img_black;
 @synthesize toolbar;
+@synthesize btn_info;
 
 char *OSTypeToStr(char *buf, OSType t)
 {
@@ -128,6 +129,13 @@ char *OSTypeToStr(char *buf, OSType t)
     }
     else
         [CLController release];
+}
+
+- (IBAction)info:(id)sender 
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"About Cop Recorder" message:@"Cop Recorder 2 is a subproject of OpenWatch. OpenWatch is a participatory citizen media project aiming to provide documentary evidence of uses and abuses of power.\n\nUntil now, surveillance technology has only been in the hands of those who are already in power, which means it cannot be used to combat the largest problem facing modern society: abuse of power.\n\nSo the question remains: Who watches the watchers? \n\nThis is where OpenWatch comes in. Now, we are all opportunistic journalists. Whenever any of us come in contact with power being used or abused, we can capture it and make it become part of the public record. If we seek truth and justice, we will be able to appeal to documentary evidence, not just our word against theirs. Ideally, this will mean less corruption, more open government and a more transparent society.\n\nOpenWatch is not only intended to display abuse of power, but also to highlight appropriate use. As we are unbound by technological restrictions, we can aim to record every single time power is applied so that we may analyze global trends and provide a record for future historians.\n\nPolice, corporate executives, judges, lawyers, private security agents, lobbyists, bankers, principals and politicians: be mindful! We are watching! \n\n\nCop Recorder is Free and Open Source Software. More information is available at OpenWatch.net" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
 }
 
 // Draw black rect in stealth mode
@@ -273,7 +281,7 @@ char *OSTypeToStr(char *buf, OSType t)
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Error" message:@"Upload failed, try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Error" message:@"Upload failed, please check your internet connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert release];
     
@@ -289,6 +297,7 @@ char *OSTypeToStr(char *buf, OSType t)
 	if (recorder->IsRunning()) // If we are currently recording, stop and save the file.
 	{
 		[self stopRecord];
+        fileDescription.text = @"";
 	}
 	else // If we're not recording, start.
 	{
@@ -453,11 +462,15 @@ void propListener(	void *                  inClientData,
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
+        BOOL firstLaunch = false;
+
+        
         if (![fileManager fileExistsAtPath: path]) //4
         {
             NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"]; //5
             
             [fileManager copyItemAtPath:bundle toPath: path error:&err]; //6
+            firstLaunch = true;
         }
         
         NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
@@ -466,11 +479,18 @@ void propListener(	void *                  inClientData,
         BOOL fileWasSent;
         fileWasSent = [[savedStock objectForKey:@"fileWasSent"] boolValue];
         
+        if(firstLaunch)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome, new Watcher!" message:@"Whenever you think you are about to interact with an authority figure or a person in a position of power, start Cop Recorder and press Record. \n\nIf you record audio in Stealth Mode, the screen will go black while recording. When the encounter is over, simply close the application and it will stop the recording. On the next launch it will ask you if you'd like to load your unsubmitted recording. After loading you can preview the recording and submit it to OpenWatch.\n\nFor best audio quality, put the phone in your front shirt pocket, or on a nearby table with the microphone facing upwards.\n\nWhen uploading, please describe the incident. It will be reviewed by the editors and quickly published to OpenWatch.net. If you request, we will remove all of the personally identifiable information we can. No logs are kept on the server.\n\nAll uploads are released under the Creative-Commons-Attribution license.\n\nCourage is contagious!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+            [alert release];            
+        }
+        
         [savedStock release];
         
         if(!fileWasSent && fileExists)
         {
-            UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unsubmitted Recording Found" message:@"Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
+            UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unsubmitted Recording" message:@"An unsubmitted recording has been found. Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
             [alert setTag:1];
             [alert addButtonWithTitle:@"Yes"];
             [alert show];
@@ -596,6 +616,7 @@ void propListener(	void *                  inClientData,
     [useStealth release];
     [img_black release];
     [toolbar release];
+    [btn_info release];
 	[super dealloc];
 }
 
