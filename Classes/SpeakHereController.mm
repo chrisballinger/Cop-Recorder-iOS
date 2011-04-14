@@ -75,6 +75,9 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @synthesize lblLoc;
 @synthesize backgroundSupported;
 @synthesize progressView;
+@synthesize useStealth;
+@synthesize img_black;
+@synthesize toolbar;
 
 char *OSTypeToStr(char *buf, OSType t)
 {
@@ -125,6 +128,12 @@ char *OSTypeToStr(char *buf, OSType t)
     }
     else
         [CLController release];
+}
+
+// Draw black rect in stealth mode
+-(void)drawBlack
+{
+    img_black.hidden = NO;
 }
 
 
@@ -305,6 +314,14 @@ char *OSTypeToStr(char *buf, OSType t)
         
         [data writeToFile: path atomically:YES];
         [data release];
+        
+        if(useStealth.on)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Stealth Mode" message:@"When finished recording in Stealth Mode simply close the program to stop." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+            [alert release];
+            [self drawBlack];
+        }
 	}	
 }
 
@@ -418,6 +435,7 @@ void propListener(	void *                  inClientData,
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    img_black.hidden = YES;
     NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* foofile = [documentsPath stringByAppendingPathComponent:@"recordedFile.caf"];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
@@ -445,7 +463,7 @@ void propListener(	void *                  inClientData,
     
     [savedStock release];
     
-    if(!fileWasSent && fileExists)
+    if(!fileWasSent && fileExists && !recorder->IsRunning())
     {
         UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unsubmitted Recording Found" message:@"Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
         [alert setTag:1];
@@ -569,6 +587,9 @@ void propListener(	void *                  inClientData,
     [useLocation release];
     [str_location release];
     [progressView release];
+    [useStealth release];
+    [img_black release];
+    [toolbar release];
 	[super dealloc];
 }
 

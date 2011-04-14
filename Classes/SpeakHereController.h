@@ -82,6 +82,9 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 	CFStringRef					recordFilePath;	
     BOOL                        backgroundSupported;
     UIProgressView *progressView;
+    UISwitch *useStealth;
+    UIImageView *img_black;
+    UIToolbar *toolbar;
 }
 
 @property (nonatomic, retain)	UIBarButtonItem		*btn_record;
@@ -106,11 +109,16 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @property (nonatomic, retain) IBOutlet UISwitch *useLocation;
 @property                       BOOL                backgroundSupported;
 @property (nonatomic, retain) IBOutlet UIProgressView *progressView;
+@property (nonatomic, retain) IBOutlet UISwitch *useStealth;
+@property (nonatomic, retain) IBOutlet UIImageView *img_black;
+@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 
 
 - (IBAction)record: (id) sender;
 - (IBAction)play: (id) sender;
 - (IBAction)send:(id)sender;
 - (IBAction)locationToggle:(id)sender;
+
+- (void) drawBlack;
 
 @end
