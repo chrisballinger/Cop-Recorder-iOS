@@ -471,15 +471,12 @@ void propListener(	void *                  inClientData,
         
         NSFileManager *fileManager = [NSFileManager defaultManager];
         
-        BOOL firstLaunch = false;
-
         
         if (![fileManager fileExistsAtPath: path]) //4
         {
             NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"]; //5
             
             [fileManager copyItemAtPath:bundle toPath: path error:&err]; //6
-            firstLaunch = true;
         }
         
         NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
@@ -487,13 +484,6 @@ void propListener(	void *                  inClientData,
         //load from savedStock example int value
         BOOL fileWasSent;
         fileWasSent = [[savedStock objectForKey:@"fileWasSent"] boolValue];
-        
-        if(firstLaunch)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome, new Watcher!" message:@"Whenever you think you are about to interact with an authority figure or a person in a position of power, start Cop Recorder and press Record. \n\nIf you record audio in Stealth Mode, the screen will go black while recording. When the encounter is over, simply close the application and it will stop the recording. On the next launch it will ask you if you'd like to load your unsubmitted recording. After loading you can preview the recording and submit it to OpenWatch.\n\nFor best audio quality, put the phone in your front shirt pocket, or on a nearby table with the microphone facing upwards.\n\nWhen uploading, please describe the incident. It will be reviewed by the editors and quickly published to OpenWatch.net. If you request, we will remove all of the personally identifiable information we can. No logs are kept on the server.\n\nAll uploads are released under the Creative-Commons-Attribution license.\n\nCourage is contagious!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alert show];
-            [alert release];            
-        }
         
         [savedStock release];
         
@@ -522,6 +512,18 @@ void propListener(	void *                  inClientData,
 	// Allocate our singleton instance for the recorder & player object
 	recorder = new AQRecorder();
 	player = new AQPlayer();
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path]) //4
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome, new Watcher!" message:@"Whenever you think you are about to interact with an authority figure or a person in a position of power, start Cop Recorder and press Record. \n\nIf you record audio in Stealth Mode, the screen will go black while recording. When the encounter is over, simply close the application and it will stop the recording. On the next launch it will ask you if you'd like to load your unsubmitted recording. After loading you can preview the recording and submit it to OpenWatch.\n\nFor best audio quality, put the phone in your front shirt pocket, or on a nearby table with the microphone facing upwards.\n\nWhen uploading, please describe the incident. It will be reviewed by the editors and quickly published to OpenWatch.net. If you request, we will remove all of the personally identifiable information we can. No logs are kept on the server.\n\nAll uploads are released under the Creative-Commons-Attribution license.\n\nCourage is contagious!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];   
+    }
     
     CLController = [[CoreLocationController alloc] init];
 	CLController.delegate = self;
@@ -574,8 +576,6 @@ void propListener(	void *                  inClientData,
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueStopped:) name:@"playbackQueueStopped" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueResumed:) name:@"playbackQueueResumed" object:nil];
 
-	UIColor *bgColor = [[UIColor alloc] initWithRed:.39 green:.44 blue:.57 alpha:.5];
-	[bgColor release];
 	
 	// disable the play button since we have no recording to play yet
 	btn_play.enabled = NO;
