@@ -4,5 +4,11 @@
 <dict>
 	<key>fileWasSent</key>
 	<false/>
+	<key>name</key>
+	<string></string>
+	<key>pub_desc</key>
+	<string></string>
+	<key>priv_desc</key>
+	<string></string>
 </dict>
 </plist>

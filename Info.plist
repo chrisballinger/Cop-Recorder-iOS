@@ -17,7 +17,7 @@
 		<string>icon@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.openwatch.${PRODUCT_NAME:identifier}</string>
+	<string>org.ale.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -32,6 +32,10 @@
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>microphone</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

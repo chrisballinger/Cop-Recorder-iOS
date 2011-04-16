@@ -277,7 +277,6 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile)
 	catch (...) {
 		fprintf(stderr, "An unknown error occurred\n");
 	}	
-
 }
 
 void AQRecorder::StopRecord()

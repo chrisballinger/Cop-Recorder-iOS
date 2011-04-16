@@ -133,7 +133,7 @@ char *OSTypeToStr(char *buf, OSType t)
 
 - (IBAction)info:(id)sender 
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"About Cop Recorder" message:@"Cop Recorder 2 is a subproject of OpenWatch. OpenWatch is a participatory citizen media project aiming to provide documentary evidence of uses and abuses of power.\n\nUntil now, surveillance technology has only been in the hands of those who are already in power, which means it cannot be used to combat the largest problem facing modern society: abuse of power.\n\nSo the question remains: Who watches the watchers? \n\nThis is where OpenWatch comes in. Now, we are all opportunistic journalists. Whenever any of us come in contact with power being used or abused, we can capture it and make it become part of the public record. If we seek truth and justice, we will be able to appeal to documentary evidence, not just our word against theirs. Ideally, this will mean less corruption, more open government and a more transparent society.\n\nOpenWatch is not only intended to display abuse of power, but also to highlight appropriate use. As we are unbound by technological restrictions, we can aim to record every single time power is applied so that we may analyze global trends and provide a record for future historians.\n\nPolice, corporate executives, judges, lawyers, private security agents, lobbyists, bankers, principals and politicians: be mindful! We are watching! \n\n\nCop Recorder is Free and Open Source Software. More information is available at OpenWatch.net\n\nWarning: Use of this program is subject to local laws and regulations. The author is not responsible for any unauthorized use of this program." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"About Cop Recorder" message:@"Cop Recorder is a subproject of OpenWatch. OpenWatch is a participatory citizen media project aiming to provide documentary evidence of uses and abuses of power.\n\nUntil now, surveillance technology has only been in the hands of those who are already in power, which means it cannot be used to combat the largest problem facing modern society: abuse of power.\n\nSo the question remains: Who watches the watchers? \n\nThis is where OpenWatch comes in. Now, we are all opportunistic journalists. Whenever any of us come in contact with power being used or abused, we can capture it and make it become part of the public record. If we seek truth and justice, we will be able to appeal to documentary evidence, not just our word against theirs. Ideally, this will mean less corruption, more open government and a more transparent society.\n\nOpenWatch is not only intended to display abuse of power, but also to highlight appropriate use. As we are unbound by technological restrictions, we can aim to record every single time power is applied so that we may analyze global trends and provide a record for future historians.\n\nPolice, corporate executives, judges, lawyers, private security agents, lobbyists, bankers, principals and politicians: be mindful! We are watching! \n\n\nCop Recorder is Free and Open Source Software. More information is available at OpenWatch.net\n\nWarning: Use of this program is subject to local laws and regulations. The author is not responsible for any unauthorized use of this program." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert release];
 }
@@ -160,29 +160,15 @@ char *OSTypeToStr(char *buf, OSType t)
 }
 
 - (void)stopRecord
-{
-	// Disconnect our level meter from the audio queue
-//	[lvlMeter_in setAq: nil];
-	
+{	
 	recorder->StopRecord();
 	
 	// dispose the previous playback queue
 	player->DisposeQueue(true);
 
 	// now create a new queue for the recorded file
-    
-    /*NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentFolderPath = [searchPaths objectAtIndex: 0];
-    NSString *recordFile = [documentFolderPath stringByAppendingPathComponent: @"recordedFile.caf"];
-    */
-    
-    
-    //recordFilePath = CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)recordFile, NULL, NULL, kCFStringEncodingUTF8 );
-    
-	//recordFilePath = (CFStringRef)[NSTemporaryDirectory() stringByAppendingPathComponent: @"recordedFile.caf"];
 	player->CreateQueueForFile((CFStringRef)@"recordedFile.caf");
     
-	
 	// Set the button's state back to "record"
 	btn_record.title = @"Record";
 	btn_play.enabled = YES;
@@ -317,9 +303,10 @@ char *OSTypeToStr(char *buf, OSType t)
 				
 		// Start the recorder
 		recorder->StartRecord(CFSTR("recordedFile.caf"));
-		
-		[self setFileDescriptionForFormat:recorder->DataFormat() withName:@"Recorded File"];
-		fileDescription.hidden = FALSE;
+        
+
+        [self setFileDescriptionForFormat:recorder->DataFormat() withName:@"Recorded File"];
+        fileDescription.hidden = FALSE;
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
         NSString *documentsDirectory = [paths objectAtIndex:0]; //2
@@ -383,25 +370,6 @@ void propListener(	void *                  inClientData,
 		CFNumberGetValue(reason, kCFNumberSInt32Type, &reasonVal);
 		if (reasonVal != kAudioSessionRouteChangeReason_CategoryChange)
 		{
-			/*CFStringRef oldRoute = (CFStringRef)CFDictionaryGetValue(routeDictionary, CFSTR(kAudioSession_AudioRouteChangeKey_OldRoute));
-			if (oldRoute)	
-			{
-				printf("old route:\n");
-				CFShow(oldRoute);
-			}
-			else 
-				printf("ERROR GETTING OLD AUDIO ROUTE!\n");
-			
-			CFStringRef newRoute;
-			UInt32 size; size = sizeof(CFStringRef);
-			OSStatus error = AudioSessionGetProperty(kAudioSessionProperty_AudioRoute, &size, &newRoute);
-			if (error) printf("ERROR GETTING NEW AUDIO ROUTE! %d\n", error);
-			else
-			{
-				printf("new route:\n");
-				CFShow(newRoute);
-			}*/
-
 			if (reasonVal == kAudioSessionRouteChangeReason_OldDeviceUnavailable)
 			{			
 				if (THIS->player->IsRunning()) {
@@ -422,7 +390,19 @@ void propListener(	void *                  inClientData,
 		if (inDataSize == sizeof(UInt32)) {
 			UInt32 isAvailable = *(UInt32*)inData;
 			// disable recording if input is not available
-			THIS->btn_record.enabled = (isAvailable > 0) ? YES : NO;
+            if(isAvailable > 0)
+            {
+                THIS->btn_record.enabled =  YES;
+                AudioSessionSetActive(true);
+            }
+            else
+            {
+                THIS->btn_record.enabled =  NO;
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Microphone Error" message:@"If you are trying to record on an iPod Touch, headphones with a microphone must be plugged in before you can record." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alert show];
+                [alert release];
+            }
 		}
 	}
 }
@@ -570,7 +550,13 @@ void propListener(	void *                  inClientData,
 		if (error) printf("ERROR ADDING AUDIO SESSION PROP LISTENER! %d\n", error);
 
 		error = AudioSessionSetActive(true); 
-		if (error) printf("AudioSessionSetActive (true) failed");
+		if (error) 
+        {
+            printf("AudioSessionSetActive (true) failed");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Microphone Error" message:@"If you are trying to record on an iPod Touch, headphones with a microphone must be plugged in before you can record." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+            [alert release];
+        }
 	}
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueStopped:) name:@"playbackQueueStopped" object:nil];
