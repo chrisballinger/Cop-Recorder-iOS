@@ -17,6 +17,7 @@
 		28D7ACF80DDB3853001CB0EB /* SpeakHereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */; };
 		D94A6B3F1330668600A91096 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A6B3E1330668600A91096 /* icon.png */; };
 		D94A6B42133066A700A91096 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A6B40133066A700A91096 /* logo.png */; };
+		D99639611369F5840059EBEF /* recording.png in Resources */ = {isa = PBXBuildFile; fileRef = D99639601369F5840059EBEF /* recording.png */; };
 		D996FC621358F165008DEF59 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D996FC611358F165008DEF59 /* icon@2x.png */; };
 		D996FC631358F168008DEF59 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D996FC5F1358F130008DEF59 /* icon@2x.png */; };
 		D9A4C6861331583E009A0CB1 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A4C66F1331583E009A0CB1 /* ASIAuthenticationDialog.m */; };
@@ -69,6 +70,7 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D94A6B3E1330668600A91096 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		D94A6B41133066A700A91096 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/logo.png; sourceTree = "<group>"; };
+		D99639601369F5840059EBEF /* recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recording.png; path = en.lproj/recording.png; sourceTree = "<group>"; };
 		D996FC5F1358F130008DEF59 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		D996FC611358F165008DEF59 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		D9A4C66E1331583E009A0CB1 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D99639601369F5840059EBEF /* recording.png */,
 				D996FC5F1358F130008DEF59 /* icon@2x.png */,
 				D9C718A71357B668004D1F17 /* background.png */,
 				D9C718A91357B668004D1F17 /* background@2x.png */,
@@ -371,6 +374,7 @@
 				D9C718AC1357B668004D1F17 /* background@2x.png in Resources */,
 				D996FC621358F165008DEF59 /* icon@2x.png in Resources */,
 				D996FC631358F168008DEF59 /* icon@2x.png in Resources */,
+				D99639611369F5840059EBEF /* recording.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

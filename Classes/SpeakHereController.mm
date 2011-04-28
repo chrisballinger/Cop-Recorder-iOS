@@ -197,56 +197,11 @@ char *OSTypeToStr(char *buf, OSType t)
 
 - (IBAction)send:(id)sender 
 {
-    if([txtName.text isEqualToString:@""] || [txtPublic.text isEqualToString:@""])
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"More Info Please!" message:@"It appears you are trying to submit a recording without a title or public description.\n\nPlease fill in this information and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
-    }
-    else
-    {
-        // For setting whether or not file was sent properly if application exits
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
-        NSString *documentsDirectory = [paths objectAtIndex:0]; //2
-        NSString *recordingPath = [documentsDirectory stringByAppendingPathComponent:@"recordedFile.caf"];
-        
-        //POST the file to the server using ASIFormDataRequset
-        NSData *recording = [NSData dataWithContentsOfFile:recordingPath]; 
-        NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
-        time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
-        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
-        
-        [request setPostValue:txtName.text forKey:@"name"];
-        [request setPostValue:txtPublic.text forKey:@"public_description"];
-        [request setPostValue:txtPrivate.text forKey:@"private_description"];
-        if(useLocation.on)
-        {
-            //NSLog(str_location);
-            [request setPostValue:str_location forKey:@"location"];
-        }
-        else
-            [request setPostValue:@"None" forKey:@"location"];
-        
-
-
-        [request setTimeOutSeconds:20];
-        
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
-        [request setShouldContinueWhenAppEntersBackground:YES];
-    #endif
-        [request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];
-        progressView.progress = 0.0;
-        progressView.hidden = FALSE;
-        fileDescription.hidden = TRUE;
-        [request setShowAccurateProgress:YES];
-        [request setUploadProgressDelegate:progressView];
-        [request setDelegate:self];
-        [request startAsynchronous];
-        btn_send.title = @"Sending...";
-        btn_send.enabled = FALSE;
-        btn_record.enabled = FALSE;
-        btn_play.enabled = FALSE;
-    }
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Submit to OpenWatch" message:@"Would you like to submit your recording to www.openwatch.net?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
+    [alert setTag:2];
+    [alert addButtonWithTitle:@"Yes"];
+    [alert show];
+    
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request
@@ -422,6 +377,63 @@ void propListener(	void *                  inClientData,
             btn_send.enabled = NO;
         }
     }
+    else if([alertView tag] == 2) // Submit to OpenWatch
+    {
+        if (buttonIndex == 1)
+        {
+            if([txtName.text isEqualToString:@""] || [txtPublic.text isEqualToString:@""])
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"More Info Please!" message:@"It appears you are trying to submit a recording without a title or public description.\n\nPlease fill in this information and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alert show];
+                [alert release];
+            }
+            else
+            {
+                // For setting whether or not file was sent properly if application exits
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+                NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+                NSString *recordingPath = [documentsDirectory stringByAppendingPathComponent:@"recordedFile.caf"];
+                
+                //POST the file to the server using ASIFormDataRequset
+                NSData *recording = [NSData dataWithContentsOfFile:recordingPath]; 
+                NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
+                time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+                ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
+                
+                [request setPostValue:txtName.text forKey:@"name"];
+                [request setPostValue:txtPublic.text forKey:@"public_description"];
+                [request setPostValue:txtPrivate.text forKey:@"private_description"];
+                if(useLocation.on)
+                {
+                    //NSLog(str_location);
+                    [request setPostValue:str_location forKey:@"location"];
+                }
+                else
+                    [request setPostValue:@"None" forKey:@"location"];
+                
+                
+                
+                [request setTimeOutSeconds:20];
+                
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
+                [request setShouldContinueWhenAppEntersBackground:YES];
+#endif
+                [request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];
+                progressView.progress = 0.0;
+                progressView.hidden = FALSE;
+                fileDescription.hidden = TRUE;
+                [request setShowAccurateProgress:YES];
+                [request setUploadProgressDelegate:progressView];
+                [request setDelegate:self];
+                [request startAsynchronous];
+                btn_send.title = @"Sending...";
+                btn_send.enabled = FALSE;
+                btn_record.enabled = FALSE;
+                btn_play.enabled = FALSE;
+            }
+
+        }
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -500,7 +512,7 @@ void propListener(	void *                  inClientData,
     
     if (![fileManager fileExistsAtPath: path]) //4
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome, new Watcher!" message:@"Whenever you think you are about to interact with an authority figure or a person in a position of power, start Cop Recorder and press Record. \n\nIf you record audio in Stealth Mode, the screen will go black while recording. When the encounter is over, simply close the application and it will stop the recording. On the next launch it will ask you if you'd like to load your unsubmitted recording. After loading you can preview the recording and submit it to OpenWatch.\n\nFor best audio quality, put the phone in your front shirt pocket, or on a nearby table with the microphone facing upwards.\n\nWhen uploading, please describe the incident. It will be reviewed by the editors and quickly published to OpenWatch.net. If you request, we will remove all of the personally identifiable information we can. No logs are kept on the server.\n\nAll uploads are released under the Creative-Commons-Attribution license.\n\nCourage is contagious!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome, new Watcher!" message:@"Whenever you think you are about to interact with an authority figure or a person in a position of power, start Cop Recorder and press Record. \n\nThis app will allow you to submit a recording, description, and location to OpenWatch.net.\n\nIf you record audio in Stealth Mode, the screen will go black while recording. When the encounter is over, simply close the application and it will stop the recording. On the next launch it will ask you if you'd like to load your unsubmitted recording. After loading you can preview the recording and submit it to OpenWatch.\n\nFor best audio quality, put the phone in your front shirt pocket, or on a nearby table with the microphone facing upwards.\n\nWhen uploading, please describe the incident. It will be reviewed by the editors and quickly published to OpenWatch.net. If you request, we will remove all of the personally identifiable information we can. No logs are kept on the server.\n\nAll uploads are released under the Creative-Commons-Attribution license.\n\nCourage is contagious!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
         [alert release];   
     }
