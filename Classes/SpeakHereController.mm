@@ -110,6 +110,7 @@ char *OSTypeToStr(char *buf, OSType t)
     str_location = [NSString stringWithFormat:@"%f, %f",location.coordinate.latitude, location.coordinate.longitude];
     [str_location retain];
     //NSLog(str_location);
+    [CLController.locMgr stopUpdatingLocation];
 }
 
 - (void)locationError:(NSError *)error {
