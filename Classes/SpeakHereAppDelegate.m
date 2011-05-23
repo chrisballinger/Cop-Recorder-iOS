@@ -64,7 +64,20 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
     [window makeKeyAndVisible];
     
     CLLocationManager *manager = [[CLLocationManager alloc] init];
-    if ([CLLocationManager locationServicesEnabled] == NO) {
+    
+    BOOL locationAccessAllowed = NO ;
+    if( [CLLocationManager instancesRespondToSelector:@selector(locationServicesEnabled)] )
+    {
+        // iOS 3.x and earlier
+        locationAccessAllowed = manager.locationServicesEnabled ;
+    }
+    else if( [CLLocationManager respondsToSelector:@selector(locationServicesEnabled)] )
+    {
+        // iOS 4.x
+        locationAccessAllowed = [manager locationServicesEnabled] ;
+    }
+    
+    if (locationAccessAllowed == NO) {
         UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled" message:@"You currently have all location services for this device disabled. If you proceed, you will be asked to confirm whether location services should be reenabled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [servicesDisabledAlert show];
         [servicesDisabledAlert release];

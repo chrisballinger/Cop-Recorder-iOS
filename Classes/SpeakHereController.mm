@@ -415,9 +415,10 @@ void propListener(	void *                  inClientData,
                 
                 [request setTimeOutSeconds:20];
                 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
-                [request setShouldContinueWhenAppEntersBackground:YES];
-#endif
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] > 3.13) {
+                    [request setShouldContinueWhenAppEntersBackground:YES];
+                }
+                
                 [request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];
                 progressView.progress = 0.0;
                 progressView.hidden = FALSE;
@@ -528,16 +529,20 @@ void propListener(	void *                  inClientData,
     
     //[self checkFile];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillTerminate:)
+                                                 name:UIApplicationWillTerminateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-          selector:@selector(applicationWillTerminate:)
-          name:UIApplicationWillTerminateNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-          selector:@selector(applicationDidEnterBackground:)
-          name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-          selector:@selector(applicationDidBecomeActive:)
-          name:UIApplicationDidBecomeActiveNotification object:nil];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] > 3.13) 
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(applicationDidEnterBackground:)
+                                                     name:UIApplicationDidEnterBackgroundNotification object:nil];
+    }
+
     
 	OSStatus error = AudioSessionInitialize(NULL, NULL, interruptionListener, self);
 	if (error) printf("ERROR INITIALIZING AUDIO SESSION! %d\n", error);
