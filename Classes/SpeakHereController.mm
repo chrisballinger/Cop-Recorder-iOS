@@ -143,6 +143,9 @@ char *OSTypeToStr(char *buf, OSType t)
 -(void)drawBlack
 {
     img_black.hidden = NO;
+    txtName.hidden = YES;
+    txtPrivate.hidden = YES;
+    txtPublic.hidden = YES;
 }
 
 
