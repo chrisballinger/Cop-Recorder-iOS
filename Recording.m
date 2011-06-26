@@ -7,7 +7,8 @@
 //
 
 #import "Recording.h"
-
+#import "ASIFormDataRequest.h"
+#import "LecturePlayerViewController.h"
 
 @implementation Recording
 
@@ -29,6 +30,7 @@
     newRecording.location = location;
     newRecording.date = date;
     newRecording.url = url;
+    newRecording.isSubmitted = NO;
     
     return newRecording;
 }
@@ -70,9 +72,9 @@
     [metadata setObject:publicDescription forKey:@"publicDescription"];
     [metadata setObject:privateDescription forKey:@"privateDescription"];
     if(isSubmitted)
-        [metadata setValue:YES forKey:@"isSubmitted"];
+        [metadata setObject:[NSNumber numberWithBool:YES] forKey:@"isSubmitted"];
     else
-        [metadata setValue:NO forKey:@"isSubmitted"];
+        [metadata setObject:[NSNumber numberWithBool:NO] forKey:@"isSubmitted"];
     [metadata writeToFile:metadataPath atomically:YES];
 }
 
@@ -88,6 +90,45 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:cafPath error:nil];
     [fileManager removeItemAtPath:plistPath error:nil];
+}
+
+- (void)submitRecordingWithDelegate:(id)delegate;
+{
+    
+     if([name isEqualToString:@""] || [publicDescription isEqualToString:@""])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"More Info Please!" message:@"It appears you are trying to submit a recording without a title or public description.\n\nPlease fill in this information and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+    }
+    else
+    {
+        //POST the file to the server using ASIFormDataRequset
+        NSData *recording = [NSData dataWithContentsOfURL:url];
+        NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
+        time_t unixTime = (time_t) [date timeIntervalSince1970];
+        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
+        
+        [request setPostValue:name forKey:@"name"];
+        [request setPostValue:publicDescription forKey:@"public_description"];
+        [request setPostValue:privateDescription forKey:@"private_description"];
+        [request setPostValue:location forKey:@"location"];
+                
+        //[request setTimeOutSeconds:20];
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] > 3.13) {
+            [request setShouldContinueWhenAppEntersBackground:YES];
+        }
+        
+        LecturePlayerViewController* lecturePlayer = (LecturePlayerViewController*)delegate;
+        [request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];
+        lecturePlayer.progressView.progress = 0.0;
+        lecturePlayer.progressView.hidden = FALSE;
+        [request setShowAccurateProgress:YES];
+        [request setUploadProgressDelegate:lecturePlayer.progressView];
+        [request setDelegate:lecturePlayer];
+        [request startAsynchronous];
+    }
 }
 
 -(void)dealloc

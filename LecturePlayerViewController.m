@@ -7,11 +7,13 @@
 //
 
 #import "LecturePlayerViewController.h"
-
+#import "ASIFormDataRequest.h"
 
 @implementation LecturePlayerViewController
+@synthesize submitLabel;
 @synthesize durationLabel;
 @synthesize currentTimeLabel;
+@synthesize progressView;
 @synthesize privateDescriptionTextField;
 @synthesize publicDescriptionTextField;
 @synthesize nameTextField;
@@ -46,6 +48,8 @@
     [nameTextField release];
     [publicDescriptionTextField release];
     [privateDescriptionTextField release];
+    [progressView release];
+    [submitLabel release];
     [super dealloc];
 }
 
@@ -83,6 +87,12 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
     self.title = [recording.date description];
     
+    
+    if(recording.isSubmitted)
+    {
+        submitLabel.text = @"Previously Submitted";
+        submitLabel.textColor = [UIColor greenColor];
+    }
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
@@ -97,20 +107,17 @@
 
 - (void)viewDidUnload
 {
-    [self setTitleLabel:nil];
-    [self setClassLabel:nil];
-    [self setSchoolLabel:nil];
-    [self setDateLabel:nil];
     [self setDurationLabel:nil];
     [self setCurrentTimeLabel:nil];
     [self setPlayerSlider:nil];
-    [self setSubmitLabel:nil];
     [self setPlayButton:nil];
     [self setStopButton:nil];
     [self setSubmitButton:nil];
     [self setNameTextField:nil];
     [self setPublicDescriptionTextField:nil];
     [self setPrivateDescriptionTextField:nil];
+    [self setProgressView:nil];
+    [self setSubmitLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -157,8 +164,21 @@
     [self updateElapsedTime:nil];
 }
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1)
+    {
+        [recording submitRecordingWithDelegate:self];
+    }
+}
 
-- (IBAction)submitPressed:(id)sender {
+- (IBAction)submitPressed:(id)sender 
+{
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Submit to OpenWatch" message:@"Would you like to submit your recording to www.openwatch.net?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
+    [alert addButtonWithTitle:@"Yes"];
+    [alert show];
+    
+    submitLabel.text = @"Submitting...";
+    submitLabel.textColor = [UIColor whiteColor];
 }
 
 - (IBAction)playPressed:(id)sender 
@@ -199,6 +219,32 @@
     recording.publicDescription = publicDescriptionTextField.text;
     [recording saveMetadata];
     return YES;
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Complete" message:@"The recording was uploaded successfully to www.openwatch.net" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
+    
+    // Set TRUE if file was sent properly
+    recording.isSubmitted = YES;
+    [recording saveMetadata];
+    
+    submitLabel.text = @"Submission successful!";
+    submitLabel.textColor = [UIColor greenColor];
+    progressView.hidden = TRUE;
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Error" message:@"Upload failed, please check your internet connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
+
+    submitLabel.text = @"Submission failed!";
+    submitLabel.textColor = [UIColor redColor];
+    progressView.hidden = TRUE;
 }
 
 @end

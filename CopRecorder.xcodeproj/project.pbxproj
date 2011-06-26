@@ -25,6 +25,10 @@
 		D9839B7C13B6CF8800B3B20C /* StealthModeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9839B7913B6CF8800B3B20C /* StealthModeViewController.xib */; };
 		D9839B7E13B6D08600B3B20C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9839B7D13B6D08600B3B20C /* AVFoundation.framework */; };
 		D9839B8713B6D11D00B3B20C /* RecordingsListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D9839B8513B6D11D00B3B20C /* RecordingsListViewController.mm */; };
+		D9839BA013B6DBFD00B3B20C /* textureme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9839B9E13B6DBFD00B3B20C /* textureme@2x.png */; };
+		D9839BA113B6DBFD00B3B20C /* textureme.png in Resources */ = {isa = PBXBuildFile; fileRef = D9839B9F13B6DBFD00B3B20C /* textureme.png */; };
+		D9839BA413B6DD0B00B3B20C /* stripey.png in Resources */ = {isa = PBXBuildFile; fileRef = D9839BA213B6DD0B00B3B20C /* stripey.png */; };
+		D9839BA513B6DD0B00B3B20C /* stripey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9839BA313B6DD0B00B3B20C /* stripey@2x.png */; };
 		D99639611369F5840059EBEF /* recording.png in Resources */ = {isa = PBXBuildFile; fileRef = D99639601369F5840059EBEF /* recording.png */; };
 		D996FC621358F165008DEF59 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D996FC611358F165008DEF59 /* icon@2x.png */; };
 		D996FC631358F168008DEF59 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D996FC5F1358F130008DEF59 /* icon@2x.png */; };
@@ -90,6 +94,10 @@
 		D9839B7D13B6D08600B3B20C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D9839B8513B6D11D00B3B20C /* RecordingsListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecordingsListViewController.mm; sourceTree = "<group>"; };
 		D9839B8613B6D11D00B3B20C /* RecordingsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingsListViewController.h; sourceTree = "<group>"; };
+		D9839B9E13B6DBFD00B3B20C /* textureme@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textureme@2x.png"; sourceTree = "<group>"; };
+		D9839B9F13B6DBFD00B3B20C /* textureme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textureme.png; sourceTree = "<group>"; };
+		D9839BA213B6DD0B00B3B20C /* stripey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stripey.png; sourceTree = "<group>"; };
+		D9839BA313B6DD0B00B3B20C /* stripey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stripey@2x.png"; sourceTree = "<group>"; };
 		D99639601369F5840059EBEF /* recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recording.png; path = en.lproj/recording.png; sourceTree = "<group>"; };
 		D996FC5F1358F130008DEF59 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		D996FC611358F165008DEF59 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
@@ -237,6 +245,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D9839BA213B6DD0B00B3B20C /* stripey.png */,
+				D9839BA313B6DD0B00B3B20C /* stripey@2x.png */,
+				D9839B9E13B6DBFD00B3B20C /* textureme@2x.png */,
+				D9839B9F13B6DBFD00B3B20C /* textureme.png */,
 				D99639601369F5840059EBEF /* recording.png */,
 				D996FC5F1358F130008DEF59 /* icon@2x.png */,
 				D9C718A71357B668004D1F17 /* background.png */,
@@ -411,6 +423,10 @@
 				D9839B7A13B6CF8800B3B20C /* LecturePlayerViewController.xib in Resources */,
 				D9839B7B13B6CF8800B3B20C /* RecordingsListViewController.xib in Resources */,
 				D9839B7C13B6CF8800B3B20C /* StealthModeViewController.xib in Resources */,
+				D9839BA013B6DBFD00B3B20C /* textureme@2x.png in Resources */,
+				D9839BA113B6DBFD00B3B20C /* textureme.png in Resources */,
+				D9839BA413B6DD0B00B3B20C /* stripey.png in Resources */,
+				D9839BA513B6DD0B00B3B20C /* stripey@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

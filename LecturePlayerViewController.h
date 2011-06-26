@@ -11,7 +11,7 @@
 #import "Recording.h"
 
 
-@interface LecturePlayerViewController : UIViewController <UITextFieldDelegate> {
+@interface LecturePlayerViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate> {
     Recording* recording;
     int duration;
     BOOL isPlaying;
@@ -28,7 +28,10 @@
     UITextField *nameTextField;
     UITextField *publicDescriptionTextField;
     UITextField *privateDescriptionTextField;
+    UIProgressView *progressView;
+    UILabel *submitLabel;
 }
+@property (nonatomic, retain) IBOutlet UIProgressView *progressView;
 @property (nonatomic, retain) IBOutlet UITextField *privateDescriptionTextField;
 @property (nonatomic, retain) IBOutlet UITextField *publicDescriptionTextField;
 @property (nonatomic, retain) IBOutlet UITextField *nameTextField;
@@ -48,5 +51,6 @@
 - (void) updateElapsedTime:(NSTimer *) timer;
 - (void) updateLabel:(UILabel*)label withTime:(NSTimeInterval)time;
 - (IBAction)seek:(id)sender;
+@property (nonatomic, retain) IBOutlet UILabel *submitLabel;
 
 @end

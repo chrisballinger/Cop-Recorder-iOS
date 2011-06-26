@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface Recording : NSObject 
 {
     NSString *name;
@@ -34,5 +33,6 @@
 
 - (void)saveMetadata;
 - (void)deleteFiles;
+- (void)submitRecordingWithDelegate:(id)delegate;
 
 @end

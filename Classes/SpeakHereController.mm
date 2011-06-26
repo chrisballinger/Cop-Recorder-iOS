@@ -428,7 +428,7 @@ void propListener(	void *                  inClientData,
                 NSString *recordingPath = [documentsDirectory stringByAppendingPathComponent:currentFileName];
                 
                 //POST the file to the server using ASIFormDataRequset
-                NSData *recording = [NSData dataWithContentsOfFile:recordingPath]; 
+                NSData *recording = [NSData dataWithContentsOfFile:recordingPath];
                 NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
                 time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
                 ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];

@@ -55,7 +55,7 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
 	if (cell == nil)
 	{
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellID] autorelease];
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellID] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 	
@@ -70,6 +70,16 @@
         cell.textLabel.text = [recording.date description];
     else
         cell.textLabel.text = recording.name;
+    
+    if(!recording.isSubmitted)
+    {
+        cell.textLabel.textColor = [UIColor redColor];
+        cell.detailTextLabel.text = @"Not submitted!";
+    }
+    else
+    {
+        cell.detailTextLabel.text = @"Submitted";
+    }
 	return cell;
 }
 
