@@ -173,6 +173,8 @@
         if(!locationSwitch.on)
             recording.location = @"";
         [recording submitRecordingWithDelegate:self];
+        submitLabel.text = @"Submitting...";
+        submitLabel.textColor = [UIColor whiteColor];
     }
 }
 
@@ -181,9 +183,6 @@
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Submit to OpenWatch" message:@"Would you like to submit your recording to www.openwatch.net?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
     [alert addButtonWithTitle:@"Yes"];
     [alert show];
-    
-    submitLabel.text = @"Submitting...";
-    submitLabel.textColor = [UIColor whiteColor];
 }
 
 - (IBAction)playPressed:(id)sender 
