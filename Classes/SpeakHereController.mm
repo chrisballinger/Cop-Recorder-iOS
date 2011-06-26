@@ -81,6 +81,7 @@
 @synthesize toolbar;
 @synthesize btn_info;
 
+@synthesize recordButtonLabel;
 @synthesize currentFileName;
 
 char *OSTypeToStr(char *buf, OSType t)
@@ -158,6 +159,8 @@ char *OSTypeToStr(char *buf, OSType t)
     /*StealthModeViewController *stealthController = [[StealthModeViewController alloc] init];
     [self.navigationController pushViewController:stealthController animated:YES];
     [stealthController release];*/
+    
+    img_black.hidden = NO;
 }
 
 
@@ -190,6 +193,7 @@ char *OSTypeToStr(char *buf, OSType t)
     
 	// Set the button's state back to "record"
 	btn_record.title = @"Record";
+    recordButtonLabel.text = @"Record Audio";
 	btn_play.enabled = YES;
     btn_send.enabled = YES;
 }
@@ -277,6 +281,8 @@ char *OSTypeToStr(char *buf, OSType t)
 		
 		// Set the button's state to "stop"
 		btn_record.title = @"Stop";
+        recordButtonLabel.text = @"Stop Recording";
+
         
         NSDate* date = [NSDate date];
         time_t unixTime = (time_t) [date timeIntervalSince1970];
@@ -297,24 +303,16 @@ char *OSTypeToStr(char *buf, OSType t)
         NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
         NSString* recordingPath = [documentsDirectory stringByAppendingPathComponent:currentFileName];
         NSURL *url = [NSURL fileURLWithPath:recordingPath];
-        Recording *recording = [Recording recordingWithName:txtName.text publicDescription:txtPublic.text privateDescription:txtPrivate.text location:str_location date:date url:url];
+        recording = [Recording recordingWithName:@"" publicDescription:@"" privateDescription:@"" location:@"" date:date url:url];
         [recording saveMetadata];
         
-        // Set FALSE until file is sent properly
-        NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
-        [data setObject:[NSNumber numberWithBool:FALSE] forKey:@"fileWasSent"];
-        
-        [data writeToFile: path atomically:YES];
-        [data release];
-        
-        if(useStealth.on)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Stealth Mode" message:@"When finished recording in Stealth Mode simply close the program to stop." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alert show];
-            [alert release];
-            [self drawBlack];
-            [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
-        }
+
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Stealth Mode" message:@"When finished recording in Stealth Mode simply close the program to stop." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+        [self drawBlack];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+
 	}	
 }
 
@@ -659,6 +657,7 @@ void propListener(	void *                  inClientData,
     [img_black release];
     [toolbar release];
     [btn_info release];
+    [recordButtonLabel release];
 	[super dealloc];
 }
 

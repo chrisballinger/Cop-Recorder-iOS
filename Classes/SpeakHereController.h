@@ -53,6 +53,7 @@
 #import "AQPlayer.h"
 #import "AQRecorder.h"
 #import "CoreLocationController.h"
+#import "Recording.h"
 
 @interface SpeakHereController : NSObject <CoreLocationControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate> {
     
@@ -88,9 +89,13 @@
     UIButton *btn_info;
     
     NSString* currentFileName;
+    UILabel *recordButtonLabel;
+    
+    Recording *recording;
 }
 
 
+@property (nonatomic, retain) IBOutlet UILabel *recordButtonLabel;
 
 @property (nonatomic, retain)     NSString* currentFileName;
 @property (nonatomic, retain)	UIBarButtonItem		*btn_record;
