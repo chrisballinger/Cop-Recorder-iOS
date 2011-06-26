@@ -88,8 +88,25 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
         [servicesDisabledAlert release];
     }
     [manager release];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
+    NSString *documentsDirectory = [paths objectAtIndex:0]; //2
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    
+    if (![fileManager fileExistsAtPath: path]) //4
+    {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"]; //5
+        
+        [fileManager copyItemAtPath:bundle toPath: path error:nil]; //6
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome, new Watcher!" message:@"Whenever you think you are about to interact with an authority figure or a person in a position of power, start Cop Recorder and press Record. \n\nThis app will allow you to submit a recording, description, and location to OpenWatch.net.\n\nIf you record audio in Stealth Mode, the screen will go black while recording. When the encounter is over, simply close the application and it will stop the recording. On the next launch it will ask you if you'd like to load your unsubmitted recording. After loading you can preview the recording and submit it to OpenWatch.\n\nFor best audio quality, put the phone in your front shirt pocket, or on a nearby table with the microphone facing upwards.\n\nWhen uploading, please describe the incident. It will be reviewed by the editors and quickly published to OpenWatch.net. If you request, we will remove all of the personally identifiable information we can. No logs are kept on the server.\n\nAll uploads are released under the Creative-Commons-Attribution license.\n\nCourage is contagious!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];  
+    }
 }
-
 
 - (void)dealloc {
     [viewController release];

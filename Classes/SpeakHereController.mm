@@ -546,9 +546,7 @@ void propListener(	void *                  inClientData,
     
     if (![fileManager fileExistsAtPath: path]) //4
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome, new Watcher!" message:@"Whenever you think you are about to interact with an authority figure or a person in a position of power, start Cop Recorder and press Record. \n\nThis app will allow you to submit a recording, description, and location to OpenWatch.net.\n\nIf you record audio in Stealth Mode, the screen will go black while recording. When the encounter is over, simply close the application and it will stop the recording. On the next launch it will ask you if you'd like to load your unsubmitted recording. After loading you can preview the recording and submit it to OpenWatch.\n\nFor best audio quality, put the phone in your front shirt pocket, or on a nearby table with the microphone facing upwards.\n\nWhen uploading, please describe the incident. It will be reviewed by the editors and quickly published to OpenWatch.net. If you request, we will remove all of the personally identifiable information we can. No logs are kept on the server.\n\nAll uploads are released under the Creative-Commons-Attribution license.\n\nCourage is contagious!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        [alert release];   
+         
     }
     
     CLController = [[CoreLocationController alloc] init];

@@ -2,13 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>fileWasSent</key>
+	<key>firstLaunch</key>
 	<false/>
-	<key>name</key>
-	<string></string>
-	<key>pub_desc</key>
-	<string></string>
-	<key>priv_desc</key>
-	<string></string>
 </dict>
 </plist>
