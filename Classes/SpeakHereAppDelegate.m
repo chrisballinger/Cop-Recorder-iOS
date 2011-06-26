@@ -50,6 +50,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 #import "SpeakHereAppDelegate.h"
 #import "SpeakHereViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import "Recording.h"
 
 @implementation SpeakHereAppDelegate
 
@@ -106,6 +107,27 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
         [alert show];
         [alert release];  
     }
+    
+    NSString *legacyFilePath = [documentsDirectory stringByAppendingPathComponent:@"recordedFile.caf"];
+    if([fileManager fileExistsAtPath:legacyFilePath])
+    {
+        NSError *error;
+        NSDictionary *attributes = [fileManager attributesOfItemAtPath:legacyFilePath error:&error];
+        NSDate *creationDate = [attributes objectForKey:NSFileCreationDate];
+        NSString *newName = [NSString stringWithFormat:@"%d.caf",(int)[creationDate timeIntervalSince1970]];
+        NSString *newPath = [documentsDirectory stringByAppendingPathComponent:newName];
+        NSURL *url = [NSURL URLWithString:newPath];
+        if(error)
+            NSLog(@"%@",error);
+        
+        [fileManager moveItemAtPath:legacyFilePath toPath:newPath error:&error];
+        if(error)
+            NSLog(@"%@",error);
+        Recording *recording = [Recording recordingWithName:@"" publicDescription:@"" privateDescription:@"" location:@"" date:creationDate url:url];
+        [recording saveMetadata];
+    }
+    
+    [fileManager release];
 }
 
 - (void)dealloc {

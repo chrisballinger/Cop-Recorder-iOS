@@ -30,7 +30,9 @@
     UITextField *privateDescriptionTextField;
     UIProgressView *progressView;
     UILabel *submitLabel;
+    UISwitch *locationSwitch;
 }
+@property (nonatomic, retain) IBOutlet UISwitch *locationSwitch;
 @property (nonatomic, retain) IBOutlet UIProgressView *progressView;
 @property (nonatomic, retain) IBOutlet UITextField *privateDescriptionTextField;
 @property (nonatomic, retain) IBOutlet UITextField *publicDescriptionTextField;
