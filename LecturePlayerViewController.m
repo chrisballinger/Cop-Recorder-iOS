@@ -143,7 +143,6 @@
     }
     if(!isPlaying)
     {
-        stopButton.enabled = NO;
         playButton.title = @"Play";
         playButton.enabled = YES;
     }
@@ -193,6 +192,7 @@
         playButton.title = @"Pause";
         stopButton.enabled = YES;
         isPlaying = YES;
+        
     }
     else
     {
