@@ -13,6 +13,7 @@
 @synthesize submitLabel;
 @synthesize durationLabel;
 @synthesize currentTimeLabel;
+@synthesize locationSwitch;
 @synthesize progressView;
 @synthesize privateDescriptionTextField;
 @synthesize publicDescriptionTextField;
@@ -50,6 +51,7 @@
     [privateDescriptionTextField release];
     [progressView release];
     [submitLabel release];
+    [locationSwitch release];
     [super dealloc];
 }
 
@@ -118,6 +120,7 @@
     [self setPrivateDescriptionTextField:nil];
     [self setProgressView:nil];
     [self setSubmitLabel:nil];
+    [self setLocationSwitch:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -167,6 +170,8 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1)
     {
+        if(!locationSwitch.on)
+            recording.location = @"";
         [recording submitRecordingWithDelegate:self];
     }
 }
