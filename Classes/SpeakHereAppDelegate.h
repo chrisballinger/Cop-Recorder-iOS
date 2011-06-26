@@ -54,10 +54,12 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @interface SpeakHereAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     SpeakHereViewController *viewController;
+    UINavigationController *navController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet SpeakHereViewController *viewController;
+@property (nonatomic, retain) UINavigationController *navController;
 
 @end
 

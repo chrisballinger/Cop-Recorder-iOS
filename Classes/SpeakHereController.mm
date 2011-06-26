@@ -1,55 +1,56 @@
 //
 /*
-
-    File: SpeakHereController.mm
-Abstract: n/a
+ 
+ File: SpeakHereController.mm
+ Abstract: n/a
  Version: 2.4
-
-Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
-Inc. ("Apple") in consideration of your agreement to the following
-terms, and your use, installation, modification or redistribution of
-this Apple software constitutes acceptance of these terms.  If you do
-not agree with these terms, please do not use, install, modify or
-redistribute this Apple software.
-
-In consideration of your agreement to abide by the following terms, and
-subject to these terms, Apple grants you a personal, non-exclusive
-license, under Apple's copyrights in this original Apple software (the
-"Apple Software"), to use, reproduce, modify and redistribute the Apple
-Software, with or without modifications, in source and/or binary forms;
-provided that if you redistribute the Apple Software in its entirety and
-without modifications, you must retain this notice and the following
-text and disclaimers in all such redistributions of the Apple Software.
-Neither the name, trademarks, service marks or logos of Apple Inc. may
-be used to endorse or promote products derived from the Apple Software
-without specific prior written permission from Apple.  Except as
-expressly stated in this notice, no other rights or licenses, express or
-implied, are granted by Apple herein, including but not limited to any
-patent rights that may be infringed by your derivative works or by other
-works in which the Apple Software may be incorporated.
-
-The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
-MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
-THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
-FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
-OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
-
-IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
-OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION,
-MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED
-AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
-STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
-
-Copyright (C) 2009 Apple Inc. All Rights Reserved.
-
-
-*/
+ 
+ Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
+ Inc. ("Apple") in consideration of your agreement to the following
+ terms, and your use, installation, modification or redistribution of
+ this Apple software constitutes acceptance of these terms.  If you do
+ not agree with these terms, please do not use, install, modify or
+ redistribute this Apple software.
+ 
+ In consideration of your agreement to abide by the following terms, and
+ subject to these terms, Apple grants you a personal, non-exclusive
+ license, under Apple's copyrights in this original Apple software (the
+ "Apple Software"), to use, reproduce, modify and redistribute the Apple
+ Software, with or without modifications, in source and/or binary forms;
+ provided that if you redistribute the Apple Software in its entirety and
+ without modifications, you must retain this notice and the following
+ text and disclaimers in all such redistributions of the Apple Software.
+ Neither the name, trademarks, service marks or logos of Apple Inc. may
+ be used to endorse or promote products derived from the Apple Software
+ without specific prior written permission from Apple.  Except as
+ expressly stated in this notice, no other rights or licenses, express or
+ implied, are granted by Apple herein, including but not limited to any
+ patent rights that may be infringed by your derivative works or by other
+ works in which the Apple Software may be incorporated.
+ 
+ The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
+ MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
+ THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
+ FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
+ OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
+ 
+ IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
+ OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION,
+ MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED
+ AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
+ STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+ 
+ Copyright (C) 2009 Apple Inc. All Rights Reserved.
+ 
+ 
+ */
 
 #import "SpeakHereController.h"
 #import "ASIFormDataRequest.h"
+#import "Recording.h"
 
 @implementation SpeakHereController
 
@@ -80,6 +81,8 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @synthesize toolbar;
 @synthesize btn_info;
 
+@synthesize currentFileName;
+
 char *OSTypeToStr(char *buf, OSType t)
 {
 	char *p = buf;
@@ -104,6 +107,16 @@ char *OSTypeToStr(char *buf, OSType t)
 	NSString* description = [[NSString alloc] initWithFormat:@"(%d ch. %s @ %g Hz)", format.NumberChannels(), dataFormat, format.mSampleRate, nil];
 	fileDescription.text = description;
 	[description release];	
+}
+
+-(void)showTutorial
+{
+    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)locationUpdate:(CLLocation *)location {
@@ -142,10 +155,9 @@ char *OSTypeToStr(char *buf, OSType t)
 // Draw black rect in stealth mode
 -(void)drawBlack
 {
-    img_black.hidden = NO;
-    txtName.hidden = YES;
-    txtPrivate.hidden = YES;
-    txtPublic.hidden = YES;
+    /*StealthModeViewController *stealthController = [[StealthModeViewController alloc] init];
+    [self.navigationController pushViewController:stealthController animated:YES];
+    [stealthController release];*/
 }
 
 
@@ -163,15 +175,18 @@ char *OSTypeToStr(char *buf, OSType t)
 	playbackWasPaused = YES;
 }
 
+
+
+
 - (void)stopRecord
 {	
 	recorder->StopRecord();
 	
 	// dispose the previous playback queue
 	player->DisposeQueue(true);
-
+    
 	// now create a new queue for the recorded file
-	player->CreateQueueForFile((CFStringRef)@"recordedFile.caf");
+	player->CreateQueueForFile((CFStringRef)currentFileName);
     
 	// Set the button's state back to "record"
 	btn_record.title = @"Record";
@@ -181,22 +196,25 @@ char *OSTypeToStr(char *buf, OSType t)
 
 - (IBAction)play:(id)sender
 {
-	if (player->IsRunning())
-	{
-		if (playbackWasPaused) {
-			OSStatus result = player->StartQueue(true);
-			if (result == noErr)
-				[[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueResumed" object:self];
-		}
-		else
-			[self stopPlayQueue];
-	}
-	else
-	{		
-		OSStatus result = player->StartQueue(false);
-		if (result == noErr)
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueResumed" object:self];
-	}
+	/*if (player->IsRunning())
+     {
+     if (playbackWasPaused) {
+     OSStatus result = player->StartQueue(true);
+     if (result == noErr)
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueResumed" object:self];
+     }
+     else
+     [self stopPlayQueue];
+     }
+     else
+     {		
+     OSStatus result = player->StartQueue(false);
+     if (result == noErr)
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueResumed" object:self];
+     }*/
+    /*RecordingsListViewController *recordingsListController = [[RecordingsListViewController alloc] init];
+    [self.navigationController pushViewController:recordingsListController animated:YES];
+    [recordingsListController release];*/
 }
 
 - (IBAction)send:(id)sender 
@@ -213,7 +231,7 @@ char *OSTypeToStr(char *buf, OSType t)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
     NSString *documentsDirectory = [paths objectAtIndex:0]; //2
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
-
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Complete" message:@"The recording was uploaded successfully to www.openwatch.net" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert release];
@@ -224,7 +242,7 @@ char *OSTypeToStr(char *buf, OSType t)
     
     [data writeToFile: path atomically:YES];
     [data release];
-
+    
     btn_send.title = @"Send";
     btn_send.enabled = TRUE;
     btn_record.enabled = TRUE;
@@ -259,17 +277,28 @@ char *OSTypeToStr(char *buf, OSType t)
 		
 		// Set the button's state to "stop"
 		btn_record.title = @"Stop";
-				
-		// Start the recorder
-		recorder->StartRecord(CFSTR("recordedFile.caf"));
         
-
+        NSDate* date = [NSDate date];
+        time_t unixTime = (time_t) [date timeIntervalSince1970];
+        currentFileName = [NSString stringWithFormat:@"%d.caf",unixTime];
+        [currentFileName retain];
+        
+		// Start the recorder
+		recorder->StartRecord((CFStringRef)currentFileName);
+        
+        
+        
+        
         [self setFileDescriptionForFormat:recorder->DataFormat() withName:@"Recorded File"];
         fileDescription.hidden = FALSE;
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
         NSString *documentsDirectory = [paths objectAtIndex:0]; //2
         NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
+        NSString* recordingPath = [documentsDirectory stringByAppendingPathComponent:currentFileName];
+        NSURL *url = [NSURL fileURLWithPath:recordingPath];
+        Recording *recording = [Recording recordingWithName:txtName.text publicDescription:txtPublic.text privateDescription:txtPrivate.text location:str_location date:date url:url];
+        [recording saveMetadata];
         
         // Set FALSE until file is sent properly
         NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
@@ -291,7 +320,7 @@ char *OSTypeToStr(char *buf, OSType t)
 
 #pragma mark AudioSession listeners
 void interruptionListener(	void *	inClientData,
-							UInt32	inInterruptionState)
+                          UInt32	inInterruptionState)
 {
 	SpeakHereController *THIS = (SpeakHereController*)inClientData;
 	if (inInterruptionState == kAudioSessionBeginInterruption)
@@ -315,9 +344,9 @@ void interruptionListener(	void *	inClientData,
 }
 
 void propListener(	void *                  inClientData,
-					AudioSessionPropertyID	inID,
-					UInt32                  inDataSize,
-					const void *            inData)
+                  AudioSessionPropertyID	inID,
+                  UInt32                  inDataSize,
+                  const void *            inData)
 {
 	SpeakHereController *THIS = (SpeakHereController*)inClientData;
 	if (inID == kAudioSessionProperty_AudioRouteChange)
@@ -336,7 +365,7 @@ void propListener(	void *                  inClientData,
 					[[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueStopped" object:THIS];
 				}		
 			}
-
+            
 			// stop the queue if we had a non-policy route change
 			if (THIS->recorder->IsRunning()) {
 				[THIS stopRecord];
@@ -371,13 +400,13 @@ void propListener(	void *                  inClientData,
     if ([alertView tag] == 1) {    
         if (buttonIndex == 1) {
             // Enable play/send if an old file was found
-            player->CreateQueueForFile((CFStringRef)@"recordedFile.caf");
+            //player->CreateQueueForFile((CFStringRef)@"recordedFile.caf");
             btn_play.enabled = YES;
             btn_send.enabled = YES;
         }
         else
         {
-            btn_play.enabled = NO;
+            btn_play.enabled = YES;
             btn_send.enabled = NO;
         }
     }
@@ -396,7 +425,7 @@ void propListener(	void *                  inClientData,
                 // For setting whether or not file was sent properly if application exits
                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
                 NSString *documentsDirectory = [paths objectAtIndex:0]; //2
-                NSString *recordingPath = [documentsDirectory stringByAppendingPathComponent:@"recordedFile.caf"];
+                NSString *recordingPath = [documentsDirectory stringByAppendingPathComponent:currentFileName];
                 
                 //POST the file to the server using ASIFormDataRequset
                 NSData *recording = [NSData dataWithContentsOfFile:recordingPath]; 
@@ -417,7 +446,7 @@ void propListener(	void *                  inClientData,
                 
                 
                 
-                [request setTimeOutSeconds:20];
+                //[request setTimeOutSeconds:20];
                 
                 if ([[[UIDevice currentDevice] systemVersion] floatValue] > 3.13) {
                     [request setShouldContinueWhenAppEntersBackground:YES];
@@ -436,7 +465,7 @@ void propListener(	void *                  inClientData,
                 btn_record.enabled = FALSE;
                 btn_play.enabled = FALSE;
             }
-
+            
         }
     }
 }
@@ -502,7 +531,7 @@ void propListener(	void *                  inClientData,
         fileDescription.text = @"";
 	}
 }
-				
+
 #pragma mark Initialization routines
 - (void)awakeFromNib
 {		
@@ -546,7 +575,7 @@ void propListener(	void *                  inClientData,
                                                  selector:@selector(applicationDidEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
-
+    
     
 	OSStatus error = AudioSessionInitialize(NULL, NULL, interruptionListener, self);
 	if (error) printf("ERROR INITIALIZING AUDIO SESSION! %d\n", error);
@@ -555,7 +584,7 @@ void propListener(	void *                  inClientData,
 		UInt32 category = kAudioSessionCategory_PlayAndRecord;	
 		error = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(category), &category);
 		if (error) printf("couldn't set audio category!");
-									
+        
 		error = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, propListener, self);
 		if (error) printf("ERROR ADDING AUDIO SESSION PROP LISTENER! %d\n", error);
 		UInt32 inputAvailable = 0;
@@ -569,7 +598,7 @@ void propListener(	void *                  inClientData,
 		// we also need to listen to see if input availability changes
 		error = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioInputAvailable, propListener, self);
 		if (error) printf("ERROR ADDING AUDIO SESSION PROP LISTENER! %d\n", error);
-
+        
 		error = AudioSessionSetActive(true); 
 		if (error) 
         {
@@ -582,16 +611,15 @@ void propListener(	void *                  inClientData,
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueStopped:) name:@"playbackQueueStopped" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueResumed:) name:@"playbackQueueResumed" object:nil];
-
+    
 	
-	// disable the play button since we have no recording to play yet
-	btn_play.enabled = NO;
+	btn_play.enabled = YES;
     btn_send.enabled = NO;
     
 	playbackWasInterrupted = NO;
 	playbackWasPaused = NO;
     
-
+    
 }
 
 # pragma mark Notification routines

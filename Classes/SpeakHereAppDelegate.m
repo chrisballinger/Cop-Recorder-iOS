@@ -55,12 +55,17 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 @synthesize window;
 @synthesize viewController;
-
+@synthesize navController;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     
+    navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    
+    navController.navigationBarHidden = YES;
+    
+    [window addSubview:navController.view];
+
     // Override point for customization after app launch    
-    [window addSubview:viewController.view];
     [window makeKeyAndVisible];
     
     CLLocationManager *manager = [[CLLocationManager alloc] init];

@@ -17,6 +17,14 @@
 		28D7ACF80DDB3853001CB0EB /* SpeakHereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */; };
 		D94A6B3F1330668600A91096 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A6B3E1330668600A91096 /* icon.png */; };
 		D94A6B42133066A700A91096 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A6B40133066A700A91096 /* logo.png */; };
+		D9839B7213B6CF7700B3B20C /* LecturePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9839B6F13B6CF7700B3B20C /* LecturePlayerViewController.m */; };
+		D9839B7313B6CF7700B3B20C /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = D9839B7113B6CF7700B3B20C /* Recording.m */; };
+		D9839B7613B6CF8000B3B20C /* StealthModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9839B7513B6CF8000B3B20C /* StealthModeViewController.m */; };
+		D9839B7A13B6CF8800B3B20C /* LecturePlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9839B7713B6CF8800B3B20C /* LecturePlayerViewController.xib */; };
+		D9839B7B13B6CF8800B3B20C /* RecordingsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9839B7813B6CF8800B3B20C /* RecordingsListViewController.xib */; };
+		D9839B7C13B6CF8800B3B20C /* StealthModeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9839B7913B6CF8800B3B20C /* StealthModeViewController.xib */; };
+		D9839B7E13B6D08600B3B20C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9839B7D13B6D08600B3B20C /* AVFoundation.framework */; };
+		D9839B8713B6D11D00B3B20C /* RecordingsListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D9839B8513B6D11D00B3B20C /* RecordingsListViewController.mm */; };
 		D99639611369F5840059EBEF /* recording.png in Resources */ = {isa = PBXBuildFile; fileRef = D99639601369F5840059EBEF /* recording.png */; };
 		D996FC621358F165008DEF59 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D996FC611358F165008DEF59 /* icon@2x.png */; };
 		D996FC631358F168008DEF59 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D996FC5F1358F130008DEF59 /* icon@2x.png */; };
@@ -70,6 +78,18 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D94A6B3E1330668600A91096 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		D94A6B41133066A700A91096 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/logo.png; sourceTree = "<group>"; };
+		D9839B6E13B6CF7700B3B20C /* LecturePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LecturePlayerViewController.h; sourceTree = "<group>"; };
+		D9839B6F13B6CF7700B3B20C /* LecturePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LecturePlayerViewController.m; sourceTree = "<group>"; };
+		D9839B7013B6CF7700B3B20C /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
+		D9839B7113B6CF7700B3B20C /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
+		D9839B7413B6CF8000B3B20C /* StealthModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StealthModeViewController.h; sourceTree = "<group>"; };
+		D9839B7513B6CF8000B3B20C /* StealthModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StealthModeViewController.m; sourceTree = "<group>"; };
+		D9839B7713B6CF8800B3B20C /* LecturePlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LecturePlayerViewController.xib; sourceTree = "<group>"; };
+		D9839B7813B6CF8800B3B20C /* RecordingsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordingsListViewController.xib; sourceTree = "<group>"; };
+		D9839B7913B6CF8800B3B20C /* StealthModeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StealthModeViewController.xib; sourceTree = "<group>"; };
+		D9839B7D13B6D08600B3B20C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D9839B8513B6D11D00B3B20C /* RecordingsListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecordingsListViewController.mm; sourceTree = "<group>"; };
+		D9839B8613B6D11D00B3B20C /* RecordingsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingsListViewController.h; sourceTree = "<group>"; };
 		D99639601369F5840059EBEF /* recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recording.png; path = en.lproj/recording.png; sourceTree = "<group>"; };
 		D996FC5F1358F130008DEF59 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		D996FC611358F165008DEF59 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
@@ -134,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9839B7E13B6D08600B3B20C /* AVFoundation.framework in Frameworks */,
 				D9FB6E2613327EED00E8A07C /* CoreLocation.framework in Frameworks */,
 				D9A4C69613315933009A0CB1 /* libz.1.2.3.dylib in Frameworks */,
 				D9A4C69413315927009A0CB1 /* MobileCoreServices.framework in Frameworks */,
@@ -179,6 +200,18 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				D9839B8513B6D11D00B3B20C /* RecordingsListViewController.mm */,
+				D9839B8613B6D11D00B3B20C /* RecordingsListViewController.h */,
+				D9839B7D13B6D08600B3B20C /* AVFoundation.framework */,
+				D9839B7713B6CF8800B3B20C /* LecturePlayerViewController.xib */,
+				D9839B7813B6CF8800B3B20C /* RecordingsListViewController.xib */,
+				D9839B7913B6CF8800B3B20C /* StealthModeViewController.xib */,
+				D9839B7413B6CF8000B3B20C /* StealthModeViewController.h */,
+				D9839B7513B6CF8000B3B20C /* StealthModeViewController.m */,
+				D9839B6E13B6CF7700B3B20C /* LecturePlayerViewController.h */,
+				D9839B6F13B6CF7700B3B20C /* LecturePlayerViewController.m */,
+				D9839B7013B6CF7700B3B20C /* Recording.h */,
+				D9839B7113B6CF7700B3B20C /* Recording.m */,
 				D9A4C66D1331583E009A0CB1 /* ASIHTTPRequest */,
 				D9A4C6821331583E009A0CB1 /* External */,
 				F73FE19D0F743C1900F0F3CC /* ReadMe.txt */,
@@ -375,6 +408,9 @@
 				D996FC621358F165008DEF59 /* icon@2x.png in Resources */,
 				D996FC631358F168008DEF59 /* icon@2x.png in Resources */,
 				D99639611369F5840059EBEF /* recording.png in Resources */,
+				D9839B7A13B6CF8800B3B20C /* LecturePlayerViewController.xib in Resources */,
+				D9839B7B13B6CF8800B3B20C /* RecordingsListViewController.xib in Resources */,
+				D9839B7C13B6CF8800B3B20C /* StealthModeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +440,10 @@
 				D9A4C68D1331583E009A0CB1 /* ASINetworkQueue.m in Sources */,
 				D9A4C68E1331583E009A0CB1 /* Reachability.m in Sources */,
 				D9FB6E321332855C00E8A07C /* CoreLocationController.m in Sources */,
+				D9839B7213B6CF7700B3B20C /* LecturePlayerViewController.m in Sources */,
+				D9839B7313B6CF7700B3B20C /* Recording.m in Sources */,
+				D9839B7613B6CF8000B3B20C /* StealthModeViewController.m in Sources */,
+				D9839B8713B6D11D00B3B20C /* RecordingsListViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
