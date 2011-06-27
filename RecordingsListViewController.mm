@@ -140,6 +140,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self.tableView reloadData];
+    [self.tableView setNeedsDisplay];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 

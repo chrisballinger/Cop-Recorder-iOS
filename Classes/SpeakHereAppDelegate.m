@@ -124,6 +124,29 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
         Recording *recording = [Recording recordingWithName:@"" publicDescription:@"" privateDescription:@"" location:@"" date:creationDate url:url];
         [recording saveMetadata];
     }
+
+    NSDirectoryEnumerator *direnum = [fileManager enumeratorAtPath:documentsDirectory];
+    Recording *newRecording;
+    
+    NSString *filename;
+    BOOL foundUnsubmittedFile = NO;
+    
+    while ((filename = [direnum nextObject] ) && !foundUnsubmittedFile) 
+    {
+        if ([filename hasSuffix:@".audio.plist"]) 
+        {                                   
+            newRecording = [Recording recordingWithFile:filename];
+            if(!newRecording.isSubmitted)
+                foundUnsubmittedFile = YES;
+            //[newRecording release];
+        }
+    }
+    if(foundUnsubmittedFile)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unsubmitted Recording Found!" message:@"Would you like to view your unsubmitted recordings?" delegate:navController.topViewController cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alert show];
+        [alert release];
+    }
     
     [fileManager release];
 }

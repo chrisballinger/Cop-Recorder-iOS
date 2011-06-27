@@ -58,7 +58,7 @@
 @synthesize recorder;
 @synthesize CLController;
 
-@synthesize str_location;
+//@synthesize str_location;
 
 @synthesize btn_record;
 @synthesize btn_play;
@@ -121,8 +121,9 @@ char *OSTypeToStr(char *buf, OSType t)
 }
 
 - (void)locationUpdate:(CLLocation *)location {
-    str_location = [NSString stringWithFormat:@"%f, %f",location.coordinate.latitude, location.coordinate.longitude];
-    [str_location retain];
+    recording.location = [NSString stringWithFormat:@"%f, %f",location.coordinate.latitude, location.coordinate.longitude];
+    [recording saveMetadata];
+    //[str_location retain];
     //NSLog(str_location);
     [CLController.locMgr stopUpdatingLocation];
 }

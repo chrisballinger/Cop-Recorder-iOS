@@ -107,7 +107,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *lblPub;
 @property (nonatomic, retain) IBOutlet UILabel *lblLoc;
 
-@property (nonatomic, retain) NSString*             str_location;
+//@property (nonatomic, retain) NSString*             str_location;
 
 @property (readonly)			AQPlayer			*player;
 @property (readonly)			AQRecorder			*recorder;

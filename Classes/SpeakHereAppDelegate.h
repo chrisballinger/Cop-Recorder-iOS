@@ -51,7 +51,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 @class SpeakHereViewController;
 
-@interface SpeakHereAppDelegate : NSObject <UIApplicationDelegate> {
+@interface SpeakHereAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate> {
     UIWindow *window;
     SpeakHereViewController *viewController;
     UINavigationController *navController;

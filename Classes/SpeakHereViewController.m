@@ -90,6 +90,13 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 }
 */
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1)
+    {
+        [self playPressed:nil];
+    }
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
@@ -108,5 +115,6 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 - (IBAction)playPressed:(id)sender {
     RecordingsListViewController *recordingListController = [[RecordingsListViewController alloc] init];
     [self.navigationController pushViewController:recordingListController animated:YES];
+    [recordingListController release];
 }
 @end
