@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Recording : NSObject 
+@interface Recording : NSObject
 {
     NSString *name;
     NSString *publicDescription;
@@ -17,7 +17,7 @@
     NSDate *date;
     BOOL isSubmitted;
     NSURL *url;
-} 
+}
 
 
 @property (nonatomic, retain) NSString *name;

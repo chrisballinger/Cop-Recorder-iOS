@@ -1,17 +1,17 @@
 //
 /*
- 
+
  File: SpeakHereController.mm
  Abstract: n/a
  Version: 2.4
- 
+
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
  terms, and your use, installation, modification or redistribution of
  this Apple software constitutes acceptance of these terms.  If you do
  not agree with these terms, please do not use, install, modify or
  redistribute this Apple software.
- 
+
  In consideration of your agreement to abide by the following terms, and
  subject to these terms, Apple grants you a personal, non-exclusive
  license, under Apple's copyrights in this original Apple software (the
@@ -27,13 +27,13 @@
  implied, are granted by Apple herein, including but not limited to any
  patent rights that may be infringed by your derivative works or by other
  works in which the Apple Software may be incorporated.
- 
+
  The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
  MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
  THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
  FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
  OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
- 
+
  IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
@@ -42,10 +42,10 @@
  AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
- 
+
  Copyright (C) 2009 Apple Inc. All Rights Reserved.
- 
- 
+
+
  */
 
 #import "SpeakHereController.h"
@@ -107,12 +107,12 @@ char *OSTypeToStr(char *buf, OSType t)
 	const char *dataFormat = OSTypeToStr(buf, format.mFormatID);
 	NSString* description = [[NSString alloc] initWithFormat:@"(%d ch. %s @ %g Hz)", format.NumberChannels(), dataFormat, format.mSampleRate, nil];
 	fileDescription.text = description;
-	[description release];	
+	[description release];
 }
 
 -(void)showTutorial
 {
-    
+
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -135,7 +135,7 @@ char *OSTypeToStr(char *buf, OSType t)
     [useLocation setOn:NO];
 }
 
-- (IBAction)locationToggle:(id)sender 
+- (IBAction)locationToggle:(id)sender
 {
     if(useLocation.on)
     {
@@ -147,7 +147,7 @@ char *OSTypeToStr(char *buf, OSType t)
         [CLController release];
 }
 
-- (IBAction)info:(id)sender 
+- (IBAction)info:(id)sender
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"About Cop Recorder" message:@"Cop Recorder is a subproject of OpenWatch. OpenWatch is a participatory citizen media project aiming to provide documentary evidence of uses and abuses of power.\n\nUntil now, surveillance technology has only been in the hands of those who are already in power, which means it cannot be used to combat the largest problem facing modern society: abuse of power.\n\nSo the question remains: Who watches the watchers? \n\nThis is where OpenWatch comes in. Now, we are all opportunistic journalists. Whenever any of us come in contact with power being used or abused, we can capture it and make it become part of the public record. If we seek truth and justice, we will be able to appeal to documentary evidence, not just our word against theirs. Ideally, this will mean less corruption, more open government and a more transparent society.\n\nOpenWatch is not only intended to display abuse of power, but also to highlight appropriate use. As we are unbound by technological restrictions, we can aim to record every single time power is applied so that we may analyze global trends and provide a record for future historians.\n\nPolice, corporate executives, judges, lawyers, private security agents, lobbyists, bankers, principals and politicians: be mindful! We are watching! \n\n\nCop Recorder is Free and Open Source Software. More information is available at OpenWatch.net\n\nWarning: Use of this program is subject to local laws and regulations. The author is not responsible for any unauthorized use of this program." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
@@ -160,7 +160,7 @@ char *OSTypeToStr(char *buf, OSType t)
     /*StealthModeViewController *stealthController = [[StealthModeViewController alloc] init];
     [self.navigationController pushViewController:stealthController animated:YES];
     [stealthController release];*/
-    
+
     img_black.hidden = NO;
 }
 
@@ -183,15 +183,15 @@ char *OSTypeToStr(char *buf, OSType t)
 
 
 - (void)stopRecord
-{	
+{
 	recorder->StopRecord();
-	
+
 	// dispose the previous playback queue
 	player->DisposeQueue(true);
-    
+
 	// now create a new queue for the recorded file
 	player->CreateQueueForFile((CFStringRef)currentFileName);
-    
+
 	// Set the button's state back to "record"
 	btn_record.title = @"Record";
     recordButtonLabel.text = @"Record Audio";
@@ -212,7 +212,7 @@ char *OSTypeToStr(char *buf, OSType t)
      [self stopPlayQueue];
      }
      else
-     {		
+     {
      OSStatus result = player->StartQueue(false);
      if (result == noErr)
      [[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueResumed" object:self];
@@ -222,13 +222,13 @@ char *OSTypeToStr(char *buf, OSType t)
     [recordingsListController release];*/
 }
 
-- (IBAction)send:(id)sender 
+- (IBAction)send:(id)sender
 {
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Submit to OpenWatch" message:@"Would you like to submit your recording to www.openwatch.net?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
     [alert setTag:2];
     [alert addButtonWithTitle:@"Yes"];
     [alert show];
-    
+
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request
@@ -236,18 +236,18 @@ char *OSTypeToStr(char *buf, OSType t)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
     NSString *documentsDirectory = [paths objectAtIndex:0]; //2
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
-    
+
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Complete" message:@"The recording was uploaded successfully to www.openwatch.net" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert release];
-    
+
     // Set TRUE if file was sent properly
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
     [data setObject:[NSNumber numberWithBool:TRUE] forKey:@"fileWasSent"];
-    
+
     [data writeToFile: path atomically:YES];
     [data release];
-    
+
     btn_send.title = @"Send";
     btn_send.enabled = TRUE;
     btn_record.enabled = TRUE;
@@ -260,7 +260,7 @@ char *OSTypeToStr(char *buf, OSType t)
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Error" message:@"Upload failed, please check your internet connection and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert release];
-    
+
     btn_send.title = @"Send";
     btn_send.enabled = TRUE;
     btn_record.enabled = TRUE;
@@ -277,28 +277,28 @@ char *OSTypeToStr(char *buf, OSType t)
 	}
 	else // If we're not recording, start.
 	{
-		btn_play.enabled = NO;	
+		btn_play.enabled = NO;
         btn_send.enabled = NO;
-		
+
 		// Set the button's state to "stop"
 		btn_record.title = @"Stop";
         recordButtonLabel.text = @"Stop Recording";
 
-        
+
         NSDate* date = [NSDate date];
         time_t unixTime = (time_t) [date timeIntervalSince1970];
         currentFileName = [NSString stringWithFormat:@"%d.caf",unixTime];
         [currentFileName retain];
-        
+
 		// Start the recorder
 		recorder->StartRecord((CFStringRef)currentFileName);
-        
-        
-        
-        
+
+
+
+
         [self setFileDescriptionForFormat:recorder->DataFormat() withName:@"Recorded File"];
         fileDescription.hidden = FALSE;
-        
+
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
         NSString *documentsDirectory = [paths objectAtIndex:0]; //2
         NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
@@ -306,7 +306,7 @@ char *OSTypeToStr(char *buf, OSType t)
         NSURL *url = [NSURL fileURLWithPath:recordingPath];
         recording = [Recording recordingWithName:@"" publicDescription:@"" privateDescription:@"" location:@"" date:date url:url];
         [recording saveMetadata];
-        
+
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Stealth Mode" message:@"When finished recording in Stealth Mode simply close the program to stop." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
@@ -314,7 +314,7 @@ char *OSTypeToStr(char *buf, OSType t)
         [self drawBlack];
         [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
 
-	}	
+	}
 }
 
 #pragma mark AudioSession listeners
@@ -350,7 +350,7 @@ void propListener(	void *                  inClientData,
 	SpeakHereController *THIS = (SpeakHereController*)inClientData;
 	if (inID == kAudioSessionProperty_AudioRouteChange)
 	{
-		CFDictionaryRef routeDictionary = (CFDictionaryRef)inData;			
+		CFDictionaryRef routeDictionary = (CFDictionaryRef)inData;
 		//CFShow(routeDictionary);
 		CFNumberRef reason = (CFNumberRef)CFDictionaryGetValue(routeDictionary, CFSTR(kAudioSession_AudioRouteChangeKey_Reason));
 		SInt32 reasonVal;
@@ -358,19 +358,19 @@ void propListener(	void *                  inClientData,
 		if (reasonVal != kAudioSessionRouteChangeReason_CategoryChange)
 		{
 			if (reasonVal == kAudioSessionRouteChangeReason_OldDeviceUnavailable)
-			{			
+			{
 				if (THIS->player->IsRunning()) {
 					[THIS pausePlayQueue];
 					[[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueStopped" object:THIS];
-				}		
+				}
 			}
-            
+
 			// stop the queue if we had a non-policy route change
 			if (THIS->recorder->IsRunning()) {
 				[THIS stopRecord];
                 THIS->fileDescription.text = @"";
 			}
-		}	
+		}
 	}
 	else if (inID == kAudioSessionProperty_AudioInputAvailable)
 	{
@@ -385,7 +385,7 @@ void propListener(	void *                  inClientData,
             else
             {
                 THIS->btn_record.enabled =  NO;
-                
+
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Microphone Error" message:@"If you are trying to record on an iPod Touch, headphones with a microphone must be plugged in before you can record." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                 [alert show];
                 [alert release];
@@ -396,7 +396,7 @@ void propListener(	void *                  inClientData,
 
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if ([alertView tag] == 1) {    
+    if ([alertView tag] == 1) {
         if (buttonIndex == 1) {
             // Enable play/send if an old file was found
             //player->CreateQueueForFile((CFStringRef)@"recordedFile.caf");
@@ -425,13 +425,13 @@ void propListener(	void *                  inClientData,
                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
                 NSString *documentsDirectory = [paths objectAtIndex:0]; //2
                 NSString *recordingPath = [documentsDirectory stringByAppendingPathComponent:currentFileName];
-                
+
                 //POST the file to the server using ASIFormDataRequset
                 NSData *recording = [NSData dataWithContentsOfFile:recordingPath];
                 NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
                 time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
                 ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
-                
+
                 [request setPostValue:txtName.text forKey:@"name"];
                 [request setPostValue:txtPublic.text forKey:@"public_description"];
                 [request setPostValue:txtPrivate.text forKey:@"private_description"];
@@ -442,15 +442,15 @@ void propListener(	void *                  inClientData,
                 }
                 else
                     [request setPostValue:@"None" forKey:@"location"];
-                
-                
-                
+
+
+
                 //[request setTimeOutSeconds:20];
-                
+
                 if ([[[UIDevice currentDevice] systemVersion] floatValue] > 3.13) {
                     [request setShouldContinueWhenAppEntersBackground:YES];
                 }
-                
+
                 [request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];
                 progressView.progress = 0.0;
                 progressView.hidden = FALSE;
@@ -464,7 +464,7 @@ void propListener(	void *                  inClientData,
                 btn_record.enabled = FALSE;
                 btn_play.enabled = FALSE;
             }
-            
+
         }
     }
 }
@@ -487,31 +487,31 @@ void propListener(	void *                  inClientData,
         NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString* foofile = [documentsPath stringByAppendingPathComponent:@"recordedFile.caf"];
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
-        
+
         // http://ipgames.wordpress.com/tutorials/writeread-data-to-plist-file/
         NSError *err;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
         NSString *documentsDirectory = [paths objectAtIndex:0]; //2
         NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
-        
+
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        
-        
+
+
         if (![fileManager fileExistsAtPath: path]) //4
         {
             NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"]; //5
-            
+
             [fileManager copyItemAtPath:bundle toPath: path error:&err]; //6
         }
-        
+
         NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
-        
+
         //load from savedStock example int value
         BOOL fileWasSent;
         fileWasSent = [[savedStock objectForKey:@"fileWasSent"] boolValue];
-        
+
         [savedStock release];
-        
+
         if(!fileWasSent && fileExists)
         {
             UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unsubmitted Recording" message:@"An unsubmitted recording has been found. Would you like to load it?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
@@ -533,71 +533,71 @@ void propListener(	void *                  inClientData,
 
 #pragma mark Initialization routines
 - (void)awakeFromNib
-{		
+{
 	// Allocate our singleton instance for the recorder & player object
 	recorder = new AQRecorder();
 	player = new AQPlayer();
-    
+
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
     NSString *documentsDirectory = [paths objectAtIndex:0]; //2
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    
+
     if (![fileManager fileExistsAtPath: path]) //4
     {
-         
+
     }
-    
+
     CLController = [[CoreLocationController alloc] init];
 	CLController.delegate = self;
 	[CLController.locMgr startUpdatingLocation];
-    
+
     UIDevice* device = [UIDevice currentDevice];
     backgroundSupported = NO;
     if ([device respondsToSelector:@selector(isMultitaskingSupported)])
         backgroundSupported = device.multitaskingSupported;
-    
+
     //[self checkFile];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationWillTerminate:)
                                                  name:UIApplicationWillTerminateNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationDidBecomeActive:)
                                                  name:UIApplicationDidBecomeActiveNotification object:nil];
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] > 3.13) 
+
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] > 3.13)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationDidEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
-    
-    
+
+
 	OSStatus error = AudioSessionInitialize(NULL, NULL, interruptionListener, self);
 	if (error) printf("ERROR INITIALIZING AUDIO SESSION! %d\n", error);
-	else 
+	else
 	{
-		UInt32 category = kAudioSessionCategory_PlayAndRecord;	
+		UInt32 category = kAudioSessionCategory_PlayAndRecord;
 		error = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(category), &category);
 		if (error) printf("couldn't set audio category!");
-        
+
 		error = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, propListener, self);
 		if (error) printf("ERROR ADDING AUDIO SESSION PROP LISTENER! %d\n", error);
 		UInt32 inputAvailable = 0;
 		UInt32 size = sizeof(inputAvailable);
-		
+
 		// we do not want to allow recording if input is not available
 		error = AudioSessionGetProperty(kAudioSessionProperty_AudioInputAvailable, &size, &inputAvailable);
 		if (error) printf("ERROR GETTING INPUT AVAILABILITY! %d\n", error);
 		btn_record.enabled = (inputAvailable) ? YES : NO;
-		
+
 		// we also need to listen to see if input availability changes
 		error = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioInputAvailable, propListener, self);
 		if (error) printf("ERROR ADDING AUDIO SESSION PROP LISTENER! %d\n", error);
-        
-		error = AudioSessionSetActive(true); 
-		if (error) 
+
+		error = AudioSessionSetActive(true);
+		if (error)
         {
             printf("AudioSessionSetActive (true) failed");
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Microphone Error" message:@"If you are trying to record on an iPod Touch, headphones with a microphone must be plugged in before you can record." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -605,18 +605,18 @@ void propListener(	void *                  inClientData,
             [alert release];
         }
 	}
-	
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueStopped:) name:@"playbackQueueStopped" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackQueueResumed:) name:@"playbackQueueResumed" object:nil];
-    
-	
+
+
 	btn_play.enabled = YES;
     btn_send.enabled = NO;
-    
+
 	playbackWasInterrupted = NO;
 	playbackWasPaused = NO;
-    
-    
+
+
 }
 
 # pragma mark Notification routines
@@ -640,10 +640,10 @@ void propListener(	void *                  inClientData,
     [btn_send release];
 	[fileDescription release];
     [CLController release];
-	
+
 	delete player;
 	delete recorder;
-	
+
     [txtName release];
     [txtPrivate release];
     [txtPublic release];

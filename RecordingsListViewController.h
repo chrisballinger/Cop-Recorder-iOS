@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RecordingsListViewController : UITableViewController 
+@interface RecordingsListViewController : UITableViewController
 {
     NSMutableArray* listContent;
 }

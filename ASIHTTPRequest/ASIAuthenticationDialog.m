@@ -132,7 +132,7 @@ static const NSUInteger kDomainSection = 1;
 - (void)orientationChanged:(NSNotification *)notification
 {
 	[self showTitle];
-	
+
 	UIDeviceOrientation o = [[UIApplication sharedApplication] statusBarOrientation];
 	CGFloat angle = 0;
 	switch (o) {
@@ -172,7 +172,7 @@ static const NSUInteger kDomainSection = 1;
 	self.view.frame = (CGRect){ { f.origin.x, f.origin.y },self.view.frame.size};
     [UIView commitAnimations];
 }
-		 
+
 #pragma mark utilities
 
 - (UIViewController *)presentingController

@@ -16,15 +16,15 @@
     int duration;
     BOOL isPlaying;
     AVAudioPlayer* player;
-    
+
     UILabel *durationLabel;
-    UILabel *currentTimeLabel;  
+    UILabel *currentTimeLabel;
     NSTimer *playerUpdateTimer;
     UISlider *playerSlider;
     UIBarButtonItem *playButton;
     UIBarButtonItem *stopButton;
     UIBarButtonItem *submitButton;
-    
+
     UITextField *nameTextField;
     UITextField *publicDescriptionTextField;
     UITextField *privateDescriptionTextField;

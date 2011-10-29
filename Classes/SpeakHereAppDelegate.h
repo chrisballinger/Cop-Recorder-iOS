@@ -1,5 +1,5 @@
 /*
- 
+
     File: SpeakHereAppDelegate.h
 Abstract: Application delegate for SpeakHere
  Version: 2.4
@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
- 
+
 */
 
 #import <UIKit/UIKit.h>

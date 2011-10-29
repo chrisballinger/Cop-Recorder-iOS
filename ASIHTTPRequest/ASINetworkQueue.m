@@ -23,7 +23,7 @@
 	[self setShouldCancelAllRequestsOnFailure:YES];
 	[self setMaxConcurrentOperationCount:4];
 	[self setSuspended:YES];
-	
+
 	return self;
 }
 
@@ -115,13 +115,13 @@
 - (void)addHEADOperation:(NSOperation *)operation
 {
 	if ([operation isKindOfClass:[ASIHTTPRequest class]]) {
-		
+
 		ASIHTTPRequest *request = (ASIHTTPRequest *)operation;
 		[request setRequestMethod:@"HEAD"];
 		[request setQueuePriority:10];
 		[request setShowAccurateProgress:YES];
 		[request setQueue:self];
-		
+
 		// Important - we are calling NSOperation's add method - we don't want to add this as a normal request!
 		[super addOperation:request];
 	}
@@ -133,16 +133,16 @@
 	if (![operation isKindOfClass:[ASIHTTPRequest class]]) {
 		[NSException raise:@"AttemptToAddInvalidRequest" format:@"Attempted to add an object that was not an ASIHTTPRequest to an ASINetworkQueue"];
 	}
-		
+
 	[self setRequestsCount:[self requestsCount]+1];
-	
+
 	ASIHTTPRequest *request = (ASIHTTPRequest *)operation;
-	
+
 	if ([self showAccurateProgress]) {
-		
+
 		// Force the request to build its body (this may change requestMethod)
 		[request buildPostBody];
-		
+
 		// If this is a GET request and we want accurate progress, perform a HEAD request first to get the content-length
 		// We'll only do this before the queue is started
 		// If requests are added after the queue is started they will probably move the overall progress backwards anyway, so there's no value performing the HEAD requests first
@@ -171,9 +171,9 @@
 		[self resetProgressDelegate:&uploadProgressDelegate];
 		[request setShouldResetUploadProgress:NO];
 	}
-	
+
 	[request setShowAccurateProgress:[self showAccurateProgress]];
-	
+
 	[request setQueue:self];
 	[super addOperation:request];
 
@@ -227,7 +227,7 @@
 	if ([self shouldCancelAllRequestsOnFailure] && [self requestsCount] > 0) {
 		[self cancelAllOperations];
 	}
-	
+
 }
 
 

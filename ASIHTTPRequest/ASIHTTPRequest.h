@@ -61,7 +61,7 @@ typedef enum _ASINetworkErrorType {
 	ASITooMuchRedirectionErrorType = 9,
 	ASIUnhandledExceptionError = 10,
 	ASICompressionError = 11
-	
+
 } ASINetworkErrorType;
 
 
@@ -82,211 +82,211 @@ typedef void (^ASIDataBlock)(NSData *data);
 #endif
 
 @interface ASIHTTPRequest : NSOperation <NSCopying> {
-	
+
 	// The url for this operation, should include GET params in the query string where appropriate
-	NSURL *url; 
-	
+	NSURL *url;
+
 	// Will always contain the original url used for making the request (the value of url can change when a request is redirected)
 	NSURL *originalURL;
-	
+
 	// Temporarily stores the url we are about to redirect to. Will be nil again when we do redirect
 	NSURL *redirectURL;
 
 	// The delegate, you need to manage setting and talking to your delegate in your subclasses
 	id <ASIHTTPRequestDelegate> delegate;
-	
+
 	// Another delegate that is also notified of request status changes and progress updates
 	// Generally, you won't use this directly, but ASINetworkQueue sets itself as the queue so it can proxy updates to its own delegates
 	// NOTE: WILL BE RETAINED BY THE REQUEST
 	id <ASIHTTPRequestDelegate, ASIProgressDelegate> queue;
-	
+
 	// HTTP method to use (GET / POST / PUT / DELETE / HEAD). Defaults to GET
 	NSString *requestMethod;
-	
+
 	// Request body - only used when the whole body is stored in memory (shouldStreamPostDataFromDisk is false)
 	NSMutableData *postBody;
-	
+
 	// gzipped request body used when shouldCompressRequestBody is YES
 	NSData *compressedPostBody;
-	
+
 	// When true, post body will be streamed from a file on disk, rather than loaded into memory at once (useful for large uploads)
 	// Automatically set to true in ASIFormDataRequests when using setFile:forKey:
 	BOOL shouldStreamPostDataFromDisk;
-	
+
 	// Path to file used to store post body (when shouldStreamPostDataFromDisk is true)
-	// You can set this yourself - useful if you want to PUT a file from local disk 
+	// You can set this yourself - useful if you want to PUT a file from local disk
 	NSString *postBodyFilePath;
-	
+
 	// Path to a temporary file used to store a deflated post body (when shouldCompressPostBody is YES)
 	NSString *compressedPostBodyFilePath;
-	
+
 	// Set to true when ASIHTTPRequest automatically created a temporary file containing the request body (when true, the file at postBodyFilePath will be deleted at the end of the request)
 	BOOL didCreateTemporaryPostDataFile;
-	
+
 	// Used when writing to the post body when shouldStreamPostDataFromDisk is true (via appendPostData: or appendPostDataFromFile:)
 	NSOutputStream *postBodyWriteStream;
-	
+
 	// Used for reading from the post body when sending the request
 	NSInputStream *postBodyReadStream;
-	
+
 	// Dictionary for custom HTTP request headers
 	NSMutableDictionary *requestHeaders;
-	
+
 	// Set to YES when the request header dictionary has been populated, used to prevent this happening more than once
 	BOOL haveBuiltRequestHeaders;
-	
+
 	// Will be populated with HTTP response headers from the server
 	NSDictionary *responseHeaders;
-	
+
 	// Can be used to manually insert cookie headers to a request, but it's more likely that sessionCookies will do this for you
 	NSMutableArray *requestCookies;
-	
+
 	// Will be populated with cookies
 	NSArray *responseCookies;
-	
+
 	// If use useCookiePersistence is true, network requests will present valid cookies from previous requests
 	BOOL useCookiePersistence;
-	
+
 	// If useKeychainPersistence is true, network requests will attempt to read credentials from the keychain, and will save them in the keychain when they are successfully presented
 	BOOL useKeychainPersistence;
-	
+
 	// If useSessionPersistence is true, network requests will save credentials and reuse for the duration of the session (until clearSession is called)
 	BOOL useSessionPersistence;
-	
+
 	// If allowCompressedResponse is true, requests will inform the server they can accept compressed data, and will automatically decompress gzipped responses. Default is true.
 	BOOL allowCompressedResponse;
-	
+
 	// If shouldCompressRequestBody is true, the request body will be gzipped. Default is false.
 	// You will probably need to enable this feature on your webserver to make this work. Tested with apache only.
 	BOOL shouldCompressRequestBody;
-	
+
 	// When downloadDestinationPath is set, the result of this request will be downloaded to the file at this location
 	// If downloadDestinationPath is not set, download data will be stored in memory
 	NSString *downloadDestinationPath;
-	
+
 	// The location that files will be downloaded to. Once a download is complete, files will be decompressed (if necessary) and moved to downloadDestinationPath
 	NSString *temporaryFileDownloadPath;
-	
+
 	// If the response is gzipped and shouldWaitToInflateCompressedResponses is NO, a file will be created at this path containing the inflated response as it comes in
 	NSString *temporaryUncompressedDataDownloadPath;
-	
+
 	// Used for writing data to a file when downloadDestinationPath is set
 	NSOutputStream *fileDownloadOutputStream;
-	
+
 	NSOutputStream *inflatedFileDownloadOutputStream;
-	
+
 	// When the request fails or completes successfully, complete will be true
 	BOOL complete;
-	
+
     // external "finished" indicator, subject of KVO notifications; updates after 'complete'
     BOOL finished;
-    
+
     // True if our 'cancel' selector has been called
     BOOL cancelled;
-    
+
 	// If an error occurs, error will contain an NSError
 	// If error code is = ASIConnectionFailureErrorType (1, Connection failure occurred) - inspect [[error userInfo] objectForKey:NSUnderlyingErrorKey] for more information
 	NSError *error;
-	
+
 	// Username and password used for authentication
 	NSString *username;
 	NSString *password;
-	
+
 	// Domain used for NTLM authentication
 	NSString *domain;
-	
+
 	// Username and password used for proxy authentication
 	NSString *proxyUsername;
 	NSString *proxyPassword;
-	
+
 	// Domain used for NTLM proxy authentication
 	NSString *proxyDomain;
-	
+
 	// Delegate for displaying upload progress (usually an NSProgressIndicator, but you can supply a different object and handle this yourself)
 	id <ASIProgressDelegate> uploadProgressDelegate;
-	
+
 	// Delegate for displaying download progress (usually an NSProgressIndicator, but you can supply a different object and handle this yourself)
 	id <ASIProgressDelegate> downloadProgressDelegate;
-	
+
 	// Whether we've seen the headers of the response yet
     BOOL haveExaminedHeaders;
-	
+
 	// Data we receive will be stored here. Data may be compressed unless allowCompressedResponse is false - you should use [request responseData] instead in most cases
 	NSMutableData *rawResponseData;
-	
+
 	// Used for sending and receiving data
-    CFHTTPMessageRef request;	
+    CFHTTPMessageRef request;
 	NSInputStream *readStream;
-	
+
 	// Used for authentication
-    CFHTTPAuthenticationRef requestAuthentication; 
+    CFHTTPAuthenticationRef requestAuthentication;
 	NSDictionary *requestCredentials;
-	
+
 	// Used during NTLM authentication
 	int authenticationRetryCount;
-	
+
 	// Authentication scheme (Basic, Digest, NTLM)
 	NSString *authenticationScheme;
-	
+
 	// Realm for authentication when credentials are required
 	NSString *authenticationRealm;
-	
+
 	// When YES, ASIHTTPRequest will present a dialog allowing users to enter credentials when no-matching credentials were found for a server that requires authentication
 	// The dialog will not be shown if your delegate responds to authenticationNeededForRequest:
 	// Default is NO.
 	BOOL shouldPresentAuthenticationDialog;
-	
+
 	// When YES, ASIHTTPRequest will present a dialog allowing users to enter credentials when no-matching credentials were found for a proxy server that requires authentication
 	// The dialog will not be shown if your delegate responds to proxyAuthenticationNeededForRequest:
 	// Default is YES (basically, because most people won't want the hassle of adding support for authenticating proxies to their apps)
-	BOOL shouldPresentProxyAuthenticationDialog;	
-	
+	BOOL shouldPresentProxyAuthenticationDialog;
+
 	// Used for proxy authentication
-    CFHTTPAuthenticationRef proxyAuthentication; 
+    CFHTTPAuthenticationRef proxyAuthentication;
 	NSDictionary *proxyCredentials;
-	
+
 	// Used during authentication with an NTLM proxy
 	int proxyAuthenticationRetryCount;
-	
+
 	// Authentication scheme for the proxy (Basic, Digest, NTLM)
-	NSString *proxyAuthenticationScheme;	
-	
+	NSString *proxyAuthenticationScheme;
+
 	// Realm for proxy authentication when credentials are required
 	NSString *proxyAuthenticationRealm;
-	
+
 	// HTTP status code, eg: 200 = OK, 404 = Not found etc
 	int responseStatusCode;
-	
+
 	// Description of the HTTP status code
 	NSString *responseStatusMessage;
-	
+
 	// Size of the response
 	unsigned long long contentLength;
-	
+
 	// Size of the partially downloaded content
 	unsigned long long partialDownloadSize;
-	
+
 	// Size of the POST payload
-	unsigned long long postLength;	
-	
+	unsigned long long postLength;
+
 	// The total amount of downloaded data
 	unsigned long long totalBytesRead;
-	
+
 	// The total amount of uploaded data
 	unsigned long long totalBytesSent;
-	
+
 	// Last amount of data read (used for incrementing progress)
 	unsigned long long lastBytesRead;
-	
+
 	// Last amount of data sent (used for incrementing progress)
 	unsigned long long lastBytesSent;
-	
+
 	// This lock prevents the operation from being cancelled at an inopportune moment
 	NSRecursiveLock *cancelledLock;
-	
+
 	// Called on the delegate (if implemented) when the request starts. Default is requestStarted:
 	SEL didStartSelector;
-	
+
 	// Called on the delegate (if implemented) when the request receives response headers. Default is request:didReceiveResponseHeaders:
 	SEL didReceiveResponseHeadersSelector;
 
@@ -296,110 +296,110 @@ typedef void (^ASIDataBlock)(NSData *data);
 
 	// Called on the delegate (if implemented) when the request completes successfully. Default is requestFinished:
 	SEL didFinishSelector;
-	
+
 	// Called on the delegate (if implemented) when the request fails. Default is requestFailed:
 	SEL didFailSelector;
-	
+
 	// Called on the delegate (if implemented) when the request receives data. Default is request:didReceiveData:
 	// If you set this and implement the method in your delegate, you must handle the data yourself - ASIHTTPRequest will not populate responseData or write the data to downloadDestinationPath
 	SEL didReceiveDataSelector;
-	
+
 	// Used for recording when something last happened during the request, we will compare this value with the current date to time out requests when appropriate
 	NSDate *lastActivityTime;
-	
+
 	// Number of seconds to wait before timing out - default is 10
 	NSTimeInterval timeOutSeconds;
-	
+
 	// Will be YES when a HEAD request will handle the content-length before this request starts
 	BOOL shouldResetUploadProgress;
 	BOOL shouldResetDownloadProgress;
-	
+
 	// Used by HEAD requests when showAccurateProgress is YES to preset the content-length for this request
 	ASIHTTPRequest *mainRequest;
-	
+
 	// When NO, this request will only update the progress indicator when it completes
 	// When YES, this request will update the progress indicator according to how much data it has received so far
 	// The default for requests is YES
 	// Also see the comments in ASINetworkQueue.h
 	BOOL showAccurateProgress;
-	
+
 	// Used to ensure the progress indicator is only incremented once when showAccurateProgress = NO
 	BOOL updatedProgress;
-	
+
 	// Prevents the body of the post being built more than once (largely for subclasses)
 	BOOL haveBuiltPostBody;
-	
+
 	// Used internally, may reflect the size of the internal buffer used by CFNetwork
 	// POST / PUT operations with body sizes greater than uploadBufferSize will not timeout unless more than uploadBufferSize bytes have been sent
 	// Likely to be 32KB on iPhone 3.0, 128KB on Mac OS X Leopard and iPhone 2.2.x
 	unsigned long long uploadBufferSize;
-	
+
 	// Text encoding for responses that do not send a Content-Type with a charset value. Defaults to NSISOLatin1StringEncoding
 	NSStringEncoding defaultResponseEncoding;
-	
+
 	// The text encoding of the response, will be defaultResponseEncoding if the server didn't specify. Can't be set.
 	NSStringEncoding responseEncoding;
-	
+
 	// Tells ASIHTTPRequest not to delete partial downloads, and allows it to use an existing file to resume a download. Defaults to NO.
 	BOOL allowResumeForFileDownloads;
-	
+
 	// Custom user information associated with the request
 	NSDictionary *userInfo;
-	
+
 	// Use HTTP 1.0 rather than 1.1 (defaults to false)
 	BOOL useHTTPVersionOne;
-	
+
 	// When YES, requests will automatically redirect when they get a HTTP 30x header (defaults to YES)
 	BOOL shouldRedirect;
-	
+
 	// Used internally to tell the main loop we need to stop and retry with a new url
 	BOOL needsRedirect;
-	
+
 	// Incremented every time this request redirects. When it reaches 5, we give up
 	int redirectCount;
-	
+
 	// When NO, requests will not check the secure certificate is valid (use for self-signed certificates during development, DO NOT USE IN PRODUCTION) Default is YES
 	BOOL validatesSecureCertificate;
-    
+
     // If not nil and the URL scheme is https, CFNetwork configured to supply a client certificate
     SecIdentityRef clientCertificateIdentity;
 	NSArray *clientCertificates;
-	
+
 	// Details on the proxy to use - you could set these yourself, but it's probably best to let ASIHTTPRequest detect the system proxy settings
 	NSString *proxyHost;
 	int proxyPort;
-	
+
 	// ASIHTTPRequest will assume kCFProxyTypeHTTP if the proxy type could not be automatically determined
 	// Set to kCFProxyTypeSOCKS if you are manually configuring a SOCKS proxy
 	NSString *proxyType;
 
 	// URL for a PAC (Proxy Auto Configuration) file. If you want to set this yourself, it's probably best if you use a local file
 	NSURL *PACurl;
-	
+
 	// See ASIAuthenticationState values above. 0 == default == No authentication needed yet
 	ASIAuthenticationState authenticationNeeded;
-	
+
 	// When YES, ASIHTTPRequests will present credentials from the session store for requests to the same server before being asked for them
 	// This avoids an extra round trip for requests after authentication has succeeded, which is much for efficient for authenticated requests with large bodies, or on slower connections
 	// Set to NO to only present credentials when explicitly asked for them
 	// This only affects credentials stored in the session cache when useSessionPersistence is YES. Credentials from the keychain are never presented unless the server asks for them
 	// Default is YES
 	BOOL shouldPresentCredentialsBeforeChallenge;
-	
+
 	// YES when the request hasn't finished yet. Will still be YES even if the request isn't doing anything (eg it's waiting for delegate authentication). READ-ONLY
 	BOOL inProgress;
-	
+
 	// Used internally to track whether the stream is scheduled on the run loop or not
 	// Bandwidth throttling can unschedule the stream to slow things down while a request is in progress
 	BOOL readStreamIsScheduled;
-	
+
 	// Set to allow a request to automatically retry itself on timeout
 	// Default is zero - timeout will stop the request
 	int numberOfTimesToRetryOnTimeout;
 
 	// The number of times this request has retried (when numberOfTimesToRetryOnTimeout > 0)
 	int retryCount;
-	
+
 	// When YES, requests will keep the connection to the server alive for a while to allow subsequent requests to re-use it for a substantial speed-boost
 	// Persistent connections will not be used if the server explicitly closes the connection
 	// Default is YES
@@ -410,10 +410,10 @@ typedef void (^ASIDataBlock)(NSData *data);
 	// If we get a keep-alive header, this is this value is replaced with how long the server told us to keep the connection around
 	// A future date is created from this and used for expiring the connection, this is stored in connectionInfo's expires value
 	NSTimeInterval persistentConnectionTimeoutSeconds;
-	
+
 	// Set to yes when an appropriate keep-alive header is found
 	BOOL connectionCanBeReused;
-	
+
 	// Stores information about the persistent connection that is currently in use.
 	// It may contain:
 	// * The id we set for a particular connection, incremented every time we want to specify that we need a new connection
@@ -423,33 +423,33 @@ typedef void (^ASIDataBlock)(NSData *data);
 	// * A reference to the stream that is currently using the connection. This is necessary because we need to keep the old stream open until we've opened a new one.
 	//   The stream will be closed + released either when another request comes to use the connection, or when the timer fires to tell the connection to expire
 	NSMutableDictionary *connectionInfo;
-	
+
 	// When set to YES, 301 and 302 automatic redirects will use the original method and and body, according to the HTTP 1.1 standard
 	// Default is NO (to follow the behaviour of most browsers)
 	BOOL shouldUseRFC2616RedirectBehaviour;
-	
+
 	// Used internally to record when a request has finished downloading data
 	BOOL downloadComplete;
-	
+
 	// An ID that uniquely identifies this request - primarily used for debugging persistent connections
 	NSNumber *requestID;
-	
+
 	// Will be ASIHTTPRequestRunLoopMode for synchronous requests, NSDefaultRunLoopMode for all other requests
 	NSString *runLoopMode;
-	
+
 	// This timer checks up on the request every 0.25 seconds, and updates progress
 	NSTimer *statusTimer;
 
-	
+
 	// The download cache that will be used for this request (use [ASIHTTPRequest setDefaultCache:cache] to configure a default cache
 	id <ASICacheDelegate> downloadCache;
-	
+
 	// The cache policy that will be used for this request - See ASICacheDelegate.h for possible values
 	ASICachePolicy cachePolicy;
-	
+
 	// The cache storage policy that will be used for this request - See ASICacheDelegate.h for possible values
 	ASICacheStoragePolicy cacheStoragePolicy;
-	
+
 	// Will be true when the response was pulled from the cache rather than downloaded
 	BOOL didUseCachedResponse;
 
@@ -461,10 +461,10 @@ typedef void (^ASIDataBlock)(NSData *data);
 	UIBackgroundTaskIdentifier backgroundTask;
 	#endif
 
-	
+
 	// When downloading a gzipped response, the request will use this helper object to inflate the response
 	ASIDataDecompressor *dataDecompressor;
-	
+
 	// Controls how responses with a gzipped encoding are inflated (decompressed)
 	// When set to YES (This is the default):
 	// * gzipped responses for requests without a downloadDestinationPath will be inflated only when [request responseData] / [request responseString] is called
@@ -527,7 +527,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 
 	//block for handling proxy authentication
 	ASIBasicBlock proxyAuthenticationNeededBlock;
-	
+
     //block for handling redirections, if you want to
     ASIBasicBlock requestRedirectedBlock;
 	#endif
@@ -660,7 +660,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 
 #pragma mark parsing HTTP response headers
 
-// Reads the response headers to find the content length, encoding, cookies for the session 
+// Reads the response headers to find the content length, encoding, cookies for the session
 // Also initiates request redirection when shouldRedirect is true
 // And works out if HTTP auth is required
 - (void)readResponseHeaders;

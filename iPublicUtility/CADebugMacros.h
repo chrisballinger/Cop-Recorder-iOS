@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
- 
+
 */
 
 #if !defined(__CADebugMacros_h__)
@@ -80,10 +80,10 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 #pragma mark	Basic Definitions
 
 #if	DEBUG || CoreAudio_Debug
-	
+
 	// can be used to break into debugger immediately, also see CADebugger
 	#define BusError()		(*(long *)0 = 0)
-	
+
 	//	basic debugging print routines
 	#if	TARGET_OS_MAC && !TARGET_API_MAC_CARBON
 		extern void DebugStr(const unsigned char* debuggerMsg);
@@ -93,13 +93,13 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 		#define DebugMessageN3(msg, N1, N2, N3)
 	#else
 		#include "CADebugPrintf.h"
-		
+
 		#if	(CoreAudio_FlushDebugMessages && !CoreAudio_UseSysLog) || defined(CoreAudio_UseSideFile)
 			#define	FlushRtn	,fflush(DebugPrintfFile)
 		#else
 			#define	FlushRtn
 		#endif
-		
+
 		#if		CoreAudio_ThreadStampMessages
 			#include <pthread.h>
 			#include "CAHostTimeBase.h"
@@ -147,7 +147,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 	#else
 		#define vprint(msg)
 	#endif
-	
+
 	#if	CoreAudio_StopOnFailure
 		#include "CADebugger.h"
 		#define STOP	CADebuggerStop()

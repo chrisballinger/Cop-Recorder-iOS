@@ -1,5 +1,5 @@
 /*
- 
+
     File: SpeakHereViewController.h
 Abstract: View controller for the SpeakHere application
  Version: 2.4
@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
- 
+
 */
 
 #import <UIKit/UIKit.h>

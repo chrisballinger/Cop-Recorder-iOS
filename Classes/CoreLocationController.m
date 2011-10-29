@@ -15,12 +15,12 @@
 
 - (id)init {
 	self = [super init];
-	
+
 	if(self != nil) {
 		self.locMgr = [[[CLLocationManager alloc] init] autorelease];
 		self.locMgr.delegate = self;
 	}
-	
+
 	return self;
 }
 

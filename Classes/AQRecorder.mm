@@ -1,5 +1,5 @@
 /*
- 
+
     File: AQRecorder.mm
 Abstract: n/a
  Version: 2.4
@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
- 
+
 */
 
 #include "AQRecorder.h"
@@ -52,25 +52,25 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 static Boolean IsAACHardwareEncoderAvailable(void)
 {
     Boolean isAvailable = false;
-	
-    // get an array of AudioClassDescriptions for all installed encoders for the given format 
+
+    // get an array of AudioClassDescriptions for all installed encoders for the given format
     // the specifier is the format that we are interested in - this is 'aac ' in our case
     UInt32 encoderSpecifier = kAudioFormatMPEG4AAC;
     UInt32 size;
-	
+
     OSStatus result = AudioFormatGetPropertyInfo(kAudioFormatProperty_Encoders, sizeof(encoderSpecifier), &encoderSpecifier, &size);
     if (result) { printf("AudioFormatGetPropertyInfo kAudioFormatProperty_Encoders result %lu %4.4s\n", result, (char*)&result); return false; }
-	
+
     UInt32 numEncoders = size / sizeof(AudioClassDescription);
     AudioClassDescription encoderDescriptions[numEncoders];
-    
+
     result = AudioFormatGetProperty(kAudioFormatProperty_Encoders, sizeof(encoderSpecifier), &encoderSpecifier, &size, encoderDescriptions);
     if (result) { printf("AudioFormatGetProperty kAudioFormatProperty_Encoders result %lu %4.4s\n", result, (char*)&result); return false; }
-    
+
     for (UInt32 i=0; i < numEncoders; ++i) {
         if (encoderDescriptions[i].mSubType == kAudioFormatMPEG4AAC && encoderDescriptions[i].mManufacturer == kAppleHardwareAudioCodecManufacturer) isAvailable = true;
     }
-	
+
     return isAvailable;
 }
 
@@ -83,7 +83,7 @@ int AQRecorder::ComputeRecordBufferSize(const AudioStreamBasicDescription *forma
 	int packets, frames, bytes = 0;
 	try {
 		frames = (int)ceil(seconds * format->mSampleRate);
-		
+
 		if (format->mBytesPerFrame > 0)
 			bytes = frames * format->mBytesPerFrame;
 		else {
@@ -107,7 +107,7 @@ int AQRecorder::ComputeRecordBufferSize(const AudioStreamBasicDescription *forma
 		char buf[256];
 		fprintf(stderr, "Error: %s (%s)\n", e.mOperation, e.FormatError(buf));
 		return 0;
-	}	
+	}
 	return bytes;
 }
 
@@ -129,7 +129,7 @@ void AQRecorder::MyInputBufferHandler(	void *								inUserData,
 					   "AudioFileWritePackets failed");
 			aqr->mRecordPacket += inNumPackets;
 		}
-		
+
 		// if we're not stopping, re-enqueue the buffe so that it gets filled again
 		if (aqr->IsRunning())
 			XThrowIfError(AudioQueueEnqueueBuffer(inAQ, inBuffer, 0, NULL), "AudioQueueEnqueueBuffer failed");
@@ -157,9 +157,9 @@ AQRecorder::~AQRecorder()
 void AQRecorder::CopyEncoderCookieToFile()
 {
 	UInt32 propertySize;
-	// get the magic cookie, if any, from the converter		
+	// get the magic cookie, if any, from the converter
 	OSStatus err = AudioQueueGetPropertySize(mQueue, kAudioQueueProperty_MagicCookie, &propertySize);
-	
+
 	// we can get a noErr result and also a propertySize == 0
 	// -- if the file format does support magic cookies, but this file doesn't have one.
 	if (err == noErr && propertySize > 0) {
@@ -167,7 +167,7 @@ void AQRecorder::CopyEncoderCookieToFile()
 		UInt32 magicCookieSize;
 		XThrowIfError(AudioQueueGetProperty(mQueue, kAudioQueueProperty_MagicCookie, magicCookie, &propertySize), "get audio converter's magic cookie");
 		magicCookieSize = propertySize;	// the converter lies and tell us the wrong size
-		
+
 		// now set the magic cookie on the output file
 		UInt32 willEatTheCookie = false;
 		// the converter wants to give us one; will the file take it?
@@ -186,14 +186,14 @@ void AQRecorder::SetupAudioFormat(UInt32 inFormatID)
 
 	UInt32 size = sizeof(mRecordFormat.mSampleRate);
 	XThrowIfError(AudioSessionGetProperty(	kAudioSessionProperty_CurrentHardwareSampleRate,
-										&size, 
+										&size,
 										&mRecordFormat.mSampleRate), "couldn't get hardware sample rate");
 
 	size = sizeof(mRecordFormat.mChannelsPerFrame);
-	XThrowIfError(AudioSessionGetProperty(	kAudioSessionProperty_CurrentHardwareInputNumberChannels, 
-										&size, 
+	XThrowIfError(AudioSessionGetProperty(	kAudioSessionProperty_CurrentHardwareInputNumberChannels,
+										&size,
 										&mRecordFormat.mChannelsPerFrame), "couldn't get input channel count");
-			
+
 	mRecordFormat.mFormatID = inFormatID;
 	if (inFormatID == kAudioFormatLinearPCM)
 	{
@@ -210,8 +210,8 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile)
 	int i, bufferByteSize;
 	UInt32 size;
 	CFURLRef url;
-	
-	try {		
+
+	try {
 		mFileName = CFStringCreateCopy(kCFAllocatorDefault, inRecordFile);
 
 		// specify the recording format, use hardware AAC if available
@@ -220,7 +220,7 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile)
 			SetupAudioFormat(kAudioFormatMPEG4AAC);
 		else
 			SetupAudioFormat(kAudioFormatAppleIMA4);
-		
+
 		// create the queue
 		XThrowIfError(AudioQueueNewInput(
 									  &mRecordFormat,
@@ -228,36 +228,36 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile)
 									  this /* userData */,
 									  NULL /* run loop */, NULL /* run loop mode */,
 									  0 /* flags */, &mQueue), "AudioQueueNewInput failed");
-		
+
 		// get the record format back from the queue's audio converter --
 		// the file may require a more specific stream description than was necessary to create the encoder.
 		mRecordPacket = 0;
 
 		size = sizeof(mRecordFormat);
-		XThrowIfError(AudioQueueGetProperty(mQueue, kAudioQueueProperty_StreamDescription,	
+		XThrowIfError(AudioQueueGetProperty(mQueue, kAudioQueueProperty_StreamDescription,
 										 &mRecordFormat, &size), "couldn't get queue's format");
-			
-		//NSString *recordFile = [NSTemporaryDirectory() stringByAppendingPathComponent: (NSString*)inRecordFile];	
+
+		//NSString *recordFile = [NSTemporaryDirectory() stringByAppendingPathComponent: (NSString*)inRecordFile];
 		NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentFolderPath = [searchPaths objectAtIndex: 0];
         NSString *recordFile = [documentFolderPath stringByAppendingPathComponent: (NSString*)inRecordFile];
-        
-		
-        
+
+
+
         CFStringRef fileNameEscaped = CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)recordFile, NULL, NULL, kCFStringEncodingUTF8 );
         url = CFURLCreateWithString(kCFAllocatorDefault, fileNameEscaped, NULL);
-        
+
         //NSLog((NSString*)fileNameEscaped);
-		
+
 		// create the audio file
 		XThrowIfError(AudioFileCreateWithURL(url, kAudioFileCAFType, &mRecordFormat, kAudioFileFlags_EraseFile,
 										  &mRecordFile), "AudioFileCreateWithURL failed");
 		CFRelease(url);
-		
+
 		// copy the cookie first to give the file object as much info as we can about the data going in
 		// not necessary for pcm, but required for some compressed audio
 		CopyEncoderCookieToFile();
-		
+
 		// allocate and enqueue buffers
 		bufferByteSize = ComputeRecordBufferSize(&mRecordFormat, kBufferDurationSeconds);	// enough bytes for half a second
 		for (i = 0; i < kNumberRecordBuffers; ++i) {
@@ -276,14 +276,14 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile)
 	}
 	catch (...) {
 		fprintf(stderr, "An unknown error occurred\n");
-	}	
+	}
 }
 
 void AQRecorder::StopRecord()
 {
 	// end recording
 	mIsRunning = false;
-	XThrowIfError(AudioQueueStop(mQueue, true), "AudioQueueStop failed");	
+	XThrowIfError(AudioQueueStop(mQueue, true), "AudioQueueStop failed");
 	// a codec may update its cookie at the end of an encoding session, so reapply it to the file now
 	CopyEncoderCookieToFile();
 	if (mFileName)
