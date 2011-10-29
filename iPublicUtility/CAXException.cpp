@@ -1,5 +1,5 @@
 /*
- 
+
     File: CAXException.cpp
 Abstract: Helper class for exception handling
  Version: 2.4
@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
- 
+
 */
 
 

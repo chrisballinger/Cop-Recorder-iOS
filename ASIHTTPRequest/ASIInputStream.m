@@ -125,7 +125,7 @@ static NSLock *readLock = nil;
 {
 	return [stream methodSignatureForSelector:aSelector];
 }
-	 
+
 - (void)forwardInvocation:(NSInvocation *)anInvocation
 {
 	[anInvocation invokeWithTarget:stream];

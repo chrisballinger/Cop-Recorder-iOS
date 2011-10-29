@@ -10,7 +10,7 @@
 
 
 @interface StealthModeViewController : UIViewController {
-    
+
 }
 
 @end

@@ -20,17 +20,17 @@
     if (self) {
         NSFileManager *manager = [NSFileManager defaultManager];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];        
+        NSString *documentsDirectory = [paths objectAtIndex:0];
         NSDirectoryEnumerator *direnum = [manager enumeratorAtPath:documentsDirectory];
         NSMutableArray *lectureList = [[NSMutableArray alloc] init];
         Recording *newRecording;
-        
+
         NSString *filename;
-        
-        while ((filename = [direnum nextObject] )) 
+
+        while ((filename = [direnum nextObject] ))
         {
-            if ([filename hasSuffix:@".audio.plist"]) 
-            {                                   
+            if ([filename hasSuffix:@".audio.plist"])
+            {
                 newRecording = [Recording recordingWithFile:filename];
                 [lectureList addObject:newRecording];
             }
@@ -51,26 +51,26 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	static NSString *kCellID = @"cellID";
-	
+
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
 	if (cell == nil)
 	{
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellID] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
-	
+
 	/*
 	 If the requesting table view is the search display controller's table view, configure the cell using the filtered content, otherwise use the main list.
 	 */
 	Recording *recording = nil;
-    
+
     recording = [self.listContent objectAtIndex:indexPath.row];
-    
+
     if([recording.name isEqualToString:@""])
         cell.textLabel.text = [recording.date description];
     else
         cell.textLabel.text = recording.name;
-    
+
     if(!recording.isSubmitted)
     {
         cell.textLabel.textColor = [UIColor redColor];
@@ -87,28 +87,28 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LecturePlayerViewController *lecturePlayerController = [[LecturePlayerViewController alloc] init];
-    
+
 
 	Recording *recording = nil;
     recording = [self.listContent objectAtIndex:indexPath.row];
-    
+
 	lecturePlayerController.title = [recording.date description];
     lecturePlayerController.recording = recording;
-    
+
     [[self navigationController] pushViewController:lecturePlayerController animated:YES];
     [lecturePlayerController release];
-    
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) 
+    if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         [[listContent objectAtIndex:indexPath.row] deleteFiles];
-        
+
         [listContent removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
+
     }
 }
 
@@ -121,7 +121,7 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -130,10 +130,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.    
-    
+    // Do any additional setup after loading the view from its nib.
+
     self.editButtonItem.target = self;
-    [self.navigationItem setRightBarButtonItem:self.editButtonItem animated:YES];    
+    [self.navigationItem setRightBarButtonItem:self.editButtonItem animated:YES];
     self.title = @"My Recordings";
 
 }

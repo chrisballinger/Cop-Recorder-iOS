@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
- 
+
 */
 
 
@@ -88,7 +88,7 @@ typedef Float32 AudioUnitSampleType;
 //	It adds a number of convenience routines, but otherwise adds nothing
 //	to the footprint of the original struct.
 //=============================================================================
-class CAStreamBasicDescription : 
+class CAStreamBasicDescription :
 	public AudioStreamBasicDescription
 {
 
@@ -99,12 +99,12 @@ public:
 //	Construction/Destruction
 public:
 	CAStreamBasicDescription() { memset (this, 0, sizeof(AudioStreamBasicDescription)); }
-	
+
 	CAStreamBasicDescription(const AudioStreamBasicDescription &desc)
 	{
 		SetFrom(desc);
 	}
-	
+
 	CAStreamBasicDescription(		double inSampleRate,		UInt32 inFormatID,
 									UInt32 inBytesPerPacket,	UInt32 inFramesPerPacket,
 									UInt32 inBytesPerFrame,		UInt32 inChannelsPerFrame,
@@ -117,34 +117,34 @@ public:
 	{
 		memcpy(this, &desc, sizeof(AudioStreamBasicDescription));
 	}
-	
+
 	// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 	//
 	// interrogation
-	
+
 	bool	IsPCM() const { return mFormatID == kAudioFormatLinearPCM; }
-	
+
 	bool	PackednessIsSignificant() const
 	{
 		Assert(IsPCM(), "PackednessIsSignificant only applies for PCM");
 		return (SampleWordSize() << 3) != mBitsPerChannel;
 	}
-	
+
 	bool	AlignmentIsSignificant() const
 	{
 		return PackednessIsSignificant() || (mBitsPerChannel & 7) != 0;
 	}
-	
+
 	bool	IsInterleaved() const
 	{
 		return !IsPCM() || !(mFormatFlags & kAudioFormatFlagIsNonInterleaved);
 	}
-	
+
 	// for sanity with interleaved/deinterleaved possibilities, never access mChannelsPerFrame, use these:
-	UInt32	NumberInterleavedChannels() const	{ return IsInterleaved() ? mChannelsPerFrame : 1; }	
+	UInt32	NumberInterleavedChannels() const	{ return IsInterleaved() ? mChannelsPerFrame : 1; }
 	UInt32	NumberChannelStreams() const		{ return IsInterleaved() ? 1 : mChannelsPerFrame; }
 	UInt32	NumberChannels() const				{ return mChannelsPerFrame; }
-	UInt32	SampleWordSize() const				{ 
+	UInt32	SampleWordSize() const				{
 			return (mBytesPerFrame > 0 && NumberInterleavedChannels()) ? mBytesPerFrame / NumberInterleavedChannels() :  0;
 	}
 
@@ -153,16 +153,16 @@ public:
 		Assert(mBytesPerFrame > 0, "bytesPerFrame must be > 0 in BytesToFrames");
 		return nbytes / mBytesPerFrame;
 	}
-	
+
 	bool	SameChannelsAndInterleaving(const CAStreamBasicDescription &a) const
 	{
 		return this->NumberChannels() == a.NumberChannels() && this->IsInterleaved() == a.IsInterleaved();
 	}
-	
+
 	// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 	//
 	//	manipulation
-	
+
 	void	SetCanonical(UInt32 nChannels, bool interleaved)
 				// note: leaves sample rate untouched
 	{
@@ -184,7 +184,7 @@ public:
 			mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
 		}
 	}
-	
+
 	bool	IsCanonical() const
 	{
 		if (mFormatID != kAudioFormatLinearPCM) return false;
@@ -210,7 +210,7 @@ public:
 			&& mBytesPerFrame == reqFrameSize
 			&& mBytesPerPacket == reqFrameSize);
 	}
-	
+
 	void	SetAUCanonical(UInt32 nChannels, bool interleaved)
 	{
 		mFormatID = kAudioFormatLinearPCM;
@@ -229,7 +229,7 @@ public:
 			mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
 		}
 	}
-	
+
 	void	ChangeNumberChannels(UInt32 nChannels, bool interleaved)
 				// alter an existing format
 	{
@@ -247,26 +247,26 @@ public:
 			mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
 		}
 	}
-	
+
 	// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 	//
 	//	other
-	
+
 	bool	IsEqual(const AudioStreamBasicDescription &other, bool interpretingWildcards=true) const;
-	
+
 	void	Print() const {
 		Print (stdout);
 	}
 
 	void	Print(FILE* file) const {
-		PrintFormat (file, "", "AudioStreamBasicDescription:");	
+		PrintFormat (file, "", "AudioStreamBasicDescription:");
 	}
 
 	void	PrintFormat(FILE *f, const char *indent, const char *name) const {
 		char buf[256];
 		fprintf(f, "%s%s %s\n", indent, name, AsString(buf, sizeof(buf)));
 	}
-	
+
 	void	PrintFormat2(FILE *f, const char *indent, const char *name) const { // no trailing newline
 		char buf[256];
 		fprintf(f, "%s%s %s", indent, name, AsString(buf, sizeof(buf)));
@@ -274,14 +274,14 @@ public:
 
 	char *	AsString(char *buf, size_t bufsize) const;
 
-	static void Print (const AudioStreamBasicDescription &inDesc) 
-	{ 
+	static void Print (const AudioStreamBasicDescription &inDesc)
+	{
 		CAStreamBasicDescription desc(inDesc);
 		desc.Print ();
 	}
-	
+
 	OSStatus			Save(CFPropertyListRef *outData) const;
-		
+
 	OSStatus			Restore(CFPropertyListRef &inData);
 
 //	Operations

@@ -1,5 +1,5 @@
 /*
- 
+
     File: CAMath.h
 Abstract: Helper class for various math functions
  Version: 2.4
@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
-  
+
 */
 
 #ifndef __CAMath_h__

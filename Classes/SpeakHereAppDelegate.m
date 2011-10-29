@@ -58,19 +58,19 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @synthesize viewController;
 @synthesize navController;
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
-    
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+
     navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    
+
     navController.navigationBarHidden = YES;
-    
+
     [window addSubview:navController.view];
 
-    // Override point for customization after app launch    
+    // Override point for customization after app launch
     [window makeKeyAndVisible];
-    
+
     CLLocationManager *manager = [[CLLocationManager alloc] init];
-    
+
     BOOL locationAccessAllowed = NO ;
     if( [CLLocationManager instancesRespondToSelector:@selector(locationServicesEnabled)] )
     {
@@ -82,32 +82,32 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
         // iOS 4.x
         locationAccessAllowed = [manager locationServicesEnabled] ;
     }
-    
+
     if (locationAccessAllowed == NO) {
         UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled" message:@"You currently have all location services for this device disabled. If you proceed, you will be asked to confirm whether location services should be reenabled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [servicesDisabledAlert show];
         [servicesDisabledAlert release];
     }
     [manager release];
-    
+
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
     NSString *documentsDirectory = [paths objectAtIndex:0]; //2
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"data.plist"]; //3
-    
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    
+
+
     if (![fileManager fileExistsAtPath: path]) //4
     {
         NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"]; //5
-        
+
         [fileManager copyItemAtPath:bundle toPath: path error:nil]; //6
-        
+
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome, new Watcher!" message:@"Whenever you think you are about to interact with an authority figure or a person in a position of power, start Cop Recorder and press Record. \n\nThis app will allow you to submit a recording, description, and location to OpenWatch.net.\n\nIf you record audio in Stealth Mode, the screen will go black while recording. When the encounter is over, simply close the application and it will stop the recording. On the next launch it will ask you if you'd like to load your unsubmitted recording. After loading you can preview the recording and submit it to OpenWatch.\n\nFor best audio quality, put the phone in your front shirt pocket, or on a nearby table with the microphone facing upwards.\n\nWhen uploading, please describe the incident. It will be reviewed by the editors and quickly published to OpenWatch.net. If you request, we will remove all of the personally identifiable information we can. No logs are kept on the server.\n\nAll uploads are released under the Creative-Commons-Attribution license.\n\nCourage is contagious!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
-        [alert release];  
+        [alert release];
     }
-    
+
     NSString *legacyFilePath = [documentsDirectory stringByAppendingPathComponent:@"recordedFile.caf"];
     if([fileManager fileExistsAtPath:legacyFilePath])
     {
@@ -118,7 +118,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
         NSString *newPath = [documentsDirectory stringByAppendingPathComponent:newName];
         NSURL *url = [NSURL URLWithString:newPath];
 
-        
+
         [fileManager moveItemAtPath:legacyFilePath toPath:newPath error:&error];
 
         Recording *recording = [Recording recordingWithName:@"" publicDescription:@"" privateDescription:@"" location:@"" date:creationDate url:url];
@@ -127,14 +127,14 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
     NSDirectoryEnumerator *direnum = [fileManager enumeratorAtPath:documentsDirectory];
     Recording *newRecording;
-    
+
     NSString *filename;
     BOOL foundUnsubmittedFile = NO;
-    
-    while ((filename = [direnum nextObject] ) && !foundUnsubmittedFile) 
+
+    while ((filename = [direnum nextObject] ) && !foundUnsubmittedFile)
     {
-        if ([filename hasSuffix:@".audio.plist"]) 
-        {                                   
+        if ([filename hasSuffix:@".audio.plist"])
+        {
             newRecording = [Recording recordingWithFile:filename];
             if(!newRecording.isSubmitted)
                 foundUnsubmittedFile = YES;
@@ -147,7 +147,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
         [alert show];
         [alert release];
     }
-    
+
     [fileManager release];
 }
 

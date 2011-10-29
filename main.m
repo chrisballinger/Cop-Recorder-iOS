@@ -44,13 +44,13 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
- 
+
 */
 
 #import <UIKit/UIKit.h>
 
 int main(int argc, char *argv[]) {
-	
+
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	int retVal = UIApplicationMain(argc, argv, nil, nil);
 	[pool release];

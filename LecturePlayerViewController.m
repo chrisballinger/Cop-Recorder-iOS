@@ -59,7 +59,7 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -71,25 +71,25 @@
     nameTextField.text = recording.name;
     privateDescriptionTextField.text = recording.privateDescription;
     publicDescriptionTextField.text = recording.publicDescription;
-    
+
     NSURL *url = recording.url;
-    
+
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    
-    
+
+
     submitButton.enabled = YES;
-    
+
     isPlaying = NO;
-    
-    
+
+
     playerUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                                         selector:@selector(updateElapsedTime:) userInfo:nil repeats:YES] retain];
-    
-    
+
+
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
     self.title = [recording.date description];
-    
-    
+
+
     if(recording.isSubmitted)
     {
         submitLabel.text = @"Previously Submitted";
@@ -130,13 +130,13 @@
 - (void) updateElapsedTime:(NSTimer *) timer
 {
     int currentTime = player.currentTime;
-    
+
     duration = player.duration;
-    
-    
+
+
     [self updateLabel:currentTimeLabel withTime:currentTime];
     [self updateLabel:durationLabel withTime:duration];
-    
+
     if(duration != 0)
     {
         self.playerSlider.value = currentTime / ((float)duration);
@@ -157,12 +157,12 @@
 	label.text = [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute, second];
 }
 
-- (IBAction)seek:(id)sender 
+- (IBAction)seek:(id)sender
 {
-    
+
     float currentTime = self.playerSlider.value * duration;
     [player setCurrentTime:currentTime];
-    
+
     [self updateElapsedTime:nil];
 }
 
@@ -177,14 +177,14 @@
     }
 }
 
-- (IBAction)submitPressed:(id)sender 
+- (IBAction)submitPressed:(id)sender
 {
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Submit to OpenWatch" message:@"Would you like to submit your recording to www.openwatch.net?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
     [alert addButtonWithTitle:@"Yes"];
     [alert show];
 }
 
-- (IBAction)playPressed:(id)sender 
+- (IBAction)playPressed:(id)sender
 {
     if(!isPlaying)
     {
@@ -192,7 +192,7 @@
         playButton.title = @"Pause";
         stopButton.enabled = YES;
         isPlaying = YES;
-        
+
     }
     else
     {
@@ -202,12 +202,12 @@
     }
 }
 
-- (IBAction)stopPressed:(id)sender 
+- (IBAction)stopPressed:(id)sender
 {
-    
+
     [player pause];
     [player setCurrentTime:0];
-    
+
     [self updateElapsedTime:nil];
     stopButton.enabled = NO;
     playButton.title = @"Play";
@@ -217,7 +217,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    
+
     recording.name = nameTextField.text;
     recording.privateDescription = privateDescriptionTextField.text;
     recording.publicDescription = publicDescriptionTextField.text;
@@ -230,11 +230,11 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Upload Complete" message:@"The recording was uploaded successfully to www.openwatch.net" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert release];
-    
+
     // Set TRUE if file was sent properly
     recording.isSubmitted = YES;
     [recording saveMetadata];
-    
+
     submitLabel.text = @"Submission successful!";
     submitLabel.textColor = [UIColor greenColor];
     progressView.hidden = TRUE;

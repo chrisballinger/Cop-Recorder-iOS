@@ -23,7 +23,7 @@
 + (id)recordingWithName:(NSString*)name publicDescription:(NSString*)publicDescription privateDescription:(NSString*)privateDescription location:(NSString*)location date:(NSDate*)date url:(NSURL*)url
 {
     Recording *newRecording = [[[self alloc] init] autorelease];
-    
+
     newRecording.name = name;
     newRecording.publicDescription = publicDescription;
     newRecording.privateDescription = privateDescription;
@@ -31,23 +31,23 @@
     newRecording.date = date;
     newRecording.url = url;
     newRecording.isSubmitted = NO;
-    
+
     return newRecording;
 }
 
 + (id)recordingWithFile:(NSString*)fileName;
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];        
+    NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString* path = [documentsDirectory stringByAppendingPathComponent:fileName];
     NSString* cafPath = [path stringByReplacingOccurrencesOfString:@".audio.plist" withString:@".caf"];
     NSURL *url = [NSURL fileURLWithPath:cafPath];
-    
+
     NSDictionary *metadata = [[[NSDictionary alloc] initWithContentsOfFile:path] autorelease];
     Recording *newRecording = [[[self alloc] init] autorelease];
     NSString *prefix = [[fileName componentsSeparatedByString:@"."] objectAtIndex:0];
-    
-    
+
+
     newRecording.name = [metadata objectForKey:@"name"];
     newRecording.publicDescription = [metadata objectForKey:@"publicDescription"];
     newRecording.privateDescription = [metadata objectForKey:@"privateDescription"];
@@ -55,7 +55,7 @@
     newRecording.date = [[NSDate alloc] initWithTimeIntervalSince1970:[prefix doubleValue]];
     newRecording.isSubmitted = [[metadata valueForKey:@"isSubmitted"] boolValue];
     newRecording.url = url;
-    
+
     return newRecording;
 }
 
@@ -65,8 +65,8 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *metadataPath = [documentsDirectory stringByAppendingPathComponent:fileName];
-    
-    
+
+
     NSMutableDictionary *metadata = [[[NSMutableDictionary alloc] init] autorelease];
     [metadata setObject:name forKey:@"name"];
     [metadata setObject:publicDescription forKey:@"publicDescription"];
@@ -86,7 +86,7 @@
     NSString *documentsDirectoryPath = [paths objectAtIndex:0];
     NSString *cafPath = [documentsDirectoryPath stringByAppendingPathComponent: fileName];
     NSString *plistPath = [documentsDirectoryPath stringByAppendingPathComponent: metadataFileName];
-    
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:cafPath error:nil];
     [fileManager removeItemAtPath:plistPath error:nil];
@@ -94,7 +94,7 @@
 
 - (void)submitRecordingWithDelegate:(id)delegate;
 {
-    
+
      if([name isEqualToString:@""] || [publicDescription isEqualToString:@""])
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"More Info Please!" message:@"It appears you are trying to submit a recording without a title or public description.\n\nPlease fill in this information and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -108,18 +108,18 @@
         NSString *urlString = @"http://openwatch.net/uploadnocaptcha/";
         time_t unixTime = (time_t) [date timeIntervalSince1970];
         ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
-        
+
         [request setPostValue:name forKey:@"name"];
         [request setPostValue:publicDescription forKey:@"public_description"];
         [request setPostValue:privateDescription forKey:@"private_description"];
         [request setPostValue:location forKey:@"location"];
-                
+
         //[request setTimeOutSeconds:20];
-        
+
         if ([[[UIDevice currentDevice] systemVersion] floatValue] > 3.13) {
             [request setShouldContinueWhenAppEntersBackground:YES];
         }
-        
+
         LecturePlayerViewController* lecturePlayer = (LecturePlayerViewController*)delegate;
         [request setData:recording withFileName:[NSString stringWithFormat:@"%d.caf",unixTime] andContentType:@"audio/x-caf" forKey:@"rec_file"];
         lecturePlayer.progressView.progress = 0.0;

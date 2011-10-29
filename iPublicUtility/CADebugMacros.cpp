@@ -1,5 +1,5 @@
 /*
- 
+
     File: CADebugMacros.cpp
 Abstract: Helper class for printing debug messages
  Version: 2.4
@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
- 
+
 */
 
 #include "CADebugMacros.h"

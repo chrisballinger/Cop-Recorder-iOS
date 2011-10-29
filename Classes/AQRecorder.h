@@ -1,5 +1,5 @@
 /*
- 
+
     File: AQRecorder.h
 Abstract: Helper class for recording audio files via the AudioQueue
  Version: 2.4
@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
- 
+
 */
 
 #include <AudioToolbox/AudioToolbox.h>
@@ -56,23 +56,23 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 #define kNumberRecordBuffers	3
 
-class AQRecorder 
+class AQRecorder
 	{
 	public:
 		AQRecorder();
 		~AQRecorder();
-		
+
 		UInt32						GetNumberChannels() const	{ return mRecordFormat.NumberChannels(); }
 		CFStringRef					GetFileName() const			{ return mFileName; }
 		AudioQueueRef				Queue() const				{ return mQueue; }
 		CAStreamBasicDescription	DataFormat() const			{ return mRecordFormat; }
-		
+
 		void			StartRecord(CFStringRef inRecordFile);
-		void			StopRecord();		
+		void			StopRecord();
 		Boolean			IsRunning() const			{ return mIsRunning; }
-		
+
 		UInt64			startTime;
-				
+
 	private:
 		CFStringRef					mFileName;
 		AudioQueueRef				mQueue;

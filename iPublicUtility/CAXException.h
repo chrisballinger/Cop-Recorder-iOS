@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
- 
+
 */
 
 
@@ -97,31 +97,31 @@ public:
 			} else
 				strcpy(mOperation, operation);
 		}
-	
+
 	char *FormatError(char *str) const
 	{
 		return FormatError(str, mError);
 	}
-	
+
 	char				mOperation[256];
 	const OSStatus		mError;
-	
+
 	// -------------------------------------------------
-	
+
 	typedef void (*WarningHandler)(const char *msg, OSStatus err);
-	
+
 	static char *FormatError(char *str, OSStatus error)
 	{
 		strcpy(str, CAX4CCString(error));
 		return str;
 	}
-	
+
 	static void Warning(const char *s, OSStatus error)
 	{
 		if (sWarningHandler)
 			(*sWarningHandler)(s, error);
 	}
-	
+
 	static void SetWarningHandler(WarningHandler f) { sWarningHandler = f; }
 private:
 	static WarningHandler	sWarningHandler;
@@ -157,7 +157,7 @@ private:
 				goto label; \
 			} \
 		} while (0)
-	
+
 	#define XAssert(assertion) \
 		do { \
 			if (!(assertion)) { \
@@ -165,7 +165,7 @@ private:
 				STOP;															\
 			} \
 		} while (0)
-	
+
 	#define XAssertNoError(error) \
 		do { \
 			OSStatus __err = error; \
@@ -174,7 +174,7 @@ private:
 				STOP;															\
 			} \
 		} while (0)
-		
+
 #else
 	#define XThrowIfError(error, operation) \
 		do {																	\
