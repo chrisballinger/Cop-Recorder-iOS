@@ -151,6 +151,17 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
     [fileManager release];
 }
 
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (alertView.cancelButtonIndex != buttonIndex) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/openwatch-social-muckraking/id642680756?ls=1&mt=8"]];
+    }
+}
+
+- (void) applicationDidBecomeActive:(UIApplication *)application {
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"We've Moved!" message:@"This app is no longer supported, because we've just released a new version of OpenWatch that streams video in real time!" delegate:self cancelButtonTitle:@"Later" otherButtonTitles:@"Upgrade Now", nil] autorelease];
+    [alert show];
+}
+
 - (void)dealloc {
     [viewController release];
     [window release];

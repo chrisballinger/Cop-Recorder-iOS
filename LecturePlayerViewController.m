@@ -86,7 +86,7 @@
                                                         selector:@selector(updateElapsedTime:) userInfo:nil repeats:YES] retain];
     
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"textureme.png"]];
     self.title = [recording.date description];
     
     

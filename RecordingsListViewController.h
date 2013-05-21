@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RecordingsListViewController : UITableViewController 
-{
-    NSMutableArray* listContent;
-}
+@interface RecordingsListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray* listContent;
 
 

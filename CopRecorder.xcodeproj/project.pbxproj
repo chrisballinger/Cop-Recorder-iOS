@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,14 +15,12 @@
 		2899E5220DE3E06400AC0155 /* SpeakHereViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* SpeakHereViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* SpeakHereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */; };
+		D9135D9B174AEB9500F72392 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9135D9A174AEB9500F72392 /* libz.dylib */; };
 		D94A6B3F1330668600A91096 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A6B3E1330668600A91096 /* icon.png */; };
 		D94A6B42133066A700A91096 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A6B40133066A700A91096 /* logo.png */; };
 		D9839B7213B6CF7700B3B20C /* LecturePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9839B6F13B6CF7700B3B20C /* LecturePlayerViewController.m */; };
 		D9839B7313B6CF7700B3B20C /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = D9839B7113B6CF7700B3B20C /* Recording.m */; };
-		D9839B7613B6CF8000B3B20C /* StealthModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9839B7513B6CF8000B3B20C /* StealthModeViewController.m */; };
 		D9839B7A13B6CF8800B3B20C /* LecturePlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9839B7713B6CF8800B3B20C /* LecturePlayerViewController.xib */; };
-		D9839B7B13B6CF8800B3B20C /* RecordingsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9839B7813B6CF8800B3B20C /* RecordingsListViewController.xib */; };
-		D9839B7C13B6CF8800B3B20C /* StealthModeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9839B7913B6CF8800B3B20C /* StealthModeViewController.xib */; };
 		D9839B7E13B6D08600B3B20C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9839B7D13B6D08600B3B20C /* AVFoundation.framework */; };
 		D9839B8713B6D11D00B3B20C /* RecordingsListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D9839B8513B6D11D00B3B20C /* RecordingsListViewController.mm */; };
 		D9839BA013B6DBFD00B3B20C /* textureme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9839B9E13B6DBFD00B3B20C /* textureme@2x.png */; };
@@ -35,7 +33,6 @@
 		D9839BAF13B6FD3A00B3B20C /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9839BAD13B6FD3A00B3B20C /* eye@2x.png */; };
 		D99639611369F5840059EBEF /* recording.png in Resources */ = {isa = PBXBuildFile; fileRef = D99639601369F5840059EBEF /* recording.png */; };
 		D996FC621358F165008DEF59 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D996FC611358F165008DEF59 /* icon@2x.png */; };
-		D996FC631358F168008DEF59 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D996FC5F1358F130008DEF59 /* icon@2x.png */; };
 		D9A4C6861331583E009A0CB1 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A4C66F1331583E009A0CB1 /* ASIAuthenticationDialog.m */; };
 		D9A4C6871331583E009A0CB1 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A4C6721331583E009A0CB1 /* ASIDataCompressor.m */; };
 		D9A4C6881331583E009A0CB1 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A4C6741331583E009A0CB1 /* ASIDataDecompressor.m */; };
@@ -48,14 +45,12 @@
 		D9A4C69013315908009A0CB1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4C68F13315908009A0CB1 /* CFNetwork.framework */; };
 		D9A4C6921331591C009A0CB1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4C6911331591C009A0CB1 /* SystemConfiguration.framework */; };
 		D9A4C69413315927009A0CB1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4C69313315927009A0CB1 /* MobileCoreServices.framework */; };
-		D9A4C69613315933009A0CB1 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4C69513315933009A0CB1 /* libz.1.2.3.dylib */; };
 		D9A85DA11346575D008CF475 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9A85DA01346575D008CF475 /* data.plist */; };
+		D9C3A008174AEE9E0007B2FA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C3A007174AEE9E0007B2FA /* Default-568h@2x.png */; };
 		D9C7188713579B4D004D1F17 /* about_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C7188313579B4D004D1F17 /* about_icon@2x.png */; };
 		D9C7188813579B4D004D1F17 /* about_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C7188513579B4D004D1F17 /* about_icon.png */; };
 		D9C718A51357B06A004D1F17 /* 73-radar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C718A11357B06A004D1F17 /* 73-radar.png */; };
 		D9C718A61357B06A004D1F17 /* 126-moon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C718A31357B06A004D1F17 /* 126-moon.png */; };
-		D9C718AB1357B668004D1F17 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C718A71357B668004D1F17 /* background.png */; };
-		D9C718AC1357B668004D1F17 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C718A91357B668004D1F17 /* background@2x.png */; };
 		D9FB6E2613327EED00E8A07C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */; };
 		D9FB6E321332855C00E8A07C /* CoreLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FB6E311332855C00E8A07C /* CoreLocationController.m */; };
 		F76949C70F40F2AC006C6FBF /* SpeakHereController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */; };
@@ -84,17 +79,14 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SpeakHere_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakHere_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		D9135D9A174AEB9500F72392 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D94A6B3E1330668600A91096 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		D94A6B41133066A700A91096 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/logo.png; sourceTree = "<group>"; };
 		D9839B6E13B6CF7700B3B20C /* LecturePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LecturePlayerViewController.h; sourceTree = "<group>"; };
 		D9839B6F13B6CF7700B3B20C /* LecturePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LecturePlayerViewController.m; sourceTree = "<group>"; };
 		D9839B7013B6CF7700B3B20C /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
 		D9839B7113B6CF7700B3B20C /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
-		D9839B7413B6CF8000B3B20C /* StealthModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StealthModeViewController.h; sourceTree = "<group>"; };
-		D9839B7513B6CF8000B3B20C /* StealthModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StealthModeViewController.m; sourceTree = "<group>"; };
 		D9839B7713B6CF8800B3B20C /* LecturePlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LecturePlayerViewController.xib; sourceTree = "<group>"; };
-		D9839B7813B6CF8800B3B20C /* RecordingsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordingsListViewController.xib; sourceTree = "<group>"; };
-		D9839B7913B6CF8800B3B20C /* StealthModeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StealthModeViewController.xib; sourceTree = "<group>"; };
 		D9839B7D13B6D08600B3B20C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D9839B8513B6D11D00B3B20C /* RecordingsListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecordingsListViewController.mm; sourceTree = "<group>"; };
 		D9839B8613B6D11D00B3B20C /* RecordingsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingsListViewController.h; sourceTree = "<group>"; };
@@ -136,12 +128,11 @@
 		D9A4C69313315927009A0CB1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D9A4C69513315933009A0CB1 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		D9A85DA01346575D008CF475 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
+		D9C3A007174AEE9E0007B2FA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D9C7188413579B4D004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/about_icon@2x.png"; sourceTree = "<group>"; };
 		D9C7188613579B4D004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/about_icon.png; sourceTree = "<group>"; };
 		D9C718A21357B06A004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/73-radar.png"; sourceTree = "<group>"; };
 		D9C718A41357B06A004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/126-moon.png"; sourceTree = "<group>"; };
-		D9C718A81357B668004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/background.png; sourceTree = "<group>"; };
-		D9C718AA1357B668004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/background@2x.png"; sourceTree = "<group>"; };
 		D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9FB6E301332855C00E8A07C /* CoreLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocationController.h; sourceTree = "<group>"; };
 		D9FB6E311332855C00E8A07C /* CoreLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreLocationController.m; sourceTree = "<group>"; };
@@ -170,9 +161,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9135D9B174AEB9500F72392 /* libz.dylib in Frameworks */,
 				D9839B7E13B6D08600B3B20C /* AVFoundation.framework in Frameworks */,
 				D9FB6E2613327EED00E8A07C /* CoreLocation.framework in Frameworks */,
-				D9A4C69613315933009A0CB1 /* libz.1.2.3.dylib in Frameworks */,
 				D9A4C69413315927009A0CB1 /* MobileCoreServices.framework in Frameworks */,
 				D9A4C6921331591C009A0CB1 /* SystemConfiguration.framework in Frameworks */,
 				D9A4C69013315908009A0CB1 /* CFNetwork.framework in Frameworks */,
@@ -216,14 +207,12 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				D9C3A007174AEE9E0007B2FA /* Default-568h@2x.png */,
+				D9135D9A174AEB9500F72392 /* libz.dylib */,
 				D9839B8513B6D11D00B3B20C /* RecordingsListViewController.mm */,
 				D9839B8613B6D11D00B3B20C /* RecordingsListViewController.h */,
 				D9839B7D13B6D08600B3B20C /* AVFoundation.framework */,
 				D9839B7713B6CF8800B3B20C /* LecturePlayerViewController.xib */,
-				D9839B7813B6CF8800B3B20C /* RecordingsListViewController.xib */,
-				D9839B7913B6CF8800B3B20C /* StealthModeViewController.xib */,
-				D9839B7413B6CF8000B3B20C /* StealthModeViewController.h */,
-				D9839B7513B6CF8000B3B20C /* StealthModeViewController.m */,
 				D9839B6E13B6CF7700B3B20C /* LecturePlayerViewController.h */,
 				D9839B6F13B6CF7700B3B20C /* LecturePlayerViewController.m */,
 				D9839B7013B6CF7700B3B20C /* Recording.h */,
@@ -263,8 +252,6 @@
 				D9839B9F13B6DBFD00B3B20C /* textureme.png */,
 				D99639601369F5840059EBEF /* recording.png */,
 				D996FC5F1358F130008DEF59 /* icon@2x.png */,
-				D9C718A71357B668004D1F17 /* background.png */,
-				D9C718A91357B668004D1F17 /* background@2x.png */,
 				D9C7188313579B4D004D1F17 /* about_icon@2x.png */,
 				D9C7188513579B4D004D1F17 /* about_icon.png */,
 				D94A6B40133066A700A91096 /* logo.png */,
@@ -393,8 +380,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CopRecorder" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -427,14 +417,9 @@
 				D9C7188813579B4D004D1F17 /* about_icon.png in Resources */,
 				D9C718A51357B06A004D1F17 /* 73-radar.png in Resources */,
 				D9C718A61357B06A004D1F17 /* 126-moon.png in Resources */,
-				D9C718AB1357B668004D1F17 /* background.png in Resources */,
-				D9C718AC1357B668004D1F17 /* background@2x.png in Resources */,
 				D996FC621358F165008DEF59 /* icon@2x.png in Resources */,
-				D996FC631358F168008DEF59 /* icon@2x.png in Resources */,
 				D99639611369F5840059EBEF /* recording.png in Resources */,
 				D9839B7A13B6CF8800B3B20C /* LecturePlayerViewController.xib in Resources */,
-				D9839B7B13B6CF8800B3B20C /* RecordingsListViewController.xib in Resources */,
-				D9839B7C13B6CF8800B3B20C /* StealthModeViewController.xib in Resources */,
 				D9839BA013B6DBFD00B3B20C /* textureme@2x.png in Resources */,
 				D9839BA113B6DBFD00B3B20C /* textureme.png in Resources */,
 				D9839BA413B6DD0B00B3B20C /* stripey.png in Resources */,
@@ -443,6 +428,7 @@
 				D9839BA913B6F61A00B3B20C /* buttonpressed.9.png in Resources */,
 				D9839BAE13B6FD3A00B3B20C /* eye.png in Resources */,
 				D9839BAF13B6FD3A00B3B20C /* eye@2x.png in Resources */,
+				D9C3A008174AEE9E0007B2FA /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,7 +460,6 @@
 				D9FB6E321332855C00E8A07C /* CoreLocationController.m in Sources */,
 				D9839B7213B6CF7700B3B20C /* LecturePlayerViewController.m in Sources */,
 				D9839B7313B6CF7700B3B20C /* Recording.m in Sources */,
-				D9839B7613B6CF8000B3B20C /* StealthModeViewController.m in Sources */,
 				D9839B8713B6D11D00B3B20C /* RecordingsListViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,22 +507,6 @@
 			name = "126-moon.png";
 			sourceTree = "<group>";
 		};
-		D9C718A71357B668004D1F17 /* background.png */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D9C718A81357B668004D1F17 /* en */,
-			);
-			name = background.png;
-			sourceTree = "<group>";
-		};
-		D9C718A91357B668004D1F17 /* background@2x.png */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D9C718AA1357B668004D1F17 /* en */,
-			);
-			name = "background@2x.png";
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -545,7 +514,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chris Ballinger (9P62QGET7G)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -559,7 +528,7 @@
 					/usr/lib/libSystem.B.dylib,
 				);
 				PRODUCT_NAME = CopRecorder;
-				PROVISIONING_PROFILE = "600B8398-E5F8-4EEF-9FBC-87793F13BCDE";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -568,7 +537,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chris Ballinger (9P62QGET7G)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SpeakHere_Prefix.pch;
@@ -580,7 +549,7 @@
 					/usr/lib/libSystem.B.dylib,
 				);
 				PRODUCT_NAME = CopRecorder;
-				PROVISIONING_PROFILE = "600B8398-E5F8-4EEF-9FBC-87793F13BCDE";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -594,9 +563,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.2;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -608,9 +576,8 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.2;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};

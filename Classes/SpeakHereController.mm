@@ -77,7 +77,6 @@
 @synthesize backgroundSupported;
 @synthesize progressView;
 @synthesize useStealth;
-@synthesize img_black;
 @synthesize toolbar;
 @synthesize btn_info;
 
@@ -154,16 +153,6 @@ char *OSTypeToStr(char *buf, OSType t)
     [alert release];
 }
 
-// Draw black rect in stealth mode
--(void)drawBlack
-{
-    /*StealthModeViewController *stealthController = [[StealthModeViewController alloc] init];
-    [self.navigationController pushViewController:stealthController animated:YES];
-    [stealthController release];*/
-    
-    img_black.hidden = NO;
-}
-
 
 #pragma mark Playback routines
 
@@ -190,7 +179,7 @@ char *OSTypeToStr(char *buf, OSType t)
 	player->DisposeQueue(true);
     
 	// now create a new queue for the recorded file
-	player->CreateQueueForFile((CFStringRef)currentFileName);
+	player->CreateQueueForFile(( CFStringRef)currentFileName);
     
 	// Set the button's state back to "record"
 	btn_record.title = @"Record";
@@ -306,14 +295,6 @@ char *OSTypeToStr(char *buf, OSType t)
         NSURL *url = [NSURL fileURLWithPath:recordingPath];
         recording = [Recording recordingWithName:@"" publicDescription:@"" privateDescription:@"" location:@"" date:date url:url];
         [recording saveMetadata];
-        
-
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Stealth Mode" message:@"When finished recording in Stealth Mode simply close the program to stop." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
-        [self drawBlack];
-        [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
-
 	}	
 }
 
@@ -483,7 +464,6 @@ void propListener(	void *                  inClientData,
     if(!recorder->IsRunning())
     {
         [[UIApplication sharedApplication] setStatusBarHidden:NO animated:NO];
-        img_black.hidden = YES;
         NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString* foofile = [documentsPath stringByAppendingPathComponent:@"recordedFile.caf"];
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
@@ -655,7 +635,6 @@ void propListener(	void *                  inClientData,
     [str_location release];
     [progressView release];
     [useStealth release];
-    [img_black release];
     [toolbar release];
     [btn_info release];
     [recordButtonLabel release];

@@ -84,7 +84,6 @@
     BOOL                        backgroundSupported;
     UIProgressView *progressView;
     UISwitch *useStealth;
-    UIImageView *img_black;
     UIToolbar *toolbar;
     UIButton *btn_info;
     
@@ -121,7 +120,6 @@
 @property                       BOOL                backgroundSupported;
 @property (nonatomic, retain) IBOutlet UIProgressView *progressView;
 @property (nonatomic, retain) IBOutlet UISwitch *useStealth;
-@property (nonatomic, retain) IBOutlet UIImageView *img_black;
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) IBOutlet UIButton *btn_info;
 
@@ -132,7 +130,6 @@
 - (IBAction)locationToggle:(id)sender;
 - (IBAction)info:(id)sender;
 
-- (void) drawBlack;
 - (void) showTutorial;
 
 @end

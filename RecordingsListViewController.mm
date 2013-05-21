@@ -14,10 +14,13 @@
 
 @synthesize listContent;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
+        self.tableView = [[UITableView alloc] init];
+        self.tableView.dataSource = self;
+        self.tableView.delegate = self;
         NSFileManager *manager = [NSFileManager defaultManager];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];        
@@ -38,6 +41,11 @@
         listContent = lectureList;
     }
     return self;
+}
+
+- (void) loadView {
+    [super loadView];
+    [self.view addSubview:self.tableView];
 }
 
 #pragma mark -
@@ -142,6 +150,7 @@
 {
     [self.tableView reloadData];
     [self.tableView setNeedsDisplay];
+    self.tableView.frame = self.view.bounds;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
