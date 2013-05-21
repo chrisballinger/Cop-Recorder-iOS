@@ -47,6 +47,7 @@
 		D9A4C69413315927009A0CB1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A4C69313315927009A0CB1 /* MobileCoreServices.framework */; };
 		D9A85DA11346575D008CF475 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9A85DA01346575D008CF475 /* data.plist */; };
 		D9C3A008174AEE9E0007B2FA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C3A007174AEE9E0007B2FA /* Default-568h@2x.png */; };
+		D9C3A011174B02380007B2FA /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C3A00C174B02380007B2FA /* libTestFlight.a */; };
 		D9C7188713579B4D004D1F17 /* about_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C7188313579B4D004D1F17 /* about_icon@2x.png */; };
 		D9C7188813579B4D004D1F17 /* about_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C7188513579B4D004D1F17 /* about_icon.png */; };
 		D9C718A51357B06A004D1F17 /* 73-radar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C718A11357B06A004D1F17 /* 73-radar.png */; };
@@ -129,6 +130,9 @@
 		D9A4C69513315933009A0CB1 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		D9A85DA01346575D008CF475 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
 		D9C3A007174AEE9E0007B2FA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		D9C3A009174B01F70007B2FA /* OWAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OWAPIKeys.h; sourceTree = "<group>"; };
+		D9C3A00C174B02380007B2FA /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		D9C3A00F174B02380007B2FA /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		D9C7188413579B4D004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/about_icon@2x.png"; sourceTree = "<group>"; };
 		D9C7188613579B4D004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/about_icon.png; sourceTree = "<group>"; };
 		D9C718A21357B06A004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/73-radar.png"; sourceTree = "<group>"; };
@@ -174,6 +178,7 @@
 				F7694A500F40F82A006C6FBF /* CoreFoundation.framework in Frameworks */,
 				F7694A510F40F82A006C6FBF /* OpenGLES.framework in Frameworks */,
 				F7694A5A0F40F844006C6FBF /* QuartzCore.framework in Frameworks */,
+				D9C3A011174B02380007B2FA /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +212,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				D9C3A00A174B02380007B2FA /* TestFlight-SDK */,
+				D9C3A009174B01F70007B2FA /* OWAPIKeys.h */,
 				D9C3A007174AEE9E0007B2FA /* Default-568h@2x.png */,
 				D9135D9A174AEB9500F72392 /* libz.dylib */,
 				D9839B8513B6D11D00B3B20C /* RecordingsListViewController.mm */,
@@ -328,6 +335,16 @@
 				D9A4C6851331583E009A0CB1 /* Reachability.m */,
 			);
 			path = Reachability;
+			sourceTree = "<group>";
+		};
+		D9C3A00A174B02380007B2FA /* TestFlight-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				D9C3A00C174B02380007B2FA /* libTestFlight.a */,
+				D9C3A00F174B02380007B2FA /* TestFlight.h */,
+			);
+			name = "TestFlight-SDK";
+			path = "Submodules/TestFlight-SDK";
 			sourceTree = "<group>";
 		};
 		F76949E00F40F32A006C6FBF /* iPublicUtility */ = {
@@ -523,6 +540,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Submodules/TestFlight-SDK\"",
+				);
 				OTHER_LDFLAGS = (
 					"-weak_library",
 					/usr/lib/libSystem.B.dylib,
@@ -544,6 +565,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Submodules/TestFlight-SDK\"",
+				);
 				OTHER_LDFLAGS = (
 					"-weak_library",
 					/usr/lib/libSystem.B.dylib,

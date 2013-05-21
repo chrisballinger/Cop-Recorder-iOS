@@ -51,6 +51,8 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 #import "SpeakHereViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "Recording.h"
+#import "OWAPIKeys.h"
+#import "TestFlight.h"
 
 @implementation SpeakHereAppDelegate
 
@@ -59,7 +61,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 @synthesize navController;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
-    
+    [TestFlight takeOff:TESTFLIGHT_APP_TOKEN];
     navController = [[UINavigationController alloc] initWithRootViewController:viewController];
     
     navController.navigationBarHidden = YES;
@@ -153,11 +155,15 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (alertView.cancelButtonIndex != buttonIndex) {
+        [TestFlight passCheckpoint:@"OpenWatch Upgrade"];
+
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/openwatch-social-muckraking/id642680756?ls=1&mt=8"]];
     }
 }
 
 - (void) applicationDidBecomeActive:(UIApplication *)application {
+    [TestFlight passCheckpoint:@"applicationDidBecomeActive:"];
+
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"We've Moved!" message:@"This app is no longer supported, because we've just released a new version of OpenWatch that streams video in real time!" delegate:self cancelButtonTitle:@"Later" otherButtonTitles:@"Upgrade Now", nil] autorelease];
     [alert show];
 }
