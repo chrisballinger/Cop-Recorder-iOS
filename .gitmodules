@@ -1,0 +1,3 @@
+[submodule "Submodules/TestFlight-SDK"]
+	path = Submodules/TestFlight-SDK
+	url = git@github.com:OpenWatch/TestFlight-SDK.git
