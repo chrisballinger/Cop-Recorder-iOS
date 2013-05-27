@@ -33,7 +33,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationUsageDescription</key>
-	<string>Cop Recorder can use your location to provide additional context to your recordings when they are uploaded to OpenWatch.</string>
+	<string>Cop Recorder can use your location to provide additional context to your recordings when you upload them to OpenWatch. For more information visit openwatch.net/privacy.</string>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>UIFileSharingEnabled</key>
