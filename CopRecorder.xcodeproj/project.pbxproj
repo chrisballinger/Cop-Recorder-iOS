@@ -560,8 +560,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chris Ballinger";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chris Ballinger";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SpeakHere_Prefix.pch;
@@ -577,8 +577,8 @@
 					/usr/lib/libSystem.B.dylib,
 				);
 				PRODUCT_NAME = CopRecorder;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "00FAF831-2C32-4DC9-A34E-3275B5451394";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "00FAF831-2C32-4DC9-A34E-3275B5451394";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
