@@ -211,15 +211,6 @@ char *OSTypeToStr(char *buf, OSType t)
     [recordingsListController release];*/
 }
 
-- (IBAction)send:(id)sender 
-{
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Submit to OpenWatch" message:@"Would you like to submit your recording to www.openwatch.net?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
-    [alert setTag:2];
-    [alert addButtonWithTitle:@"Yes"];
-    [alert show];
-    
-}
-
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1

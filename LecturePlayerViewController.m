@@ -179,7 +179,7 @@
 
 - (IBAction)submitPressed:(id)sender 
 {
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Submit to OpenWatch" message:@"Would you like to submit your recording to www.openwatch.net?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Submit to OpenWatch" message:@"Would you like to upload your recording to OpenWatch? If you have enabled location services, you can provide us additional geographical context to the recording to help us identify regional trends." delegate:self cancelButtonTitle:@"No" otherButtonTitles:nil] autorelease];
     [alert addButtonWithTitle:@"Yes"];
     [alert show];
 }
