@@ -14,7 +14,7 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		2899E5220DE3E06400AC0155 /* SpeakHereViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* SpeakHereViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		28D7ACF80DDB3853001CB0EB /* SpeakHereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */; };
+		28D7ACF80DDB3853001CB0EB /* SpeakHereViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.mm */; };
 		D9135D9B174AEB9500F72392 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9135D9A174AEB9500F72392 /* libz.dylib */; };
 		D94A6B3F1330668600A91096 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A6B3E1330668600A91096 /* icon.png */; };
 		D94A6B42133066A700A91096 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D94A6B40133066A700A91096 /* logo.png */; };
@@ -52,6 +52,9 @@
 		D9C7188813579B4D004D1F17 /* about_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C7188513579B4D004D1F17 /* about_icon.png */; };
 		D9C718A51357B06A004D1F17 /* 73-radar.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C718A11357B06A004D1F17 /* 73-radar.png */; };
 		D9C718A61357B06A004D1F17 /* 126-moon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9C718A31357B06A004D1F17 /* 126-moon.png */; };
+		D9F293C9175937DB00747504 /* OWRecordingActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F293C6175934E600747504 /* OWRecordingActivityIndicatorView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		D9F293CA175937DB00747504 /* OWTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F293C8175934E600747504 /* OWTimerView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		D9F293CC1759398400747504 /* red_dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9F293CB1759398400747504 /* red_dot@2x.png */; };
 		D9FB6E2613327EED00E8A07C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */; };
 		D9FB6E321332855C00E8A07C /* CoreLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FB6E311332855C00E8A07C /* CoreLocationController.m */; };
 		F76949C70F40F2AC006C6FBF /* SpeakHereController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F76949C60F40F2AC006C6FBF /* SpeakHereController.mm */; };
@@ -76,7 +79,7 @@
 		2899E5210DE3E06400AC0155 /* SpeakHereViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpeakHereViewController.xib; sourceTree = "<group>"; };
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		28D7ACF60DDB3853001CB0EB /* SpeakHereViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakHereViewController.h; sourceTree = "<group>"; };
-		28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeakHereViewController.m; sourceTree = "<group>"; };
+		28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpeakHereViewController.mm; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SpeakHere_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakHere_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -137,6 +140,11 @@
 		D9C7188613579B4D004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/about_icon.png; sourceTree = "<group>"; };
 		D9C718A21357B06A004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/73-radar.png"; sourceTree = "<group>"; };
 		D9C718A41357B06A004D1F17 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/126-moon.png"; sourceTree = "<group>"; };
+		D9F293C5175934E600747504 /* OWRecordingActivityIndicatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OWRecordingActivityIndicatorView.h; path = Classes/OWRecordingActivityIndicatorView.h; sourceTree = "<group>"; };
+		D9F293C6175934E600747504 /* OWRecordingActivityIndicatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OWRecordingActivityIndicatorView.m; path = Classes/OWRecordingActivityIndicatorView.m; sourceTree = "<group>"; };
+		D9F293C7175934E600747504 /* OWTimerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OWTimerView.h; path = Classes/OWTimerView.h; sourceTree = "<group>"; };
+		D9F293C8175934E600747504 /* OWTimerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OWTimerView.m; path = Classes/OWTimerView.m; sourceTree = "<group>"; };
+		D9F293CB1759398400747504 /* red_dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_dot@2x.png"; sourceTree = "<group>"; };
 		D9FB6E2513327EEC00E8A07C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D9FB6E301332855C00E8A07C /* CoreLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocationController.h; sourceTree = "<group>"; };
 		D9FB6E311332855C00E8A07C /* CoreLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreLocationController.m; sourceTree = "<group>"; };
@@ -165,6 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7694A5A0F40F844006C6FBF /* QuartzCore.framework in Frameworks */,
 				D9135D9B174AEB9500F72392 /* libz.dylib in Frameworks */,
 				D9839B7E13B6D08600B3B20C /* AVFoundation.framework in Frameworks */,
 				D9FB6E2613327EED00E8A07C /* CoreLocation.framework in Frameworks */,
@@ -177,7 +186,6 @@
 				F7694A4F0F40F82A006C6FBF /* AudioToolbox.framework in Frameworks */,
 				F7694A500F40F82A006C6FBF /* CoreFoundation.framework in Frameworks */,
 				F7694A510F40F82A006C6FBF /* OpenGLES.framework in Frameworks */,
-				F7694A5A0F40F844006C6FBF /* QuartzCore.framework in Frameworks */,
 				D9C3A011174B02380007B2FA /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,7 +204,7 @@
 				1D3623240D0F684500981E51 /* SpeakHereAppDelegate.h */,
 				1D3623250D0F684500981E51 /* SpeakHereAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* SpeakHereViewController.h */,
-				28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.m */,
+				28D7ACF70DDB3853001CB0EB /* SpeakHereViewController.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -212,6 +220,11 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				D9F293CB1759398400747504 /* red_dot@2x.png */,
+				D9F293C5175934E600747504 /* OWRecordingActivityIndicatorView.h */,
+				D9F293C6175934E600747504 /* OWRecordingActivityIndicatorView.m */,
+				D9F293C7175934E600747504 /* OWTimerView.h */,
+				D9F293C8175934E600747504 /* OWTimerView.m */,
 				D9C3A00A174B02380007B2FA /* TestFlight-SDK */,
 				D9C3A009174B01F70007B2FA /* OWAPIKeys.h */,
 				D9C3A007174AEE9E0007B2FA /* Default-568h@2x.png */,
@@ -446,6 +459,7 @@
 				D9839BAE13B6FD3A00B3B20C /* eye.png in Resources */,
 				D9839BAF13B6FD3A00B3B20C /* eye@2x.png in Resources */,
 				D9C3A008174AEE9E0007B2FA /* Default-568h@2x.png in Resources */,
+				D9F293CC1759398400747504 /* red_dot@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,7 +472,7 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* SpeakHereAppDelegate.m in Sources */,
-				28D7ACF80DDB3853001CB0EB /* SpeakHereViewController.m in Sources */,
+				28D7ACF80DDB3853001CB0EB /* SpeakHereViewController.mm in Sources */,
 				F76949C70F40F2AC006C6FBF /* SpeakHereController.mm in Sources */,
 				F76949EB0F40F32A006C6FBF /* CADebugMacros.cpp in Sources */,
 				F76949EC0F40F32A006C6FBF /* CAStreamBasicDescription.cpp in Sources */,
@@ -478,6 +492,8 @@
 				D9839B7213B6CF7700B3B20C /* LecturePlayerViewController.m in Sources */,
 				D9839B7313B6CF7700B3B20C /* Recording.m in Sources */,
 				D9839B8713B6D11D00B3B20C /* RecordingsListViewController.mm in Sources */,
+				D9F293C9175937DB00747504 /* OWRecordingActivityIndicatorView.m in Sources */,
+				D9F293CA175937DB00747504 /* OWTimerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,10 +561,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Submodules/TestFlight-SDK\"",
 				);
-				OTHER_LDFLAGS = (
-					"-weak_library",
-					/usr/lib/libSystem.B.dylib,
-				);
 				PRODUCT_NAME = CopRecorder;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -571,10 +583,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Submodules/TestFlight-SDK\"",
-				);
-				OTHER_LDFLAGS = (
-					"-weak_library",
-					/usr/lib/libSystem.B.dylib,
 				);
 				PRODUCT_NAME = CopRecorder;
 				PROVISIONING_PROFILE = "00FAF831-2C32-4DC9-A34E-3275B5451394";

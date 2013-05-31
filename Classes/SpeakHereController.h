@@ -54,6 +54,8 @@
 #import "AQRecorder.h"
 #import "CoreLocationController.h"
 #import "Recording.h"
+#import "OWTimerView.h"
+#import "OWRecordingActivityIndicatorView.h"
 
 @interface SpeakHereController : NSObject <CoreLocationControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate> {
     
@@ -122,6 +124,9 @@
 @property (nonatomic, retain) IBOutlet UISwitch *useStealth;
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) IBOutlet UIButton *btn_info;
+
+@property (nonatomic, strong) OWTimerView *timerView;
+@property (nonatomic, strong) OWRecordingActivityIndicatorView *redDotView;
 
 
 - (IBAction)record: (id) sender;

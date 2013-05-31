@@ -148,10 +148,16 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.tableView reloadData];
     [self.tableView setNeedsDisplay];
-    self.tableView.frame = self.view.bounds;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+
+    CGFloat navHeight = self.navigationController.navigationBarHidden ? 0 :
+    self.navigationController.navigationBar.frame.size.height;
+
+    self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - navHeight);
+
 }
 
 - (void)viewDidUnload

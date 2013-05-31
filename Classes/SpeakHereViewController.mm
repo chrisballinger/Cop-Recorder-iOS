@@ -49,6 +49,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 #import "SpeakHereViewController.h"
 #import "RecordingsListViewController.h"
+#import "SpeakHereController.h"
 
 @implementation SpeakHereViewController
 
@@ -74,12 +75,21 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"textureme.png"]];
+    
+
+    
+    [self.view addSubview:controller.timerView];
+    [self.view addSubview:controller.redDotView];
+    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    controller.timerView.frame = CGRectMake(120, 180, 75, 35);
+    controller.redDotView.frame = CGRectMake(62, 226, 40, 40);
 }
 
 /*

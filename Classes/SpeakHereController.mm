@@ -58,6 +58,9 @@
 @synthesize recorder;
 @synthesize CLController;
 
+
+@synthesize redDotView;
+@synthesize timerView;
 //@synthesize str_location;
 
 @synthesize btn_record;
@@ -172,7 +175,10 @@ char *OSTypeToStr(char *buf, OSType t)
 
 
 - (void)stopRecord
-{	
+{
+    [self.timerView stopTimer];
+    [self.timerView resetTimer];
+    [self.redDotView stopAnimating];
 	recorder->StopRecord();
 	
 	// dispose the previous playback queue
@@ -273,8 +279,9 @@ char *OSTypeToStr(char *buf, OSType t)
 		// Start the recorder
 		recorder->StartRecord((CFStringRef)currentFileName);
         
-        
-        
+        [self.redDotView startAnimating];
+        [self.timerView resetTimer];
+        [self.timerView startTimer];
         
         [self setFileDescriptionForFormat:recorder->DataFormat() withName:@"Recorded File"];
         fileDescription.hidden = FALSE;
@@ -587,7 +594,8 @@ void propListener(	void *                  inClientData,
 	playbackWasInterrupted = NO;
 	playbackWasPaused = NO;
     
-    
+    self.timerView = [[[OWTimerView alloc] init] autorelease];
+    self.redDotView = [[[OWRecordingActivityIndicatorView alloc] init] autorelease];
 }
 
 # pragma mark Notification routines
@@ -629,6 +637,10 @@ void propListener(	void *                  inClientData,
     [toolbar release];
     [btn_info release];
     [recordButtonLabel release];
+    
+    [self.redDotView release];
+    [self.timerView release];
+    
 	[super dealloc];
 }
 
